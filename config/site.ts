@@ -6,20 +6,24 @@ export const siteConfig = {
   navItems: [
     {
       label: "create-card",
-      href: "/",
+      href: "/create-card",
     },
     {
-      label: "card",
-      href: "/docs",
+      label: "cards",
+      href: "/cards",
     },
     {
       label: "profile",
-      href: "/pricing",
+      href: "/profile",
     },
     {
       label: "About-us",
-      href: "/about",
+      href: "/about-us",
     },
+    // {
+    //   label: "Login",
+    //   href: "/login",
+    // },
   ],
   // navMenuItems: [
   //   {

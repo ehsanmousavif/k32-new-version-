@@ -37,26 +37,26 @@ export default function RootLayout({
       <head />
       <body
         className={clsx(
-          " max-w-2xl m-auto  border-1 min-h-screen text-foreground bg-background font-sans antialiased",
+          " max-w-2xl m-auto min-h-screen   text-foreground bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className=" flex flex-col h-screen">
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+          <div className="w-[42rem] min-h-screen relative flex flex-col p-0 m-0 ">
+            <main className="w-full  min-h-screen container mx-auto flex-grow relative">
               {children}
+              <div className=" absolute  bottom-2 left-4 right-4">
+                <Navbar />
+              </div>
             </main>
-            <footer className="w-full flex items-center justify-center py-3"></footer>
-            <Navbar />
+
+            <footer className="w-full flex items-center justify-center "></footer>
             <Link
               isExternal
               className="flex items-center justify-center  gap-1 text-current"
               href="https://heroui.com?utm_source=next-app-template"
               title="heroui.com homepage"
-            >
-              <span className="text-default-600">Powered by</span>
-              <p className="text-primary">EHSAN MOUSAVI </p>
-            </Link>
+            ></Link>
           </div>
         </Providers>
       </body>
