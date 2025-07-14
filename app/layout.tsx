@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="fa" className={fontVazir.variable}>
+    <html suppressHydrationWarning className={fontVazir.variable} lang="fa">
       <head />
       <body
         className={clsx(
@@ -56,13 +56,13 @@ export default function RootLayout({
               </div>
             </main>
 
-            <footer className="w-full flex items-center justify-center "></footer>
+            <footer className="w-full flex items-center justify-center " />
             <Link
               isExternal
               className="flex items-center justify-center  gap-1 text-current"
               href="https://heroui.com?utm_source=next-app-template"
               title="heroui.com homepage"
-            ></Link>
+            />
           </div>
         </Providers>
       </body>

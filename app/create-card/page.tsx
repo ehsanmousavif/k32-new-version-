@@ -1,14 +1,13 @@
 // CreateCard.tsx
 "use client";
 
-import { Button } from "@heroui/react";
 import React, { createContext, useState } from "react";
 
 import CardEntry from "./card-entry";
 import CardDetails from "./CardDetails";
+import SelectSlug from "./select-slug";
 
 import ProgressBar from "@/components/progress";
-import SelectSlug from "./select-slug";
 
 export const ProgressContext = createContext<{
   progress: string;

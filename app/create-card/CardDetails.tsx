@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { ProgressContext, PageContext } from "./page";
-import CardBank from "@/components/card";
-import { error } from "console";
 import { Button } from "@heroui/button";
+
+import { ProgressContext, PageContext } from "./page";
+
+import CardBank from "@/components/card";
 
 export default function CardDetails() {
   const ProContext = useContext(ProgressContext);
@@ -10,8 +11,8 @@ export default function CardDetails() {
 
   if (!ProContext || !pageContext) return null; // چک کردن هر دو context
 
-  const { progress, setProgress } = ProContext;
-  const { changPage, setChangePage } = pageContext;
+  const { setProgress } = ProContext;
+  const { setChangePage } = pageContext;
 
   return (
     <div>
@@ -20,10 +21,9 @@ export default function CardDetails() {
       </div>
       <CardBank value="6219861908544323" />
       <Button
-        className="font-vazir "
+        className="font-vazir mt-64"
         color="primary"
         fullWidth={true}
-        // isDisabled={cardValue.length !== 16}
         radius="full"
         size="md"
         onPress={() => {
