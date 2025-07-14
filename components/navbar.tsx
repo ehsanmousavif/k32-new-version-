@@ -22,7 +22,7 @@ export const Navbar = () => {
 
   return (
     <HeroUINavbar
-      className=" w-full backdrop-blur-sm bg-white/50 rounded-2xl"
+      className=" w-full  rounded-2xl"
       maxWidth="full"
       position="sticky"
     >

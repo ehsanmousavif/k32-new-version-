@@ -1,37 +1,43 @@
 // CreateCard.tsx
 "use client";
 
-import ProgressBar from "@/components/progress";
 import { Button } from "@heroui/react";
+import React, { createContext, useState } from "react";
+
 import CardEntry from "./card-entry";
+import CardDetails from "./CardDetails";
 
-import { createContext, useState } from "react";
+import ProgressBar from "@/components/progress";
+import SelectSlug from "./select-slug";
 
-export const CardContext = createContext<{
-  cardValue: string;
-  setCardValue: React.Dispatch<React.SetStateAction<string>>;
+export const ProgressContext = createContext<{
+  progress: string;
+  setProgress: React.Dispatch<React.SetStateAction<string>>;
+} | null>(null);
+export const PageContext = createContext<{
+  changPage: PageType;
+  setChangePage: React.Dispatch<React.SetStateAction<PageType>>;
 } | null>(null);
 
+type PageType = "create-card" | "card-entry" | "slug";
 export default function CreateCard() {
-  const [cardValue, setCardValue] = useState("");
+  const [changPage, setChangePage] = useState<PageType>("card-entry");
+  const [progress, setProgress] = useState("30");
 
   return (
-    <CardContext.Provider value={{ cardValue, setCardValue }}>
-      <div className="w-full ">
+    <ProgressContext.Provider value={{ progress, setProgress }}>
+      <div className="w-full font-vazir ">
         <div className="w-auto flex flex-col items-center gap-4">
           <div className="w-full">
-            <ProgressBar bgColor="red-500" value={96} />
+            <ProgressBar progressPercent={progress} value={96} />
           </div>
-          <CardEntry />
-          <Button
-            radius="full"
-            color="primary"
-            isDisabled={cardValue.length !== 16}
-          >
-            submit
-          </Button>
+          <PageContext.Provider value={{ changPage, setChangePage }}>
+            {changPage === "card-entry" && <CardEntry />}
+            {changPage === "create-card" && <CardDetails />}
+            {changPage === "slug" && <SelectSlug />}
+          </PageContext.Provider>
         </div>
       </div>
-    </CardContext.Provider>
+    </ProgressContext.Provider>
   );
 }
