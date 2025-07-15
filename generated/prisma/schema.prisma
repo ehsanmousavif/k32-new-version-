@@ -15,6 +15,50 @@ datasource db {
 }
 
 model User {
-  id   Int    @unique()
-  name String
+  id          Int     @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  phoneNumber String  @unique
+  email       String? @unique
+
+  isAdmin  Boolean @default(false)
+  disabled Boolean @default(false)
+
+  token       String  @unique
+  otpCode     String?
+  otpExpireAt BigInt?
+
+  cards Card[] // ارتباط یک‌به‌چند با Card
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Card {
+  id         Int     @id @default(autoincrement())
+  cardNumber String  @unique
+  iban       String?
+  slug       String  @unique
+  ownerName  String?
+
+  // ارتباط با یوزر
+  ownerId Int?
+  owner   User? @relation(fields: [ownerId], references: [id])
+
+  disabled Boolean   @default(false)
+  expireAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ValidatedCard {
+  id         Int     @id @default(autoincrement())
+  cardNumber String  @unique
+  iban       String
+  ownerName  String
+  disabled   Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -119,7 +119,40 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  firstName: 'firstName',
+  lastName: 'lastName',
+  phoneNumber: 'phoneNumber',
+  email: 'email',
+  isAdmin: 'isAdmin',
+  disabled: 'disabled',
+  token: 'token',
+  otpCode: 'otpCode',
+  otpExpireAt: 'otpExpireAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CardScalarFieldEnum = {
+  id: 'id',
+  cardNumber: 'cardNumber',
+  iban: 'iban',
+  slug: 'slug',
+  ownerName: 'ownerName',
+  ownerId: 'ownerId',
+  disabled: 'disabled',
+  expireAt: 'expireAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ValidatedCardScalarFieldEnum = {
+  id: 'id',
+  cardNumber: 'cardNumber',
+  iban: 'iban',
+  ownerName: 'ownerName',
+  disabled: 'disabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -127,9 +160,16 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Card: 'Card',
+  ValidatedCard: 'ValidatedCard'
 };
 
 /**
