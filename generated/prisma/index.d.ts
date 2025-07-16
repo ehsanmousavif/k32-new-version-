@@ -1095,55 +1095,29 @@ export namespace Prisma {
 
   export type UserAvgAggregateOutputType = {
     id: number | null
-    otpExpireAt: number | null
   }
 
   export type UserSumAggregateOutputType = {
     id: number | null
-    otpExpireAt: bigint | null
   }
 
   export type UserMinAggregateOutputType = {
     id: number | null
-    firstName: string | null
-    lastName: string | null
-    phoneNumber: string | null
-    email: string | null
-    isAdmin: boolean | null
-    disabled: boolean | null
-    token: string | null
-    otpCode: string | null
-    otpExpireAt: bigint | null
+    username: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: number | null
-    firstName: string | null
-    lastName: string | null
-    phoneNumber: string | null
-    email: string | null
-    isAdmin: boolean | null
-    disabled: boolean | null
-    token: string | null
-    otpCode: string | null
-    otpExpireAt: bigint | null
+    username: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
-    firstName: number
-    lastName: number
-    phoneNumber: number
-    email: number
-    isAdmin: number
-    disabled: number
-    token: number
-    otpCode: number
-    otpExpireAt: number
+    username: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1152,55 +1126,29 @@ export namespace Prisma {
 
   export type UserAvgAggregateInputType = {
     id?: true
-    otpExpireAt?: true
   }
 
   export type UserSumAggregateInputType = {
     id?: true
-    otpExpireAt?: true
   }
 
   export type UserMinAggregateInputType = {
     id?: true
-    firstName?: true
-    lastName?: true
-    phoneNumber?: true
-    email?: true
-    isAdmin?: true
-    disabled?: true
-    token?: true
-    otpCode?: true
-    otpExpireAt?: true
+    username?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
-    firstName?: true
-    lastName?: true
-    phoneNumber?: true
-    email?: true
-    isAdmin?: true
-    disabled?: true
-    token?: true
-    otpCode?: true
-    otpExpireAt?: true
+    username?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
-    firstName?: true
-    lastName?: true
-    phoneNumber?: true
-    email?: true
-    isAdmin?: true
-    disabled?: true
-    token?: true
-    otpCode?: true
-    otpExpireAt?: true
+    username?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1294,15 +1242,7 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: number
-    firstName: string
-    lastName: string
-    phoneNumber: string
-    email: string | null
-    isAdmin: boolean
-    disabled: boolean
-    token: string
-    otpCode: string | null
-    otpExpireAt: bigint | null
+    username: string
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1328,15 +1268,7 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    phoneNumber?: boolean
-    email?: boolean
-    isAdmin?: boolean
-    disabled?: boolean
-    token?: boolean
-    otpCode?: boolean
-    otpExpireAt?: boolean
+    username?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     cards?: boolean | User$cardsArgs<ExtArgs>
@@ -1345,50 +1277,26 @@ export namespace Prisma {
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    phoneNumber?: boolean
-    email?: boolean
-    isAdmin?: boolean
-    disabled?: boolean
-    token?: boolean
-    otpCode?: boolean
-    otpExpireAt?: boolean
+    username?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    phoneNumber?: boolean
-    email?: boolean
-    isAdmin?: boolean
-    disabled?: boolean
-    token?: boolean
-    otpCode?: boolean
-    otpExpireAt?: boolean
+    username?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    phoneNumber?: boolean
-    email?: boolean
-    isAdmin?: boolean
-    disabled?: boolean
-    token?: boolean
-    otpCode?: boolean
-    otpExpireAt?: boolean
+    username?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "phoneNumber" | "email" | "isAdmin" | "disabled" | "token" | "otpCode" | "otpExpireAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cards?: boolean | User$cardsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1403,15 +1311,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      firstName: string
-      lastName: string
-      phoneNumber: string
-      email: string | null
-      isAdmin: boolean
-      disabled: boolean
-      token: string
-      otpCode: string | null
-      otpExpireAt: bigint | null
+      username: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -1839,15 +1739,7 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'Int'>
-    readonly firstName: FieldRef<"User", 'String'>
-    readonly lastName: FieldRef<"User", 'String'>
-    readonly phoneNumber: FieldRef<"User", 'String'>
-    readonly email: FieldRef<"User", 'String'>
-    readonly isAdmin: FieldRef<"User", 'Boolean'>
-    readonly disabled: FieldRef<"User", 'Boolean'>
-    readonly token: FieldRef<"User", 'String'>
-    readonly otpCode: FieldRef<"User", 'String'>
-    readonly otpExpireAt: FieldRef<"User", 'BigInt'>
+    readonly username: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -2292,23 +2184,21 @@ export namespace Prisma {
 
   export type CardAvgAggregateOutputType = {
     id: number | null
-    ownerId: number | null
+    userId: number | null
   }
 
   export type CardSumAggregateOutputType = {
     id: number | null
-    ownerId: number | null
+    userId: number | null
   }
 
   export type CardMinAggregateOutputType = {
     id: number | null
     cardNumber: string | null
-    iban: string | null
-    slug: string | null
     ownerName: string | null
-    ownerId: number | null
+    iban: string | null
     disabled: boolean | null
-    expireAt: Date | null
+    userId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2316,12 +2206,10 @@ export namespace Prisma {
   export type CardMaxAggregateOutputType = {
     id: number | null
     cardNumber: string | null
-    iban: string | null
-    slug: string | null
     ownerName: string | null
-    ownerId: number | null
+    iban: string | null
     disabled: boolean | null
-    expireAt: Date | null
+    userId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2329,12 +2217,10 @@ export namespace Prisma {
   export type CardCountAggregateOutputType = {
     id: number
     cardNumber: number
-    iban: number
-    slug: number
     ownerName: number
-    ownerId: number
+    iban: number
     disabled: number
-    expireAt: number
+    userId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2343,23 +2229,21 @@ export namespace Prisma {
 
   export type CardAvgAggregateInputType = {
     id?: true
-    ownerId?: true
+    userId?: true
   }
 
   export type CardSumAggregateInputType = {
     id?: true
-    ownerId?: true
+    userId?: true
   }
 
   export type CardMinAggregateInputType = {
     id?: true
     cardNumber?: true
-    iban?: true
-    slug?: true
     ownerName?: true
-    ownerId?: true
+    iban?: true
     disabled?: true
-    expireAt?: true
+    userId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2367,12 +2251,10 @@ export namespace Prisma {
   export type CardMaxAggregateInputType = {
     id?: true
     cardNumber?: true
-    iban?: true
-    slug?: true
     ownerName?: true
-    ownerId?: true
+    iban?: true
     disabled?: true
-    expireAt?: true
+    userId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2380,12 +2262,10 @@ export namespace Prisma {
   export type CardCountAggregateInputType = {
     id?: true
     cardNumber?: true
-    iban?: true
-    slug?: true
     ownerName?: true
-    ownerId?: true
+    iban?: true
     disabled?: true
-    expireAt?: true
+    userId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2480,12 +2360,10 @@ export namespace Prisma {
   export type CardGroupByOutputType = {
     id: number
     cardNumber: string
-    iban: string | null
-    slug: string
-    ownerName: string | null
-    ownerId: number | null
+    ownerName: string
+    iban: string
     disabled: boolean
-    expireAt: Date | null
+    userId: number
     createdAt: Date
     updatedAt: Date
     _count: CardCountAggregateOutputType | null
@@ -2512,83 +2390,73 @@ export namespace Prisma {
   export type CardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     cardNumber?: boolean
-    iban?: boolean
-    slug?: boolean
     ownerName?: boolean
-    ownerId?: boolean
+    iban?: boolean
     disabled?: boolean
-    expireAt?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | Card$ownerArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["card"]>
 
   export type CardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     cardNumber?: boolean
-    iban?: boolean
-    slug?: boolean
     ownerName?: boolean
-    ownerId?: boolean
+    iban?: boolean
     disabled?: boolean
-    expireAt?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | Card$ownerArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["card"]>
 
   export type CardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     cardNumber?: boolean
-    iban?: boolean
-    slug?: boolean
     ownerName?: boolean
-    ownerId?: boolean
+    iban?: boolean
     disabled?: boolean
-    expireAt?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    owner?: boolean | Card$ownerArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["card"]>
 
   export type CardSelectScalar = {
     id?: boolean
     cardNumber?: boolean
-    iban?: boolean
-    slug?: boolean
     ownerName?: boolean
-    ownerId?: boolean
+    iban?: boolean
     disabled?: boolean
-    expireAt?: boolean
+    userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cardNumber" | "iban" | "slug" | "ownerName" | "ownerId" | "disabled" | "expireAt" | "createdAt" | "updatedAt", ExtArgs["result"]["card"]>
+  export type CardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cardNumber" | "ownerName" | "iban" | "disabled" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["card"]>
   export type CardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | Card$ownerArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type CardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | Card$ownerArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type CardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    owner?: boolean | Card$ownerArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $CardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Card"
     objects: {
-      owner: Prisma.$UserPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       cardNumber: string
-      iban: string | null
-      slug: string
-      ownerName: string | null
-      ownerId: number | null
+      ownerName: string
+      iban: string
       disabled: boolean
-      expireAt: Date | null
+      userId: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["card"]>
@@ -2985,7 +2853,7 @@ export namespace Prisma {
    */
   export interface Prisma__CardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    owner<T extends Card$ownerArgs<ExtArgs> = {}>(args?: Subset<T, Card$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3017,12 +2885,10 @@ export namespace Prisma {
   interface CardFieldRefs {
     readonly id: FieldRef<"Card", 'Int'>
     readonly cardNumber: FieldRef<"Card", 'String'>
-    readonly iban: FieldRef<"Card", 'String'>
-    readonly slug: FieldRef<"Card", 'String'>
     readonly ownerName: FieldRef<"Card", 'String'>
-    readonly ownerId: FieldRef<"Card", 'Int'>
+    readonly iban: FieldRef<"Card", 'String'>
     readonly disabled: FieldRef<"Card", 'Boolean'>
-    readonly expireAt: FieldRef<"Card", 'DateTime'>
+    readonly userId: FieldRef<"Card", 'Int'>
     readonly createdAt: FieldRef<"Card", 'DateTime'>
     readonly updatedAt: FieldRef<"Card", 'DateTime'>
   }
@@ -3416,25 +3282,6 @@ export namespace Prisma {
      * Limit how many Cards to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Card.owner
-   */
-  export type Card$ownerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
   }
 
   /**
@@ -4522,15 +4369,7 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    firstName: 'firstName',
-    lastName: 'lastName',
-    phoneNumber: 'phoneNumber',
-    email: 'email',
-    isAdmin: 'isAdmin',
-    disabled: 'disabled',
-    token: 'token',
-    otpCode: 'otpCode',
-    otpExpireAt: 'otpExpireAt',
+    username: 'username',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4541,12 +4380,10 @@ export namespace Prisma {
   export const CardScalarFieldEnum: {
     id: 'id',
     cardNumber: 'cardNumber',
-    iban: 'iban',
-    slug: 'slug',
     ownerName: 'ownerName',
-    ownerId: 'ownerId',
+    iban: 'iban',
     disabled: 'disabled',
-    expireAt: 'expireAt',
+    userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4575,14 +4412,6 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
   /**
    * Field references
    */
@@ -4603,23 +4432,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
-   * Reference to a field of type 'BigInt'
-   */
-  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4638,15 +4460,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
-    firstName?: StringFilter<"User"> | string
-    lastName?: StringFilter<"User"> | string
-    phoneNumber?: StringFilter<"User"> | string
-    email?: StringNullableFilter<"User"> | string | null
-    isAdmin?: BoolFilter<"User"> | boolean
-    disabled?: BoolFilter<"User"> | boolean
-    token?: StringFilter<"User"> | string
-    otpCode?: StringNullableFilter<"User"> | string | null
-    otpExpireAt?: BigIntNullableFilter<"User"> | bigint | number | null
+    username?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     cards?: CardListRelationFilter
@@ -4654,15 +4468,7 @@ export namespace Prisma {
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    phoneNumber?: SortOrder
-    email?: SortOrderInput | SortOrder
-    isAdmin?: SortOrder
-    disabled?: SortOrder
-    token?: SortOrder
-    otpCode?: SortOrderInput | SortOrder
-    otpExpireAt?: SortOrderInput | SortOrder
+    username?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     cards?: CardOrderByRelationAggregateInput
@@ -4670,34 +4476,18 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    phoneNumber?: string
-    email?: string
-    token?: string
+    username?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    firstName?: StringFilter<"User"> | string
-    lastName?: StringFilter<"User"> | string
-    isAdmin?: BoolFilter<"User"> | boolean
-    disabled?: BoolFilter<"User"> | boolean
-    otpCode?: StringNullableFilter<"User"> | string | null
-    otpExpireAt?: BigIntNullableFilter<"User"> | bigint | number | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     cards?: CardListRelationFilter
-  }, "id" | "phoneNumber" | "email" | "token">
+  }, "id" | "username">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    phoneNumber?: SortOrder
-    email?: SortOrderInput | SortOrder
-    isAdmin?: SortOrder
-    disabled?: SortOrder
-    token?: SortOrder
-    otpCode?: SortOrderInput | SortOrder
-    otpExpireAt?: SortOrderInput | SortOrder
+    username?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -4712,15 +4502,7 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
-    firstName?: StringWithAggregatesFilter<"User"> | string
-    lastName?: StringWithAggregatesFilter<"User"> | string
-    phoneNumber?: StringWithAggregatesFilter<"User"> | string
-    email?: StringNullableWithAggregatesFilter<"User"> | string | null
-    isAdmin?: BoolWithAggregatesFilter<"User"> | boolean
-    disabled?: BoolWithAggregatesFilter<"User"> | boolean
-    token?: StringWithAggregatesFilter<"User"> | string
-    otpCode?: StringNullableWithAggregatesFilter<"User"> | string | null
-    otpExpireAt?: BigIntNullableWithAggregatesFilter<"User"> | bigint | number | null
+    username?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -4731,57 +4513,49 @@ export namespace Prisma {
     NOT?: CardWhereInput | CardWhereInput[]
     id?: IntFilter<"Card"> | number
     cardNumber?: StringFilter<"Card"> | string
-    iban?: StringNullableFilter<"Card"> | string | null
-    slug?: StringFilter<"Card"> | string
-    ownerName?: StringNullableFilter<"Card"> | string | null
-    ownerId?: IntNullableFilter<"Card"> | number | null
+    ownerName?: StringFilter<"Card"> | string
+    iban?: StringFilter<"Card"> | string
     disabled?: BoolFilter<"Card"> | boolean
-    expireAt?: DateTimeNullableFilter<"Card"> | Date | string | null
+    userId?: IntFilter<"Card"> | number
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
-    owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type CardOrderByWithRelationInput = {
     id?: SortOrder
     cardNumber?: SortOrder
-    iban?: SortOrderInput | SortOrder
-    slug?: SortOrder
-    ownerName?: SortOrderInput | SortOrder
-    ownerId?: SortOrderInput | SortOrder
+    ownerName?: SortOrder
+    iban?: SortOrder
     disabled?: SortOrder
-    expireAt?: SortOrderInput | SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    owner?: UserOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type CardWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     cardNumber?: string
-    slug?: string
     AND?: CardWhereInput | CardWhereInput[]
     OR?: CardWhereInput[]
     NOT?: CardWhereInput | CardWhereInput[]
-    iban?: StringNullableFilter<"Card"> | string | null
-    ownerName?: StringNullableFilter<"Card"> | string | null
-    ownerId?: IntNullableFilter<"Card"> | number | null
+    ownerName?: StringFilter<"Card"> | string
+    iban?: StringFilter<"Card"> | string
     disabled?: BoolFilter<"Card"> | boolean
-    expireAt?: DateTimeNullableFilter<"Card"> | Date | string | null
+    userId?: IntFilter<"Card"> | number
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
-    owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id" | "cardNumber" | "slug">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "cardNumber">
 
   export type CardOrderByWithAggregationInput = {
     id?: SortOrder
     cardNumber?: SortOrder
-    iban?: SortOrderInput | SortOrder
-    slug?: SortOrder
-    ownerName?: SortOrderInput | SortOrder
-    ownerId?: SortOrderInput | SortOrder
+    ownerName?: SortOrder
+    iban?: SortOrder
     disabled?: SortOrder
-    expireAt?: SortOrderInput | SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CardCountOrderByAggregateInput
@@ -4797,12 +4571,10 @@ export namespace Prisma {
     NOT?: CardScalarWhereWithAggregatesInput | CardScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Card"> | number
     cardNumber?: StringWithAggregatesFilter<"Card"> | string
-    iban?: StringNullableWithAggregatesFilter<"Card"> | string | null
-    slug?: StringWithAggregatesFilter<"Card"> | string
-    ownerName?: StringNullableWithAggregatesFilter<"Card"> | string | null
-    ownerId?: IntNullableWithAggregatesFilter<"Card"> | number | null
+    ownerName?: StringWithAggregatesFilter<"Card"> | string
+    iban?: StringWithAggregatesFilter<"Card"> | string
     disabled?: BoolWithAggregatesFilter<"Card"> | boolean
-    expireAt?: DateTimeNullableWithAggregatesFilter<"Card"> | Date | string | null
+    userId?: IntWithAggregatesFilter<"Card"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Card"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Card"> | Date | string
   }
@@ -4872,157 +4644,93 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
-    firstName: string
-    lastName: string
-    phoneNumber: string
-    email?: string | null
-    isAdmin?: boolean
-    disabled?: boolean
-    token: string
-    otpCode?: string | null
-    otpExpireAt?: bigint | number | null
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    cards?: CardCreateNestedManyWithoutOwnerInput
+    cards?: CardCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: number
-    firstName: string
-    lastName: string
-    phoneNumber: string
-    email?: string | null
-    isAdmin?: boolean
-    disabled?: boolean
-    token: string
-    otpCode?: string | null
-    otpExpireAt?: bigint | number | null
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    cards?: CardUncheckedCreateNestedManyWithoutOwnerInput
+    cards?: CardUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    isAdmin?: BoolFieldUpdateOperationsInput | boolean
-    disabled?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
-    otpCode?: NullableStringFieldUpdateOperationsInput | string | null
-    otpExpireAt?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cards?: CardUpdateManyWithoutOwnerNestedInput
+    cards?: CardUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    isAdmin?: BoolFieldUpdateOperationsInput | boolean
-    disabled?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
-    otpCode?: NullableStringFieldUpdateOperationsInput | string | null
-    otpExpireAt?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cards?: CardUncheckedUpdateManyWithoutOwnerNestedInput
+    cards?: CardUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: number
-    firstName: string
-    lastName: string
-    phoneNumber: string
-    email?: string | null
-    isAdmin?: boolean
-    disabled?: boolean
-    token: string
-    otpCode?: string | null
-    otpExpireAt?: bigint | number | null
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    isAdmin?: BoolFieldUpdateOperationsInput | boolean
-    disabled?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
-    otpCode?: NullableStringFieldUpdateOperationsInput | string | null
-    otpExpireAt?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    isAdmin?: BoolFieldUpdateOperationsInput | boolean
-    disabled?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
-    otpCode?: NullableStringFieldUpdateOperationsInput | string | null
-    otpExpireAt?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CardCreateInput = {
     cardNumber: string
-    iban?: string | null
-    slug: string
-    ownerName?: string | null
+    ownerName: string
+    iban: string
     disabled?: boolean
-    expireAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    owner?: UserCreateNestedOneWithoutCardsInput
+    user: UserCreateNestedOneWithoutCardsInput
   }
 
   export type CardUncheckedCreateInput = {
     id?: number
     cardNumber: string
-    iban?: string | null
-    slug: string
-    ownerName?: string | null
-    ownerId?: number | null
+    ownerName: string
+    iban: string
     disabled?: boolean
-    expireAt?: Date | string | null
+    userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CardUpdateInput = {
     cardNumber?: StringFieldUpdateOperationsInput | string
-    iban?: NullableStringFieldUpdateOperationsInput | string | null
-    slug?: StringFieldUpdateOperationsInput | string
-    ownerName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerName?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
     disabled?: BoolFieldUpdateOperationsInput | boolean
-    expireAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneWithoutCardsNestedInput
+    user?: UserUpdateOneRequiredWithoutCardsNestedInput
   }
 
   export type CardUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     cardNumber?: StringFieldUpdateOperationsInput | string
-    iban?: NullableStringFieldUpdateOperationsInput | string | null
-    slug?: StringFieldUpdateOperationsInput | string
-    ownerName?: NullableStringFieldUpdateOperationsInput | string | null
-    ownerId?: NullableIntFieldUpdateOperationsInput | number | null
+    ownerName?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
     disabled?: BoolFieldUpdateOperationsInput | boolean
-    expireAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5030,23 +4738,19 @@ export namespace Prisma {
   export type CardCreateManyInput = {
     id?: number
     cardNumber: string
-    iban?: string | null
-    slug: string
-    ownerName?: string | null
-    ownerId?: number | null
+    ownerName: string
+    iban: string
     disabled?: boolean
-    expireAt?: Date | string | null
+    userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CardUpdateManyMutationInput = {
     cardNumber?: StringFieldUpdateOperationsInput | string
-    iban?: NullableStringFieldUpdateOperationsInput | string | null
-    slug?: StringFieldUpdateOperationsInput | string
-    ownerName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerName?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
     disabled?: BoolFieldUpdateOperationsInput | boolean
-    expireAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5054,12 +4758,10 @@ export namespace Prisma {
   export type CardUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     cardNumber?: StringFieldUpdateOperationsInput | string
-    iban?: NullableStringFieldUpdateOperationsInput | string | null
-    slug?: StringFieldUpdateOperationsInput | string
-    ownerName?: NullableStringFieldUpdateOperationsInput | string | null
-    ownerId?: NullableIntFieldUpdateOperationsInput | number | null
+    ownerName?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
     disabled?: BoolFieldUpdateOperationsInput | boolean
-    expireAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5156,36 +4858,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type BigIntNullableFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -5203,68 +4875,37 @@ export namespace Prisma {
     none?: CardWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type CardOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    phoneNumber?: SortOrder
-    email?: SortOrder
-    isAdmin?: SortOrder
-    disabled?: SortOrder
-    token?: SortOrder
-    otpCode?: SortOrder
-    otpExpireAt?: SortOrder
+    username?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
     id?: SortOrder
-    otpExpireAt?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    phoneNumber?: SortOrder
-    email?: SortOrder
-    isAdmin?: SortOrder
-    disabled?: SortOrder
-    token?: SortOrder
-    otpCode?: SortOrder
-    otpExpireAt?: SortOrder
+    username?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    phoneNumber?: SortOrder
-    email?: SortOrder
-    isAdmin?: SortOrder
-    disabled?: SortOrder
-    token?: SortOrder
-    otpCode?: SortOrder
-    otpExpireAt?: SortOrder
+    username?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
     id?: SortOrder
-    otpExpireAt?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -5300,47 +4941,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedBigIntNullableFilter<$PrismaModel>
-    _min?: NestedBigIntNullableFilter<$PrismaModel>
-    _max?: NestedBigIntNullableFilter<$PrismaModel>
-  }
-
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -5355,60 +4955,39 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type CardCountOrderByAggregateInput = {
     id?: SortOrder
     cardNumber?: SortOrder
-    iban?: SortOrder
-    slug?: SortOrder
     ownerName?: SortOrder
-    ownerId?: SortOrder
+    iban?: SortOrder
     disabled?: SortOrder
-    expireAt?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type CardAvgOrderByAggregateInput = {
     id?: SortOrder
-    ownerId?: SortOrder
+    userId?: SortOrder
   }
 
   export type CardMaxOrderByAggregateInput = {
     id?: SortOrder
     cardNumber?: SortOrder
-    iban?: SortOrder
-    slug?: SortOrder
     ownerName?: SortOrder
-    ownerId?: SortOrder
+    iban?: SortOrder
     disabled?: SortOrder
-    expireAt?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5416,49 +4995,25 @@ export namespace Prisma {
   export type CardMinOrderByAggregateInput = {
     id?: SortOrder
     cardNumber?: SortOrder
-    iban?: SortOrder
-    slug?: SortOrder
     ownerName?: SortOrder
-    ownerId?: SortOrder
+    iban?: SortOrder
     disabled?: SortOrder
-    expireAt?: SortOrder
+    userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type CardSumOrderByAggregateInput = {
     id?: SortOrder
-    ownerId?: SortOrder
+    userId?: SortOrder
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ValidatedCardCountOrderByAggregateInput = {
@@ -5499,17 +5054,17 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type CardCreateNestedManyWithoutOwnerInput = {
-    create?: XOR<CardCreateWithoutOwnerInput, CardUncheckedCreateWithoutOwnerInput> | CardCreateWithoutOwnerInput[] | CardUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: CardCreateOrConnectWithoutOwnerInput | CardCreateOrConnectWithoutOwnerInput[]
-    createMany?: CardCreateManyOwnerInputEnvelope
+  export type CardCreateNestedManyWithoutUserInput = {
+    create?: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput> | CardCreateWithoutUserInput[] | CardUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutUserInput | CardCreateOrConnectWithoutUserInput[]
+    createMany?: CardCreateManyUserInputEnvelope
     connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
   }
 
-  export type CardUncheckedCreateNestedManyWithoutOwnerInput = {
-    create?: XOR<CardCreateWithoutOwnerInput, CardUncheckedCreateWithoutOwnerInput> | CardCreateWithoutOwnerInput[] | CardUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: CardCreateOrConnectWithoutOwnerInput | CardCreateOrConnectWithoutOwnerInput[]
-    createMany?: CardCreateManyOwnerInputEnvelope
+  export type CardUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput> | CardCreateWithoutUserInput[] | CardUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutUserInput | CardCreateOrConnectWithoutUserInput[]
+    createMany?: CardCreateManyUserInputEnvelope
     connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
   }
 
@@ -5517,37 +5072,21 @@ export namespace Prisma {
     set?: string
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type NullableBigIntFieldUpdateOperationsInput = {
-    set?: bigint | number | null
-    increment?: bigint | number
-    decrement?: bigint | number
-    multiply?: bigint | number
-    divide?: bigint | number
-  }
-
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type CardUpdateManyWithoutOwnerNestedInput = {
-    create?: XOR<CardCreateWithoutOwnerInput, CardUncheckedCreateWithoutOwnerInput> | CardCreateWithoutOwnerInput[] | CardUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: CardCreateOrConnectWithoutOwnerInput | CardCreateOrConnectWithoutOwnerInput[]
-    upsert?: CardUpsertWithWhereUniqueWithoutOwnerInput | CardUpsertWithWhereUniqueWithoutOwnerInput[]
-    createMany?: CardCreateManyOwnerInputEnvelope
+  export type CardUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput> | CardCreateWithoutUserInput[] | CardUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutUserInput | CardCreateOrConnectWithoutUserInput[]
+    upsert?: CardUpsertWithWhereUniqueWithoutUserInput | CardUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CardCreateManyUserInputEnvelope
     set?: CardWhereUniqueInput | CardWhereUniqueInput[]
     disconnect?: CardWhereUniqueInput | CardWhereUniqueInput[]
     delete?: CardWhereUniqueInput | CardWhereUniqueInput[]
     connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
-    update?: CardUpdateWithWhereUniqueWithoutOwnerInput | CardUpdateWithWhereUniqueWithoutOwnerInput[]
-    updateMany?: CardUpdateManyWithWhereWithoutOwnerInput | CardUpdateManyWithWhereWithoutOwnerInput[]
+    update?: CardUpdateWithWhereUniqueWithoutUserInput | CardUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CardUpdateManyWithWhereWithoutUserInput | CardUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CardScalarWhereInput | CardScalarWhereInput[]
   }
 
@@ -5559,17 +5098,17 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type CardUncheckedUpdateManyWithoutOwnerNestedInput = {
-    create?: XOR<CardCreateWithoutOwnerInput, CardUncheckedCreateWithoutOwnerInput> | CardCreateWithoutOwnerInput[] | CardUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: CardCreateOrConnectWithoutOwnerInput | CardCreateOrConnectWithoutOwnerInput[]
-    upsert?: CardUpsertWithWhereUniqueWithoutOwnerInput | CardUpsertWithWhereUniqueWithoutOwnerInput[]
-    createMany?: CardCreateManyOwnerInputEnvelope
+  export type CardUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput> | CardCreateWithoutUserInput[] | CardUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CardCreateOrConnectWithoutUserInput | CardCreateOrConnectWithoutUserInput[]
+    upsert?: CardUpsertWithWhereUniqueWithoutUserInput | CardUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CardCreateManyUserInputEnvelope
     set?: CardWhereUniqueInput | CardWhereUniqueInput[]
     disconnect?: CardWhereUniqueInput | CardWhereUniqueInput[]
     delete?: CardWhereUniqueInput | CardWhereUniqueInput[]
     connect?: CardWhereUniqueInput | CardWhereUniqueInput[]
-    update?: CardUpdateWithWhereUniqueWithoutOwnerInput | CardUpdateWithWhereUniqueWithoutOwnerInput[]
-    updateMany?: CardUpdateManyWithWhereWithoutOwnerInput | CardUpdateManyWithWhereWithoutOwnerInput[]
+    update?: CardUpdateWithWhereUniqueWithoutUserInput | CardUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CardUpdateManyWithWhereWithoutUserInput | CardUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: CardScalarWhereInput | CardScalarWhereInput[]
   }
 
@@ -5579,26 +5118,16 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
-  export type UserUpdateOneWithoutCardsNestedInput = {
+  export type UserUpdateOneRequiredWithoutCardsNestedInput = {
     create?: XOR<UserCreateWithoutCardsInput, UserUncheckedCreateWithoutCardsInput>
     connectOrCreate?: UserCreateOrConnectWithoutCardsInput
     upsert?: UserUpsertWithoutCardsInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCardsInput, UserUpdateWithoutCardsInput>, UserUncheckedUpdateWithoutCardsInput>
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -5624,36 +5153,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -5711,69 +5210,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
-    in?: bigint[] | number[] | null
-    notIn?: bigint[] | number[] | null
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedBigIntNullableFilter<$PrismaModel>
-    _min?: NestedBigIntNullableFilter<$PrismaModel>
-    _max?: NestedBigIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -5788,93 +5224,61 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type CardCreateWithoutOwnerInput = {
+  export type CardCreateWithoutUserInput = {
     cardNumber: string
-    iban?: string | null
-    slug: string
-    ownerName?: string | null
+    ownerName: string
+    iban: string
     disabled?: boolean
-    expireAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type CardUncheckedCreateWithoutOwnerInput = {
+  export type CardUncheckedCreateWithoutUserInput = {
     id?: number
     cardNumber: string
-    iban?: string | null
-    slug: string
-    ownerName?: string | null
+    ownerName: string
+    iban: string
     disabled?: boolean
-    expireAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type CardCreateOrConnectWithoutOwnerInput = {
+  export type CardCreateOrConnectWithoutUserInput = {
     where: CardWhereUniqueInput
-    create: XOR<CardCreateWithoutOwnerInput, CardUncheckedCreateWithoutOwnerInput>
+    create: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput>
   }
 
-  export type CardCreateManyOwnerInputEnvelope = {
-    data: CardCreateManyOwnerInput | CardCreateManyOwnerInput[]
+  export type CardCreateManyUserInputEnvelope = {
+    data: CardCreateManyUserInput | CardCreateManyUserInput[]
   }
 
-  export type CardUpsertWithWhereUniqueWithoutOwnerInput = {
+  export type CardUpsertWithWhereUniqueWithoutUserInput = {
     where: CardWhereUniqueInput
-    update: XOR<CardUpdateWithoutOwnerInput, CardUncheckedUpdateWithoutOwnerInput>
-    create: XOR<CardCreateWithoutOwnerInput, CardUncheckedCreateWithoutOwnerInput>
+    update: XOR<CardUpdateWithoutUserInput, CardUncheckedUpdateWithoutUserInput>
+    create: XOR<CardCreateWithoutUserInput, CardUncheckedCreateWithoutUserInput>
   }
 
-  export type CardUpdateWithWhereUniqueWithoutOwnerInput = {
+  export type CardUpdateWithWhereUniqueWithoutUserInput = {
     where: CardWhereUniqueInput
-    data: XOR<CardUpdateWithoutOwnerInput, CardUncheckedUpdateWithoutOwnerInput>
+    data: XOR<CardUpdateWithoutUserInput, CardUncheckedUpdateWithoutUserInput>
   }
 
-  export type CardUpdateManyWithWhereWithoutOwnerInput = {
+  export type CardUpdateManyWithWhereWithoutUserInput = {
     where: CardScalarWhereInput
-    data: XOR<CardUpdateManyMutationInput, CardUncheckedUpdateManyWithoutOwnerInput>
+    data: XOR<CardUpdateManyMutationInput, CardUncheckedUpdateManyWithoutUserInput>
   }
 
   export type CardScalarWhereInput = {
@@ -5883,41 +5287,23 @@ export namespace Prisma {
     NOT?: CardScalarWhereInput | CardScalarWhereInput[]
     id?: IntFilter<"Card"> | number
     cardNumber?: StringFilter<"Card"> | string
-    iban?: StringNullableFilter<"Card"> | string | null
-    slug?: StringFilter<"Card"> | string
-    ownerName?: StringNullableFilter<"Card"> | string | null
-    ownerId?: IntNullableFilter<"Card"> | number | null
+    ownerName?: StringFilter<"Card"> | string
+    iban?: StringFilter<"Card"> | string
     disabled?: BoolFilter<"Card"> | boolean
-    expireAt?: DateTimeNullableFilter<"Card"> | Date | string | null
+    userId?: IntFilter<"Card"> | number
     createdAt?: DateTimeFilter<"Card"> | Date | string
     updatedAt?: DateTimeFilter<"Card"> | Date | string
   }
 
   export type UserCreateWithoutCardsInput = {
-    firstName: string
-    lastName: string
-    phoneNumber: string
-    email?: string | null
-    isAdmin?: boolean
-    disabled?: boolean
-    token: string
-    otpCode?: string | null
-    otpExpireAt?: bigint | number | null
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserUncheckedCreateWithoutCardsInput = {
     id?: number
-    firstName: string
-    lastName: string
-    phoneNumber: string
-    email?: string | null
-    isAdmin?: boolean
-    disabled?: boolean
-    token: string
-    otpCode?: string | null
-    otpExpireAt?: bigint | number | null
+    username: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -5939,77 +5325,53 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutCardsInput = {
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    isAdmin?: BoolFieldUpdateOperationsInput | boolean
-    disabled?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
-    otpCode?: NullableStringFieldUpdateOperationsInput | string | null
-    otpExpireAt?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateWithoutCardsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    isAdmin?: BoolFieldUpdateOperationsInput | boolean
-    disabled?: BoolFieldUpdateOperationsInput | boolean
-    token?: StringFieldUpdateOperationsInput | string
-    otpCode?: NullableStringFieldUpdateOperationsInput | string | null
-    otpExpireAt?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    username?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CardCreateManyOwnerInput = {
+  export type CardCreateManyUserInput = {
     id?: number
     cardNumber: string
-    iban?: string | null
-    slug: string
-    ownerName?: string | null
+    ownerName: string
+    iban: string
     disabled?: boolean
-    expireAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type CardUpdateWithoutOwnerInput = {
+  export type CardUpdateWithoutUserInput = {
     cardNumber?: StringFieldUpdateOperationsInput | string
-    iban?: NullableStringFieldUpdateOperationsInput | string | null
-    slug?: StringFieldUpdateOperationsInput | string
-    ownerName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerName?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
     disabled?: BoolFieldUpdateOperationsInput | boolean
-    expireAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CardUncheckedUpdateWithoutOwnerInput = {
+  export type CardUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     cardNumber?: StringFieldUpdateOperationsInput | string
-    iban?: NullableStringFieldUpdateOperationsInput | string | null
-    slug?: StringFieldUpdateOperationsInput | string
-    ownerName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerName?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
     disabled?: BoolFieldUpdateOperationsInput | boolean
-    expireAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CardUncheckedUpdateManyWithoutOwnerInput = {
+  export type CardUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     cardNumber?: StringFieldUpdateOperationsInput | string
-    iban?: NullableStringFieldUpdateOperationsInput | string | null
-    slug?: StringFieldUpdateOperationsInput | string
-    ownerName?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerName?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
     disabled?: BoolFieldUpdateOperationsInput | boolean
-    expireAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

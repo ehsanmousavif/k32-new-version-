@@ -5,7 +5,7 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | null;
 };
 
-let prisma: PrismaClient;
+let prisma!: PrismaClient;
 
 if (!globalForPrisma.prisma) {
   try {
@@ -27,4 +27,4 @@ export async function disconnectPrisma() {
   }
 }
 
-export { prisma };
+export const db = prisma;

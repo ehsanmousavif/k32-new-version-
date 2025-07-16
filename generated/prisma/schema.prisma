@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -15,38 +9,23 @@ datasource db {
 }
 
 model User {
-  id          Int     @id @default(autoincrement())
-  firstName   String
-  lastName    String
-  phoneNumber String  @unique
-  email       String? @unique
-
-  isAdmin  Boolean @default(false)
-  disabled Boolean @default(false)
-
-  token       String  @unique
-  otpCode     String?
-  otpExpireAt BigInt?
-
-  cards Card[] // ارتباط یک‌به‌چند با Card
-
+  id        Int      @id @default(autoincrement())
+  username  String   @unique // مثل slug
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  cards Card[] // یک کاربر می‌تونه چند کارت داشته باشه
 }
 
 model Card {
   id         Int     @id @default(autoincrement())
-  cardNumber String  @unique
-  iban       String?
-  slug       String  @unique
-  ownerName  String?
+  cardNumber String  @unique // چک می‌کنیم تکراری نباشه
+  ownerName  String
+  iban       String
+  disabled   Boolean @default(false)
 
-  // ارتباط با یوزر
-  ownerId Int?
-  owner   User? @relation(fields: [ownerId], references: [id])
-
-  disabled Boolean   @default(false)
-  expireAt DateTime?
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
