@@ -18,6 +18,8 @@ export const PageContext = createContext<{
   setChangePage: React.Dispatch<React.SetStateAction<PageType>>;
 } | null>(null);
 
+export const CardContext = createContext(null);
+
 type PageType = "create-card" | "card-entry" | "slug";
 export default function CreateCard() {
   const [changPage, setChangePage] = useState<PageType>("card-entry");
