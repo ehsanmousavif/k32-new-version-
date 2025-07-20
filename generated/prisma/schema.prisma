@@ -21,7 +21,7 @@ model User {
 model Card {
   id         Int     @id @default(autoincrement())
   cardNumber String  @unique // چک می‌کنیم تکراری نباشه
-  ownerName  String
+  fullName   String
   iban       String
   disabled   Boolean @default(false)
 

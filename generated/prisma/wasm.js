@@ -141,7 +141,6 @@ exports.Prisma.ValidatedCardScalarFieldEnum = {
   cardNumber: 'cardNumber',
   iban: 'iban',
   ownerName: 'ownerName',
-  disabled: 'disabled',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

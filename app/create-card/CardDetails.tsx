@@ -2,21 +2,24 @@ import React, { useContext } from "react";
 import { Button } from "@heroui/button";
 
 import { ProgressContext, PageContext } from "./page";
+import { checkCardsContext } from "./page";
 
 import CardBank from "@/components/card";
 
 export default function CardDetails() {
   const ProContext = useContext(ProgressContext);
   const pageContext = useContext(PageContext);
+  const checkContext = useContext(checkCardsContext);
 
-  if (!ProContext || !pageContext) return null;
+  if (!ProContext || !pageContext || !checkContext) return null;
   const { setProgress } = ProContext;
   const { setChangePage } = pageContext;
+  const { checkCard } = checkContext;
 
   return (
     <div>
       <div className="w-full" />
-      <CardBank value="6219861908544323" />
+      <CardBank value={checkCard || ""} />
       <Button
         className="font-vazir mt-64"
         color="primary"

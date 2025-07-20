@@ -3341,7 +3341,6 @@ export namespace Prisma {
     cardNumber: string | null
     iban: string | null
     ownerName: string | null
-    disabled: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3351,7 +3350,6 @@ export namespace Prisma {
     cardNumber: string | null
     iban: string | null
     ownerName: string | null
-    disabled: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3361,7 +3359,6 @@ export namespace Prisma {
     cardNumber: number
     iban: number
     ownerName: number
-    disabled: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3381,7 +3378,6 @@ export namespace Prisma {
     cardNumber?: true
     iban?: true
     ownerName?: true
-    disabled?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3391,7 +3387,6 @@ export namespace Prisma {
     cardNumber?: true
     iban?: true
     ownerName?: true
-    disabled?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3401,7 +3396,6 @@ export namespace Prisma {
     cardNumber?: true
     iban?: true
     ownerName?: true
-    disabled?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3498,7 +3492,6 @@ export namespace Prisma {
     cardNumber: string
     iban: string
     ownerName: string
-    disabled: boolean
     createdAt: Date
     updatedAt: Date
     _count: ValidatedCardCountAggregateOutputType | null
@@ -3527,7 +3520,6 @@ export namespace Prisma {
     cardNumber?: boolean
     iban?: boolean
     ownerName?: boolean
-    disabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["validatedCard"]>
@@ -3537,7 +3529,6 @@ export namespace Prisma {
     cardNumber?: boolean
     iban?: boolean
     ownerName?: boolean
-    disabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["validatedCard"]>
@@ -3547,7 +3538,6 @@ export namespace Prisma {
     cardNumber?: boolean
     iban?: boolean
     ownerName?: boolean
-    disabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["validatedCard"]>
@@ -3557,12 +3547,11 @@ export namespace Prisma {
     cardNumber?: boolean
     iban?: boolean
     ownerName?: boolean
-    disabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ValidatedCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cardNumber" | "iban" | "ownerName" | "disabled" | "createdAt" | "updatedAt", ExtArgs["result"]["validatedCard"]>
+  export type ValidatedCardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cardNumber" | "iban" | "ownerName" | "createdAt" | "updatedAt", ExtArgs["result"]["validatedCard"]>
 
   export type $ValidatedCardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ValidatedCard"
@@ -3572,7 +3561,6 @@ export namespace Prisma {
       cardNumber: string
       iban: string
       ownerName: string
-      disabled: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["validatedCard"]>
@@ -4002,7 +3990,6 @@ export namespace Prisma {
     readonly cardNumber: FieldRef<"ValidatedCard", 'String'>
     readonly iban: FieldRef<"ValidatedCard", 'String'>
     readonly ownerName: FieldRef<"ValidatedCard", 'String'>
-    readonly disabled: FieldRef<"ValidatedCard", 'Boolean'>
     readonly createdAt: FieldRef<"ValidatedCard", 'DateTime'>
     readonly updatedAt: FieldRef<"ValidatedCard", 'DateTime'>
   }
@@ -4410,7 +4397,6 @@ export namespace Prisma {
     cardNumber: 'cardNumber',
     iban: 'iban',
     ownerName: 'ownerName',
-    disabled: 'disabled',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -4606,7 +4592,6 @@ export namespace Prisma {
     cardNumber?: StringFilter<"ValidatedCard"> | string
     iban?: StringFilter<"ValidatedCard"> | string
     ownerName?: StringFilter<"ValidatedCard"> | string
-    disabled?: BoolFilter<"ValidatedCard"> | boolean
     createdAt?: DateTimeFilter<"ValidatedCard"> | Date | string
     updatedAt?: DateTimeFilter<"ValidatedCard"> | Date | string
   }
@@ -4616,7 +4601,6 @@ export namespace Prisma {
     cardNumber?: SortOrder
     iban?: SortOrder
     ownerName?: SortOrder
-    disabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4629,7 +4613,6 @@ export namespace Prisma {
     NOT?: ValidatedCardWhereInput | ValidatedCardWhereInput[]
     iban?: StringFilter<"ValidatedCard"> | string
     ownerName?: StringFilter<"ValidatedCard"> | string
-    disabled?: BoolFilter<"ValidatedCard"> | boolean
     createdAt?: DateTimeFilter<"ValidatedCard"> | Date | string
     updatedAt?: DateTimeFilter<"ValidatedCard"> | Date | string
   }, "id" | "cardNumber">
@@ -4639,7 +4622,6 @@ export namespace Prisma {
     cardNumber?: SortOrder
     iban?: SortOrder
     ownerName?: SortOrder
-    disabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ValidatedCardCountOrderByAggregateInput
@@ -4657,7 +4639,6 @@ export namespace Prisma {
     cardNumber?: StringWithAggregatesFilter<"ValidatedCard"> | string
     iban?: StringWithAggregatesFilter<"ValidatedCard"> | string
     ownerName?: StringWithAggregatesFilter<"ValidatedCard"> | string
-    disabled?: BoolWithAggregatesFilter<"ValidatedCard"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"ValidatedCard"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ValidatedCard"> | Date | string
   }
@@ -4796,7 +4777,6 @@ export namespace Prisma {
     cardNumber: string
     iban: string
     ownerName: string
-    disabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4806,7 +4786,6 @@ export namespace Prisma {
     cardNumber: string
     iban: string
     ownerName: string
-    disabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4815,7 +4794,6 @@ export namespace Prisma {
     cardNumber?: StringFieldUpdateOperationsInput | string
     iban?: StringFieldUpdateOperationsInput | string
     ownerName?: StringFieldUpdateOperationsInput | string
-    disabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4825,7 +4803,6 @@ export namespace Prisma {
     cardNumber?: StringFieldUpdateOperationsInput | string
     iban?: StringFieldUpdateOperationsInput | string
     ownerName?: StringFieldUpdateOperationsInput | string
-    disabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4835,7 +4812,6 @@ export namespace Prisma {
     cardNumber: string
     iban: string
     ownerName: string
-    disabled?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4844,7 +4820,6 @@ export namespace Prisma {
     cardNumber?: StringFieldUpdateOperationsInput | string
     iban?: StringFieldUpdateOperationsInput | string
     ownerName?: StringFieldUpdateOperationsInput | string
-    disabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4854,7 +4829,6 @@ export namespace Prisma {
     cardNumber?: StringFieldUpdateOperationsInput | string
     iban?: StringFieldUpdateOperationsInput | string
     ownerName?: StringFieldUpdateOperationsInput | string
-    disabled?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5050,7 +5024,6 @@ export namespace Prisma {
     cardNumber?: SortOrder
     iban?: SortOrder
     ownerName?: SortOrder
-    disabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5064,7 +5037,6 @@ export namespace Prisma {
     cardNumber?: SortOrder
     iban?: SortOrder
     ownerName?: SortOrder
-    disabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -5074,7 +5046,6 @@ export namespace Prisma {
     cardNumber?: SortOrder
     iban?: SortOrder
     ownerName?: SortOrder
-    disabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }

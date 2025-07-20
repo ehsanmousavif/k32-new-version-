@@ -18,12 +18,18 @@ export const PageContext = createContext<{
   setChangePage: React.Dispatch<React.SetStateAction<PageType>>;
 } | null>(null);
 
+export const checkCardsContext = createContext<{
+  checkCard: string | null;
+  setCheckCard: React.Dispatch<React.SetStateAction<string | null>>;
+} | null>(null);
+
 export const CardContext = createContext(null);
 
 type PageType = "create-card" | "card-entry" | "slug";
 export default function CreateCard() {
   const [changPage, setChangePage] = useState<PageType>("card-entry");
   const [progress, setProgress] = useState("30");
+  const [checkCard, setCheckCard] = useState<string | null>(null);
 
   return (
     <ProgressContext.Provider value={{ progress, setProgress }}>
@@ -33,9 +39,11 @@ export default function CreateCard() {
             <ProgressBar progressPercent={progress} value={96} />
           </div>
           <PageContext.Provider value={{ changPage, setChangePage }}>
-            {changPage === "card-entry" && <CardEntry />}
-            {changPage === "create-card" && <CardDetails />}
-            {changPage === "slug" && <SelectSlug />}
+            <checkCardsContext.Provider value={{ checkCard, setCheckCard }}>
+              {changPage === "card-entry" && <CardEntry />}
+              {changPage === "create-card" && <CardDetails />}
+              {changPage === "slug" && <SelectSlug />}
+            </checkCardsContext.Provider>
           </PageContext.Provider>
         </div>
       </div>
