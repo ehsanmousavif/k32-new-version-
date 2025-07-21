@@ -20,6 +20,7 @@ export default function CardEntry() {
 
   const { setProgress } = ProContext;
   const { setCheckCard } = checkContext;
+  const { setChangePage } = pageContext;
 
   const sendData = async () => {
     try {
@@ -35,7 +36,7 @@ export default function CardEntry() {
 
       const data = await res.json();
 
-      if (res.ok) {
+      if (!res.ok) {
         console.log("✅ کارت ثبت نشده. ادامه بده", data);
         setCheckCard(cardData);
       } else {
@@ -72,6 +73,7 @@ export default function CardEntry() {
         onPress={() => {
           sendData();
           setProgress("60");
+          setChangePage("create-card");
         }}
       >
         تایید

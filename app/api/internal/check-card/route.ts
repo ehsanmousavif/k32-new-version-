@@ -21,9 +21,9 @@ export async function POST(req: NextRequest) {
 
   if (card) {
     return NextResponse.json({ error: "Card exists" }, { status: 401 });
+  } else {
+    return NextResponse.json({
+      message: "ok",
+    });
   }
-
-  return NextResponse.json({
-    message: "ok",
-  });
 }
