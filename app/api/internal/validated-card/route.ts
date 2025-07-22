@@ -22,8 +22,8 @@ export async function POST(req: NextRequest) {
 
   // اگر نبود، ثبت می‌کنیم و همون رو برمی‌گردونیم
   const newCard = await db.validatedCard.create({
-    data: { cardNumber, iban, ownerName },
+    data: { cardNumber, iban: iban, ownerName: ownerName },
   });
 
-  return NextResponse.json(newCard); // این خط اضافه بشه تا response برگرده
+  return NextResponse.json(newCard);
 }

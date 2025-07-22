@@ -1,52 +1,25 @@
 "use client";
 
 import { Button, InputOtp } from "@heroui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 
-import { ProgressContext } from "./page";
-import { PageContext } from "./page";
-import { checkCardsContext } from "./page";
+import { ProgressContext, PageContext, CardDataContext } from "./page";
 
-import { Card } from "@/generated/prisma";
+interface Functions {
+  sendData: () => any;
+}
 
-export default function CardEntry() {
-  const [cardData, setCardData] = useState<Card["cardNumber"]>("");
-
+export default function CardEntry({ sendData }: Functions) {
   const ProContext = useContext(ProgressContext);
   const pageContext = useContext(PageContext);
-  const checkContext = useContext(checkCardsContext);
+  const CardNumberContext = useContext(CardDataContext);
 
-  if (!ProContext || !pageContext || !checkContext) return null;
+  // اینجا مقدارهای کانتکست گرفته شده رو چک می‌کنیم
+  if (!ProContext || !pageContext || !CardNumberContext) return null;
 
+  const { cardData, setCardData } = CardNumberContext;
   const { setProgress } = ProContext;
-  const { setCheckCard } = checkContext;
   const { setChangePage } = pageContext;
-
-  const sendData = async () => {
-    try {
-      const res = await fetch("/api/internal/check-card", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cardNumber: cardData,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        console.log("✅ کارت ثبت نشده. ادامه بده", data);
-        setCheckCard(cardData);
-      } else {
-        console.log("⚠️ شماره کارت قبلا ثبت شده است ", data);
-      }
-    } catch (error) {
-      console.error("خطا:", error);
-      alert("مشکلی پیش آمده.");
-    }
-  };
 
   return (
     <div className="w-auto">
@@ -55,19 +28,20 @@ export default function CardEntry() {
         <InputOtp
           className="m-auto"
           errorMessage={"شماره کارت شما باید ۱۶ رقم باشد"}
-          isInvalid={cardData.length !== 16}
+          isInvalid={!cardData || cardData.length !== 16}
           length={16}
           size="sm"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setCardData(e.target.value)
           }
+          value={cardData ?? ""}
         />
       </div>
       <Button
         fullWidth
         className="font-vazir"
         color="primary"
-        isDisabled={cardData.length !== 16}
+        isDisabled={!cardData || cardData.length !== 16}
         radius="full"
         size="md"
         onPress={() => {
@@ -81,3 +55,4 @@ export default function CardEntry() {
     </div>
   );
 }
+  
