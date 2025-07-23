@@ -10,11 +10,15 @@ import {
 
 import CardBank from "@/components/card";
 
-interface functions {
-  fetchValidatedCard: () => any;
+interface Props {
+  validated: {
+    iban: string;
+    ownerName: string;
+    cardNumber: string;
+  } | null;
 }
 
-export default function CardDetails({ fetchValidatedCard }: functions) {
+export default function CardPreview({ validated }: Props) {
   const proContext = useContext(ProgressContext);
   const pageContext = useContext(PageContext);
   const cardContext = useContext(CardDataContext);
@@ -25,18 +29,16 @@ export default function CardDetails({ fetchValidatedCard }: functions) {
 
   const { setProgress } = proContext;
   const { setChangePage } = pageContext;
-  const { validatedData } = validatedContext;
 
   return (
     <div>
       <Button
+        fullWidth
         className="font-vazir mt-8"
         color="primary"
-        fullWidth
         radius="full"
         size="md"
         onPress={async () => {
-          await fetchValidatedCard();
           setChangePage("slug");
           setProgress("100");
         }}
@@ -44,13 +46,11 @@ export default function CardDetails({ fetchValidatedCard }: functions) {
         تایید
       </Button>
 
-      {validatedData && (
-        <CardBank
-          iban={validatedData.iban}
-          name={validatedData.ownerName}
-          number={validatedData.cardNumber}
-        />
-      )}
+      <CardBank
+        iban={validated?.iban || ""}
+        name={validated?.ownerName || ""}
+        number={validated?.cardNumber || ""}
+      />
     </div>
   );
 }

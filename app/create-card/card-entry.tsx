@@ -7,9 +7,10 @@ import { ProgressContext, PageContext, CardDataContext } from "./page";
 
 interface Functions {
   sendData: () => any;
+  fetchValidatedCard: () => any;
 }
 
-export default function CardEntry({ sendData }: Functions) {
+export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
   const ProContext = useContext(ProgressContext);
   const pageContext = useContext(PageContext);
   const CardNumberContext = useContext(CardDataContext);
@@ -46,6 +47,7 @@ export default function CardEntry({ sendData }: Functions) {
         size="md"
         onPress={() => {
           sendData();
+          fetchValidatedCard();
           setProgress("60");
           setChangePage("create-card");
         }}
@@ -55,4 +57,3 @@ export default function CardEntry({ sendData }: Functions) {
     </div>
   );
 }
-  

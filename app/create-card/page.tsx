@@ -3,10 +3,12 @@
 import React, { createContext, useState } from "react";
 
 import CardEntry from "./card-entry";
-import CardDetails from "./CardDetails";
 import SelectSlug from "./select-slug";
+import CardPreview from "./card-preview";
 
 import ProgressBar from "@/components/progress";
+import { ValidatedCard } from "@/generated/prisma";
+import { noSSR } from "next/dynamic";
 
 export const ProgressContext = createContext<{
   progress: string;
@@ -34,6 +36,26 @@ export default function CreateCard() {
   const [changPage, setChangePage] = useState<PageType>("card-entry");
   const [progress, setProgress] = useState("30");
   const [cardData, setCardData] = useState<string | null>(null);
+  const [validated, setValidated] = useState<Pick<
+    ValidatedCard,
+    "iban" | "cardNumber" | "ownerName"
+  > | null>(null);
+
+  async function getAllData() {
+    const res = await fetch("/api/internal/get-all-data", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const __data = res.json();
+
+    if (!__data) {
+      return console.log("شماره کارت رو وارد نکردی", __data);
+    }
+
+    return __data;
+  }
 
   const sendData = async () => {
     try {
@@ -46,6 +68,7 @@ export default function CreateCard() {
       });
 
       const data = await res.json();
+
       if (res.ok) {
         console.log("✅ کارت ثبت نشده. ادامه بده", data);
       } else {
@@ -69,10 +92,12 @@ export default function CreateCard() {
       });
 
       const _data = await res.json();
+
       if (res.ok && cardData) {
         console.log("✅ اطلاعات کارت:", _data);
       } else {
         console.warn("خطا در دریافت یا ساخت کارت:", _data);
+        getAllData();
       }
     } catch {
       console.error("ریدی");
@@ -89,10 +114,16 @@ export default function CreateCard() {
           </div>
           <PageContext.Provider value={{ changPage, setChangePage }}>
             <CardDataContext.Provider value={{ cardData, setCardData }}>
-              {changPage === "card-entry" && <CardEntry sendData={sendData} />}
-              {changPage === "create-card" && (
-                <CardDetails fetchValidatedCard={fetchValidatedCard} />
+              {changPage === "card-entry" && (
+                <CardEntry
+                  fetchValidatedCard={fetchValidatedCard}
+                  sendData={sendData}
+                />
               )}
+              {changPage === "create-card" && (
+                <CardPreview validated={validated} />
+              )}
+
               {changPage === "slug" && <SelectSlug />}
             </CardDataContext.Provider>
           </PageContext.Provider>
