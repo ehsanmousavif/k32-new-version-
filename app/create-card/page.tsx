@@ -54,7 +54,7 @@ export default function CreateCard() {
       return console.log("شماره کارت رو وارد نکردی", __data);
     }
 
-    return __data;
+    return console.log("محتوای شما", __data);
   }
 
   const sendData = async () => {
@@ -81,8 +81,13 @@ export default function CreateCard() {
   };
 
   const fetchValidatedCard = async () => {
-    if (!cardData) return;
+    if (!cardData) {
+      console.warn("شماره کارت وارد نشده");
+      return;
+    }
+
     try {
+      // مرحله 1: بررسی validated-card
       const res = await fetch("/api/internal/validated-card", {
         method: "POST",
         headers: {
@@ -91,18 +96,40 @@ export default function CreateCard() {
         body: JSON.stringify({ cardNumber: cardData }),
       });
 
-      const _data = await res.json();
+      let validatedData = null;
 
-      if (res.ok && cardData) {
-        console.log("✅ اطلاعات کارت:", _data);
-      } else {
-        console.warn("خطا در دریافت یا ساخت کارت:", _data);
-        getAllData();
+      try {
+        validatedData = await res.json();
+      } catch (error) {
+        console.warn("⚠️ داده‌ای از سرور برنگشت یا JSON خراب بود");
       }
-    } catch {
-      console.error("ریدی");
+
+      if (res.ok && validatedData?.cardNumber) {
+        console.log("✅ کارت در validated پیدا شد:", validatedData);
+        return validatedData;
+      } else {
+        // مرحله 2: اگر نبود، رفتن به سمت API فیک
+        console.warn("❌ کارت در validated پیدا نشد، رفتیم سراغ fake-card");
+
+        const fallbackRes = await fetch("/api/internal/get-all-data", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const fakeData = await fallbackRes.json();
+
+        if (fallbackRes.ok) {
+          console.log("🟡 کارت فیک دریافت شد:", fakeData);
+          return fakeData;
+        } else {
+          console.error("❌ خطا در دریافت کارت فیک:", fakeData);
+        }
+      }
+    } catch (error) {
+      console.error("⛔ خطا در عملیات:", error);
     }
-    console.log("🧪 داده نهایی برای کارت:", cardData);
   };
 
   return (

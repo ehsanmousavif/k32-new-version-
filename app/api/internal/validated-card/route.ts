@@ -1,29 +1,35 @@
+import { getCardInfo } from "@/lib/get-card-info";
 import { db } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { cardNumber, iban, ownerName } = await req.json();
+  const { cardNumber } = await req.json();
 
-  if (!cardNumber) {
+  if (!cardNumber)
     return NextResponse.json(
       { error: "شماره کارت الزامی است" },
       { status: 400 }
     );
-  }
 
-  const checkCardNumber = await db.validatedCard.findUnique({
+  // ۱. چک در validatedCard
+  const existing = await db.validatedCard.findUnique({
     where: { cardNumber },
   });
 
-  if (checkCardNumber) {
-    // اگر قبلاً ذخیره شده بود، همونو برمی‌گردونه
-    return NextResponse.json(checkCardNumber);
+  if (existing) {
+    return NextResponse.json(existing);
   }
 
-  // اگر نبود، ثبت می‌کنیم و همون رو برمی‌گردونیم
-  const newCard = await db.validatedCard.create({
-    data: { cardNumber, iban: iban, ownerName: ownerName },
+  const cardInfo = await getCardInfo(cardNumber);
+
+  // ۳. ذخیره در validatedCard
+  const saved = await db.validatedCard.create({
+    data: {
+      cardNumber: cardInfo.cardNumber,
+      iban: cardInfo.iban,
+      ownerName: cardInfo.ownerName,
+    },
   });
 
-  return NextResponse.json(newCard);
+  return NextResponse.json(saved);
 }
