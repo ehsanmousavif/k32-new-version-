@@ -1,7 +1,7 @@
 import { Input } from "@heroui/input";
 import React from "react";
 
-function Slug() {
+export default function CheckSlug() {
   return (
     <div>
       <span>دامنه خود را ثبت کنید.</span>
@@ -9,5 +9,3 @@ function Slug() {
     </div>
   );
 }
-
-export default Slug;

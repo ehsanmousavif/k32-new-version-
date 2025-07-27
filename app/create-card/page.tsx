@@ -3,12 +3,12 @@
 import React, { createContext, useState } from "react";
 
 import CardEntry from "./card-entry";
-import SelectSlug from "./select-slug";
+import Slug from "./check-slug";
+
 import CardPreview from "./card-preview";
 
 import ProgressBar from "@/components/progress";
 import { ValidatedCard } from "@/generated/prisma";
-import { noSSR } from "next/dynamic";
 
 export const ProgressContext = createContext<{
   progress: string;
@@ -30,32 +30,21 @@ export const ValidatedCardContext = createContext<{
   setValidatedData: React.Dispatch<React.SetStateAction<any>>;
 } | null>(null);
 
-type PageType = "create-card" | "card-entry" | "slug";
+export const shareDataContext = createContext<{
+  shareData: Pick<ValidatedCard, "cardNumber" | "iban" | "ownerName"> | null; // ✅ اینجا اجازه null بده
+  setShareData: React.Dispatch<React.SetStateAction<any>>;
+} | null>(null);
+
+type PageType = "card-preview" | "card-entry" | "slug";
 
 export default function CreateCard() {
-  const [changPage, setChangePage] = useState<PageType>("card-entry");
+  const [changPage, setChangePage] = useState<PageType>("card-preview");
   const [progress, setProgress] = useState("30");
   const [cardData, setCardData] = useState<string | null>(null);
-  const [validated, setValidated] = useState<Pick<
+  const [shareData, setShareData] = useState<Pick<
     ValidatedCard,
-    "iban" | "cardNumber" | "ownerName"
+    "cardNumber" | "iban" | "ownerName"
   > | null>(null);
-
-  async function getAllData() {
-    const res = await fetch("/api/internal/get-all-data", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const __data = res.json();
-
-    if (!__data) {
-      return console.log("شماره کارت رو وارد نکردی", __data);
-    }
-
-    return console.log("محتوای شما", __data);
-  }
 
   const sendData = async () => {
     try {
@@ -87,12 +76,9 @@ export default function CreateCard() {
     }
 
     try {
-      // مرحله 1: بررسی validated-card
       const res = await fetch("/api/internal/validated-card", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cardNumber: cardData }),
       });
 
@@ -100,32 +86,14 @@ export default function CreateCard() {
 
       try {
         validatedData = await res.json();
-      } catch (error) {
+      } catch {
         console.warn("⚠️ داده‌ای از سرور برنگشت یا JSON خراب بود");
       }
 
       if (res.ok && validatedData?.cardNumber) {
-        console.log("✅ کارت در validated پیدا شد:", validatedData);
-        return validatedData;
+        setShareData(validatedData);
       } else {
-        // مرحله 2: اگر نبود، رفتن به سمت API فیک
         console.warn("❌ کارت در validated پیدا نشد، رفتیم سراغ fake-card");
-
-        const fallbackRes = await fetch("/api/internal/get-all-data", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        const fakeData = await fallbackRes.json();
-
-        if (fallbackRes.ok) {
-          console.log("🟡 کارت فیک دریافت شد:", fakeData);
-          return fakeData;
-        } else {
-          console.error("❌ خطا در دریافت کارت فیک:", fakeData);
-        }
       }
     } catch (error) {
       console.error("⛔ خطا در عملیات:", error);
@@ -147,11 +115,14 @@ export default function CreateCard() {
                   sendData={sendData}
                 />
               )}
-              {changPage === "create-card" && (
-                <CardPreview validated={validated} />
-              )}
+              <shareDataContext.Provider value={{ shareData, setShareData }}>
+                {changPage === "card-preview" && (
+                  <CardPreview />
+                  //
+                )}
+              </shareDataContext.Provider>
 
-              {changPage === "slug" && <SelectSlug />}
+              {changPage === "slug" && <Slug />}
             </CardDataContext.Provider>
           </PageContext.Provider>
         </div>

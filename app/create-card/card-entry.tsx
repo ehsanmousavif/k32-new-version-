@@ -4,6 +4,7 @@ import { Button, InputOtp } from "@heroui/react";
 import React, { useContext } from "react";
 
 import { ProgressContext, PageContext, CardDataContext } from "./page";
+("./card-preview");
 
 interface Functions {
   sendData: () => any;
@@ -49,7 +50,7 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
           sendData();
           fetchValidatedCard();
           setProgress("60");
-          setChangePage("create-card");
+          setChangePage("card-preview");
         }}
       >
         تایید

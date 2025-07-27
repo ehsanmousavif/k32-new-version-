@@ -1,41 +1,47 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "@heroui/button";
+import { Checkbox } from "@heroui/react"; // مطمئن شو مسیر درسته
 
-import {
-  ProgressContext,
-  PageContext,
-  CardDataContext,
-  ValidatedCardContext,
-} from "./page";
+import { ProgressContext, PageContext, shareDataContext } from "./page";
 
 import CardBank from "@/components/card";
 
-interface Props {
-  validated: {
-    iban: string;
-    ownerName: string;
-    cardNumber: string;
-  } | null;
-}
+export default function CardPreview() {
+  const [checkField, setCheckField] = useState(false); // مقدار اولیه false
 
-export default function CardPreview({ validated }: Props) {
+  const sharedContext = useContext(shareDataContext);
   const proContext = useContext(ProgressContext);
   const pageContext = useContext(PageContext);
-  const cardContext = useContext(CardDataContext);
-  const validatedContext = useContext(ValidatedCardContext);
 
-  if (!proContext || !pageContext || !cardContext || !validatedContext)
-    return null;
+  if (!proContext || !pageContext || !sharedContext) return null;
 
+  const { shareData } = sharedContext;
   const { setProgress } = proContext;
   const { setChangePage } = pageContext;
 
   return (
     <div>
+      <CardBank
+        iban={shareData?.iban || ""}
+        name={shareData?.ownerName || ""}
+        number={shareData?.cardNumber || ""}
+      />
+
+      <Checkbox
+        className="font-vazir mt-6 "
+        isSelected={checkField}
+        onChange={(e) => setCheckField(e.target.checked)}
+      >
+        <span className="text-black"> اطلاعات را تأیید می‌کنم</span>
+      </Checkbox>
+
       <Button
         fullWidth
-        className="font-vazir mt-8"
+        className={`font-vazir mt-4 ${
+          !checkField ? "opacity-50 cursor-not-allowed" : ""
+        }`}
         color="primary"
+        isDisabled={!checkField}
         radius="full"
         size="md"
         onPress={async () => {
@@ -45,12 +51,6 @@ export default function CardPreview({ validated }: Props) {
       >
         تایید
       </Button>
-
-      <CardBank
-        iban={validated?.iban || ""}
-        name={validated?.ownerName || ""}
-        number={validated?.cardNumber || ""}
-      />
     </div>
   );
 }
