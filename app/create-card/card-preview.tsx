@@ -2,14 +2,14 @@ import React, { useContext, useState } from "react";
 import { Button } from "@heroui/button";
 import { Checkbox } from "@heroui/react"; // مطمئن شو مسیر درسته
 
-import { ProgressContext, PageContext, shareDataContext } from "./page";
+import { ProgressContext, PageContext, validatedResponseContext } from "./page";
 
 import CardBank from "@/components/card";
 
 export default function CardPreview() {
   const [checkField, setCheckField] = useState(false); // مقدار اولیه false
 
-  const sharedContext = useContext(shareDataContext);
+  const sharedContext = useContext(validatedResponseContext);
   const proContext = useContext(ProgressContext);
   const pageContext = useContext(PageContext);
 

@@ -16,7 +16,6 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
   const pageContext = useContext(PageContext);
   const CardNumberContext = useContext(CardDataContext);
 
-  // اینجا مقدارهای کانتکست گرفته شده رو چک می‌کنیم
   if (!ProContext || !pageContext || !CardNumberContext) return null;
 
   const { cardData, setCardData } = CardNumberContext;

@@ -7,8 +7,9 @@ import Slug from "./check-slug";
 
 import CardPreview from "./card-preview";
 
+import FinalCard from "./final-card";
 import ProgressBar from "@/components/progress";
-import { ValidatedCard } from "@/generated/prisma";
+import { User, ValidatedCard } from "@/generated/prisma";
 
 export const ProgressContext = createContext<{
   progress: string;
@@ -30,12 +31,16 @@ export const ValidatedCardContext = createContext<{
   setValidatedData: React.Dispatch<React.SetStateAction<any>>;
 } | null>(null);
 
-export const shareDataContext = createContext<{
-  shareData: Pick<ValidatedCard, "cardNumber" | "iban" | "ownerName"> | null; // ✅ اینجا اجازه null بده
+export const validatedResponseContext = createContext<{
+  shareData: Pick<ValidatedCard, "cardNumber" | "iban" | "ownerName"> | null;
   setShareData: React.Dispatch<React.SetStateAction<any>>;
 } | null>(null);
+export const checkSlugResponseContext = createContext<{
+  checkSlug: Pick<User, "slug"> | null;
+  setCheckSlug: React.Dispatch<React.SetStateAction<any>>;
+} | null>(null);
 
-type PageType = "card-preview" | "card-entry" | "slug";
+type PageType = "card-preview" | "card-entry" | "slug" | "final-card";
 
 export default function CreateCard() {
   const [changPage, setChangePage] = useState<PageType>("card-preview");
@@ -45,7 +50,7 @@ export default function CreateCard() {
     ValidatedCard,
     "cardNumber" | "iban" | "ownerName"
   > | null>(null);
-
+  const [checkSlug, setCheckSlug] = useState<Pick<User, "slug"> | null>(null);
   const sendData = async () => {
     try {
       const res = await fetch("/api/internal/check-card", {
@@ -109,20 +114,23 @@ export default function CreateCard() {
           </div>
           <PageContext.Provider value={{ changPage, setChangePage }}>
             <CardDataContext.Provider value={{ cardData, setCardData }}>
-              {changPage === "card-entry" && (
-                <CardEntry
-                  fetchValidatedCard={fetchValidatedCard}
-                  sendData={sendData}
-                />
-              )}
-              <shareDataContext.Provider value={{ shareData, setShareData }}>
-                {changPage === "card-preview" && (
-                  <CardPreview />
-                  //
-                )}
-              </shareDataContext.Provider>
-
-              {changPage === "slug" && <Slug />}
+              <validatedResponseContext.Provider
+                value={{ shareData, setShareData }}
+              >
+                <checkSlugResponseContext.Provider
+                  value={{ checkSlug, setCheckSlug }}
+                >
+                  {changPage === "card-entry" && (
+                    <CardEntry
+                      fetchValidatedCard={fetchValidatedCard}
+                      sendData={sendData}
+                    />
+                  )}
+                  {changPage === "card-preview" && <CardPreview />}
+                  {changPage === "slug" && <Slug />}
+                  {changPage === "final-card" && <FinalCard />}
+                </checkSlugResponseContext.Provider>
+              </validatedResponseContext.Provider>
             </CardDataContext.Provider>
           </PageContext.Provider>
         </div>
