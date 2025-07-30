@@ -2,13 +2,22 @@ import { Input } from "@heroui/input";
 import React, { useContext, useState } from "react";
 import { Button } from "@heroui/button";
 
-import { checkSlugResponseContext } from "./page";
+import { CardDataContext } from "./page";
+
+import { checkSlugResponseContext, PageContext } from "./page";
 export default function Slug() {
+  const CardNumberContext = useContext(CardDataContext);
+
+  const pageContext = useContext(PageContext);
+
   const [inputValue, setInputValue] = useState("");
 
   const checkSlugContext = useContext(checkSlugResponseContext);
-  if (!checkSlugContext) return null;
+
+  if (!checkSlugContext || !pageContext || !CardNumberContext) return null;
+  const { cardData, setCardData } = CardNumberContext;
   const { checkSlug, setCheckSlug } = checkSlugContext;
+  const { setChangePage } = pageContext;
 
   async function getSlug() {
     try {
@@ -17,17 +26,17 @@ export default function Slug() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ slug: inputValue }), // اینم حتما باید JSON باشه!
+        body: JSON.stringify({ slug: inputValue, cardNumber: cardData }),
       });
 
-      const response = await res.json(); // اینجا باید await بزاری
+      const response = await res.json();
 
       if (res.ok) {
         console.log("✅ نام کاربری ثبت نشده است:", response);
-        setCheckSlug(response);
-        console.log(checkSlug);
+        setCheckSlug(response.user.slug);
+        console.log(checkSlug, response);
       } else {
-        console.warn("⚠️ خطا یا تکراری بودن:", response.error || response);
+        console.warn("⚠️ خطا یا تکراری بودن:", response.error);
       }
     } catch (err) {
       console.error("⛔ خطا در برقراری ارتباط با سرور:", err);
@@ -45,10 +54,11 @@ export default function Slug() {
       <Button
         className="w-56 bg-black mt-64"
         onPress={() => {
-          getSlug(), () => {};
+          getSlug();
+          setChangePage("final-card");
         }}
       >
-        نهایی کردن کارت
+        بعدی{" "}
       </Button>
     </div>
   );

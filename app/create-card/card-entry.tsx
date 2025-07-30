@@ -32,10 +32,10 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
           isInvalid={!cardData || cardData.length !== 16}
           length={16}
           size="sm"
+          value={cardData ?? ""}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setCardData(e.target.value)
           }
-          value={cardData ?? ""}
         />
       </div>
       <Button

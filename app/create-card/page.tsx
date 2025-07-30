@@ -4,10 +4,9 @@ import React, { createContext, useState } from "react";
 
 import CardEntry from "./card-entry";
 import Slug from "./check-slug";
-
 import CardPreview from "./card-preview";
-
 import FinalCard from "./final-card";
+
 import ProgressBar from "@/components/progress";
 import { User, ValidatedCard } from "@/generated/prisma";
 
@@ -43,7 +42,7 @@ export const checkSlugResponseContext = createContext<{
 type PageType = "card-preview" | "card-entry" | "slug" | "final-card";
 
 export default function CreateCard() {
-  const [changPage, setChangePage] = useState<PageType>("card-preview");
+  const [changPage, setChangePage] = useState<PageType>("card-entry");
   const [progress, setProgress] = useState("30");
   const [cardData, setCardData] = useState<string | null>(null);
   const [shareData, setShareData] = useState<Pick<
@@ -77,6 +76,7 @@ export default function CreateCard() {
   const fetchValidatedCard = async () => {
     if (!cardData) {
       console.warn("شماره کارت وارد نشده");
+
       return;
     }
 
