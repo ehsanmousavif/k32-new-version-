@@ -38,6 +38,10 @@ export const checkSlugResponseContext = createContext<{
   checkSlug: Pick<User, "slug"> | null;
   setCheckSlug: React.Dispatch<React.SetStateAction<any>>;
 } | null>(null);
+export const getDataContext = createContext<{
+  getData: any;
+  setGetData: any;
+} | null>(null);
 
 type PageType = "card-preview" | "card-entry" | "slug" | "final-card";
 
@@ -50,6 +54,7 @@ export default function CreateCard() {
     "cardNumber" | "iban" | "ownerName"
   > | null>(null);
   const [checkSlug, setCheckSlug] = useState<Pick<User, "slug"> | null>(null);
+  const [getData, setGetData] = useState<any | null>(null);
   const sendData = async () => {
     try {
       const res = await fetch("/api/internal/check-card", {
@@ -105,6 +110,29 @@ export default function CreateCard() {
     }
   };
 
+  async function GetData() {
+    try {
+      const res = await fetch("/api/internal/finalized-card", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cardNumber: cardData }),
+      });
+
+      if (!res.ok) {
+        throw new Error("خطا در دریافت اطلاعات");
+      }
+
+      const response = await res.json();
+
+      setGetData(response);
+      console.log(getData, "بیو");
+
+      console.log("✅ اطلاعات دریافتی:", response);
+    } catch (error) {
+      console.error("⛔ خطا:", error);
+    }
+  }
+
   return (
     <ProgressContext.Provider value={{ progress, setProgress }}>
       <div className="w-full font-vazir">
@@ -128,7 +156,9 @@ export default function CreateCard() {
                   )}
                   {changPage === "card-preview" && <CardPreview />}
                   {changPage === "slug" && <Slug />}
-                  {changPage === "final-card" && <FinalCard />}
+                  {changPage === "final-card" && (
+                    <FinalCard getData={GetData} />
+                  )}
                 </checkSlugResponseContext.Provider>
               </validatedResponseContext.Provider>
             </CardDataContext.Provider>

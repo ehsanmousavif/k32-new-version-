@@ -10,23 +10,26 @@ datasource db {
 
 model User {
   id         Int      @id @default(autoincrement())
-  slug       String   @unique // مثل slug
-  cardNumber String   @unique // چک می‌کنیم تکراری نباشه
+  token      String?  @unique // برای login و شناسایی امن
+  slug       String   @unique // برای URL friendly id
+  userName   String?  @unique
+  password   String?  @unique
+  cardNumber String   @unique
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  cards Card[] // یک کاربر می‌تونه چند کارت داشته باشه
+  cards Card[] // Relation: یک کاربر چند کارت
 }
 
 model Card {
   id         Int     @id @default(autoincrement())
-  cardNumber String  @unique // چک می‌کنیم تکراری نباشه
+  cardNumber String  @unique
   fullName   String
   iban       String
   disabled   Boolean @default(false)
 
   userId Int
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id]) // رابطه با کاربر
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

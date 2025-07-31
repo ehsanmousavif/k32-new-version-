@@ -119,7 +119,10 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  token: 'token',
   slug: 'slug',
+  userName: 'userName',
+  password: 'password',
   cardNumber: 'cardNumber',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -148,6 +151,11 @@ exports.Prisma.ValidatedCardScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 

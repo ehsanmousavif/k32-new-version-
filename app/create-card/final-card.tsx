@@ -1,10 +1,15 @@
 "use client";
 
 import React, { useContext } from "react";
+
 import { validatedResponseContext } from "./page";
 import { checkSlugResponseContext } from "./page";
 
-export default function FinalSubmitButton() {
+interface Props {
+  getData: () => void;
+}
+
+export default function FinalSubmitButton({ getData }: Props) {
   const slugContext = useContext(checkSlugResponseContext); // شامل slug
   const sharedContext = useContext(validatedResponseContext);
 
@@ -61,7 +66,10 @@ export default function FinalSubmitButton() {
       </span>
       <button
         className="bg-black text-white py-2 px-4 rounded-lg"
-        onClick={handleSubmit}
+        onClick={() => {
+          handleSubmit;
+          getData;
+        }}
       >
         ثبت نهایی کارت
       </button>
