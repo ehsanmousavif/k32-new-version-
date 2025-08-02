@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const user = await db.user.findUnique({
+    const user = await db.card.findUnique({
       where: { cardNumber },
     });
 
@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     console.error("⛔ خطا در ثبت کارت:", error);
+
     return NextResponse.json(
       { error: "مشکلی در ثبت کارت پیش آمده" },
       { status: 500 }

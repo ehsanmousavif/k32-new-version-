@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const existsUser = await db.user.findUnique({
+    const existsUser = await db.card.findUnique({
       where: { slug },
     });
 
@@ -24,10 +24,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const newUser = await db.user.create({
+    const newUser = await db.card.create({
       data: {
         slug,
         cardNumber: cardNumber,
+        fullName: "",
+        iban: "",
+        userId: 0,
       },
     });
 
