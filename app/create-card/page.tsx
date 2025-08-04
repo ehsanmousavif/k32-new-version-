@@ -8,7 +8,8 @@ import CardPreview from "./card-preview";
 import FinalCard from "./final-card";
 
 import ProgressBar from "@/components/progress";
-import { User, ValidatedCard } from "@/generated/prisma";
+import { Card, ValidatedCard } from "@/generated/prisma";
+import IntlMessageFormat from "intl-messageformat";
 
 export const ProgressContext = createContext<{
   progress: string;
@@ -35,7 +36,7 @@ export const validatedResponseContext = createContext<{
   setShareData: React.Dispatch<React.SetStateAction<any>>;
 } | null>(null);
 export const checkSlugResponseContext = createContext<{
-  checkSlug: Pick<User, "slug"> | null;
+  checkSlug: Pick<Card, "slug"> | null;
   setCheckSlug: React.Dispatch<React.SetStateAction<any>>;
 } | null>(null);
 export const getDataContext = createContext<{
@@ -45,7 +46,11 @@ export const getDataContext = createContext<{
 
 type PageType = "card-preview" | "card-entry" | "slug" | "final-card";
 
-export default function CreateCard() {
+interface authFunction {
+  sedAuthData: () => void;
+}
+
+export default function CreateCard({ sedAuthData }: authFunction) {
   const [changPage, setChangePage] = useState<PageType>("card-entry");
   const [progress, setProgress] = useState("30");
   const [cardData, setCardData] = useState<string | null>(null);
@@ -53,7 +58,7 @@ export default function CreateCard() {
     ValidatedCard,
     "cardNumber" | "iban" | "ownerName"
   > | null>(null);
-  const [checkSlug, setCheckSlug] = useState<Pick<User, "slug"> | null>(null);
+  const [checkSlug, setCheckSlug] = useState<Pick<Card, "slug"> | null>(null);
   const [getData, setGetData] = useState<any | null>(null);
   const sendData = async () => {
     try {
@@ -102,6 +107,7 @@ export default function CreateCard() {
 
       if (res.ok && validatedData?.cardNumber) {
         setShareData(validatedData);
+        console.log(shareData, "اینو بایدالان چک کنی گمش نکنی");
       } else {
         console.warn("❌ کارت در validated پیدا نشد، رفتیم سراغ fake-card");
       }
@@ -115,7 +121,7 @@ export default function CreateCard() {
       const res = await fetch("/api/internal/finalized-card", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cardNumber: cardData }),
+        body: JSON.stringify({}),
       });
 
       if (!res.ok) {
@@ -157,7 +163,7 @@ export default function CreateCard() {
                   {changPage === "card-preview" && <CardPreview />}
                   {changPage === "slug" && <Slug />}
                   {changPage === "final-card" && (
-                    <FinalCard getData={GetData} />
+                    <FinalCard sedAuthData={sedAuthData} />
                   )}
                 </checkSlugResponseContext.Provider>
               </validatedResponseContext.Provider>

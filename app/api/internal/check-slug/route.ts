@@ -4,42 +4,46 @@ import { db } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
   try {
-    const { slug, cardNumber } = await req.json();
+    const { slug, cardNumber, token, ownerName, iban } = await req.json();
 
-    if (!slug) {
+    if (!slug || !cardNumber) {
       return NextResponse.json(
-        { error: "وارد کردن یک نام کاربری الزامی است" },
+        { error: "همه‌ی فیلدها الزامی هستند" },
         { status: 400 }
       );
     }
 
-    const existsUser = await db.card.findUnique({
-      where: { slug },
-    });
+    const exists = await db.card.findUnique({ where: { slug } });
 
-    if (existsUser) {
+    if (exists) {
       return NextResponse.json(
-        { error: "این نام کاربری قبلاً ثبت شده است" },
+        { error: "این slug قبلاً استفاده شده است" },
         { status: 409 }
       );
     }
 
-    const newUser = await db.card.create({
+    const user = await db.user.findFirst({ where: { token } });
+
+    if (!user) {
+      return NextResponse.json({ error: "کاربر معتبر نیست" }, { status: 401 });
+    }
+
+    const newCard = await db.card.create({
       data: {
         slug,
         cardNumber: cardNumber,
-        fullName: "",
-        iban: "",
-        userId: 0,
+        fullName: ownerName,
+        iban: iban,
+        userId: user.id, // ✅ مقدار درست
       },
     });
 
     return NextResponse.json({
-      message: "نام کاربری با موفقیت ثبت شد",
-      user: newUser,
+      message: "کارت با موفقیت ساخته شد",
+      card: newCard,
     });
   } catch (err) {
-    console.error("⛔ خطای سرور در check-slug:", err);
+    console.error("⛔ خطای سرور:", err);
 
     return NextResponse.json({ error: "خطای داخلی سرور" }, { status: 500 });
   }

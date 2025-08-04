@@ -1,6 +1,7 @@
+import { NextRequest, NextResponse } from "next/server";
+
 import { getCardInfo } from "@/lib/get-card-info";
 import { db } from "@/lib/prisma";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const { cardNumber } = await req.json();

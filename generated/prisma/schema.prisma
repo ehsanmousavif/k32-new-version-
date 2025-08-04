@@ -9,16 +9,14 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  token      String?  @unique // برای login و شناسایی امن
-  slug       String   @unique // برای URL friendly id
-  userName   String?  @unique
-  password   String?  @unique
-  cardNumber String   @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  token     String?
+  userName  String?  @unique
+  password  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  cards Card[] // Relation: یک کاربر چند کارت
+  cards Card[]
 }
 
 model Card {
@@ -26,6 +24,7 @@ model Card {
   cardNumber String  @unique
   fullName   String
   iban       String
+  slug       String? @unique
   disabled   Boolean @default(false)
 
   userId Int

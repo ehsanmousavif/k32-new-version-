@@ -2,7 +2,7 @@ import { Input } from "@heroui/input";
 import React, { useContext, useState } from "react";
 import { Button } from "@heroui/button";
 
-import { CardDataContext } from "./page";
+import { CardDataContext, validatedResponseContext } from "./page";
 
 import { checkSlugResponseContext, PageContext } from "./page";
 export default function Slug() {
@@ -12,6 +12,7 @@ export default function Slug() {
 
   const [inputValue, setInputValue] = useState("");
 
+  const sharedContext = useContext(validatedResponseContext);
   const checkSlugContext = useContext(checkSlugResponseContext);
 
   if (!checkSlugContext || !pageContext || !CardNumberContext) return null;
@@ -19,22 +20,37 @@ export default function Slug() {
   const { checkSlug, setCheckSlug } = checkSlugContext;
   const { setChangePage } = pageContext;
 
+  if (!sharedContext || !checkSlugContext) return null;
+
+  const { shareData } = sharedContext;
+
   async function getSlug() {
+    if (!shareData?.iban || !shareData?.ownerName || !cardData || !inputValue) {
+      console.warn("⚠️ مقادیر ناقص یا خالی هستند");
+      return;
+    }
+
     try {
       const res = await fetch("/api/internal/check-slug", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ slug: inputValue, cardNumber: cardData }),
+        body: JSON.stringify({
+          slug: inputValue,
+          cardNumber: cardData,
+          iban: shareData.iban,
+          ownerName: shareData.ownerName,
+        }),
       });
 
       const response = await res.json();
 
       if (res.ok) {
         console.log("✅ نام کاربری ثبت نشده است:", response);
+
         setCheckSlug(response.user.slug);
-        console.log(checkSlug, response);
+        setChangePage("final-card");
       } else {
         console.warn("⚠️ خطا یا تکراری بودن:", response.error);
       }

@@ -45,6 +45,7 @@ export default function CardPreview() {
         radius="full"
         size="md"
         onPress={async () => {
+          console.log(shareData);
           setChangePage("slug");
           setProgress("100");
         }}

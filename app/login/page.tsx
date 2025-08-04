@@ -1,61 +1,50 @@
 "use client";
 
-import { Button } from "@heroui/button";
-import { Input } from "@heroui/input";
 import { useState } from "react";
 
 export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  async function sendAuthData() {
-    const res = await fetch("/api/internal/signin", {
+  async function checkTokenAndGetUser() {
+    const res = await fetch("/api/internal/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        userName: userName,
-        password: password,
-      }),
+      body: JSON.stringify({ userName: userName, password: password }),
     });
 
     const data = await res.json();
 
-    if (res.ok) {
-      console.log("✅ Success", data);
-    } else {
-      console.error("❌ Server error", data);
-    }
+    // if (!data.userName || !data.password) {
+    //   alert("❌ شما ثبت‌نام نکردید.");
+    //   return;
+    // }
+    localStorage.setItem(data.token, "auth-token");
+    console.log(data);
   }
 
   return (
-    <div className="w-full flex flex-col items-center gap-4">
-      <span className="font-vazir text-black">
-        نام کاربری و رمز عبور خود را وارد نمایید
-      </span>
-      <Input
-        className="w-72 font-vazir"
-        label="نام کاربری"
-        size={"sm"}
+    <div className="w-full max-w-sm mx-auto flex flex-col gap-4">
+      <input
         type="text"
+        placeholder="نام کاربری"
         onChange={(e) => setUserName(e.target.value)}
+        className="border border-gray-300 rounded px-3 py-2"
       />
-      <Input
-        className="w-72 font-vazir "
-        label="رمز عبور"
-        size={"sm"}
+      <input
         type="password"
+        placeholder="رمز عبور"
         onChange={(e) => setPassword(e.target.value)}
+        className="border border-gray-300 rounded px-3 py-2"
       />
-
-      <Button
-        onPress={sendAuthData}
-        className="w-2/3 font-vazir"
-        color="primary"
+      <button
+        onClick={checkTokenAndGetUser}
+        className="bg-blue-600 text-white py-2 rounded"
       >
-        تایید
-      </Button>
+        بررسی و دریافت اطلاعات
+      </button>
     </div>
   );
 }

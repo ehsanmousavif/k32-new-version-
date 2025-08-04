@@ -3,7 +3,7 @@ import { db } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
   try {
-    const { cardNumber, ownerName, iban } = await req.json();
+    const { cardNumber, ownerName, iban, token } = await req.json();
 
     if (!cardNumber || !ownerName || !iban) {
       return NextResponse.json(
@@ -12,9 +12,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const user = await db.card.findUnique({
-      where: { cardNumber },
-    });
+    const user = await db.user.findFirst({ where: { token } });
 
     if (!user) {
       return NextResponse.json(
@@ -25,12 +23,13 @@ export async function POST(req: NextRequest) {
 
     const card = await db.card.create({
       data: {
-        cardNumber,
+        cardNumber: cardNumber,
         fullName: ownerName,
-        iban,
+        iban: iban,
         userId: user.id,
       },
     });
+    console.log(card, "سلام");
 
     return NextResponse.json(
       {

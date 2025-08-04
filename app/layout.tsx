@@ -8,6 +8,7 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans, fontVazir } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
+import { TokenValidated } from "@/lib/token-validated";
 
 export const metadata: Metadata = {
   title: {

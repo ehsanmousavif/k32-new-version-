@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+
 import { db } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
@@ -20,10 +21,13 @@ export async function POST(req: NextRequest) {
     const chars =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let token = "";
+
     for (let i = 0; i < length; i++) {
       const randIndex = Math.floor(Math.random() * chars.length);
+
       token += chars[randIndex];
     }
+
     return token;
   }
 
@@ -34,8 +38,6 @@ export async function POST(req: NextRequest) {
       userName,
       password,
       token,
-      slug: userName,
-      cardNumber: "",
     },
   });
 
@@ -46,7 +48,6 @@ export async function POST(req: NextRequest) {
       user: {
         id: newUser.id,
         userName: newUser.userName,
-        slug: newUser.slug,
       },
     },
     { status: 200 }

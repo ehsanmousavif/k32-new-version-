@@ -1,20 +1,56 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import { CardDataContext, validatedResponseContext } from "../create-card/page";
+import { useState, useEffect } from "react";
 
 export default function Cards() {
-  const CardNumberContext = useContext(CardDataContext);
-  const [data, setData] = useState<any | null>(null);
-  const dataContext = useContext(validatedResponseContext);
-  if (!CardNumberContext) return null;
+  const [showCard, setShowCard] = useState<any | null>(null);
 
-  const { cardData, setCardData } = CardNumberContext;
-  if (!dataContext) return null;
+  const fetchFirstCard = async () => {
+    const token = localStorage.getItem("auth-token");
+
+    if (!token) {
+      console.warn("❗ توکن وجود ندارد");
+
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/internal/get-data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.warn("⚠️ خطا در گرفتن کارت:", data.error || data.message);
+
+        return;
+      }
+
+      console.log("✅ کارت دریافت شد:", data.card);
+      setShowCard(data.card); // ✅ فقط کارت رو ذخیره کن، نه کل پاسخ
+    } catch (err) {
+      console.error("⛔ خطا در ارتباط با سرور:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchFirstCard();
+  }, []);
+
+  if (!showCard) {
+    return <p>در حال دریافت کارت...</p>;
+  }
 
   return (
-    <div>
-      <div className="flex flex-col items-center text-black">{data.iban}</div>
+    <div className="bg-white text-black p-4 rounded shadow">
+      <p className="font-vazir">شماره کارت: {showCard.cardNumber}</p>
+      <p className="font-vazir">نام : {showCard.fullName}</p>
+      <p className="font-vazir">شماره شبا{showCard.iban}</p>
     </div>
   );
 }
