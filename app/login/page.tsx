@@ -21,7 +21,8 @@ export default function Login() {
     //   alert("❌ شما ثبت‌نام نکردید.");
     //   return;
     // }
-    localStorage.setItem(data.token, "auth-token");
+    localStorage.setItem("auth-token", data.token);
+
     console.log(data);
   }
 

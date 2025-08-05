@@ -16,7 +16,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "قبلاً ثبت‌نام کردی" }, { status: 409 });
   }
 
-  // توکن ساز
   function generateToken(length = 64) {
     const chars =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

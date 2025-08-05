@@ -32,7 +32,10 @@ export default function Cards() {
       }
 
       console.log("✅ کارت دریافت شد:", data.card);
-      setShowCard(data.card); // ✅ فقط کارت رو ذخیره کن، نه کل پاسخ
+      console.log(data.cardNumber);
+      console.log(data.iban);
+      console.log(data.fullName);
+      setShowCard(data);
     } catch (err) {
       console.error("⛔ خطا در ارتباط با سرور:", err);
     }
