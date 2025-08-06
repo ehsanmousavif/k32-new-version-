@@ -1,3 +1,63 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+import { Card, Prisma, User } from "@/generated/prisma";
+import { timeAgo } from "@/lib/times";
+
 export default function Profile() {
-  return <span className="text-black text-xl font-vazir  ">پروفایل کاربر</span>;
+  const [userData, setUserData] = useState<Card>();
+  const fetchFirstCard = async () => {
+    const token = localStorage.getItem("auth-token");
+
+    if (!token) {
+      console.warn("❗ توکن وجود ندارد");
+
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/internal/user-data", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      const data = await res.json();
+      console.log(data.data);
+      setUserData(data.data);
+      if (!res.ok) {
+        console.warn("⚠️ خطا در گرفتن کارت:", data.error || data.message);
+
+        return;
+      }
+    } catch (err) {
+      console.error("⛔ خطا در ارتباط با سرور:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchFirstCard();
+  }, []);
+
+  return (
+    <div className="w-full flex flex-col items-center gap-4 font-vazir">
+      <span className="font-vazir text-black">پروفایل</span>
+      <div className="flex flex-col items-center">
+        <span className="font-vazir text-xl text-black">
+          {userData?.fullName} :نام و نام خانودگی شما
+        </span>
+        <span className="font-vazir text-xl text-black">
+          ثبت نام کردی: {timeAgo(userData?.createdAt ?? "")}
+        </span>
+        {userData?.disabled == true ? (
+          <span className="text-black">کارت فعال نیست</span>
+        ) : (
+          <span className="text-black">کارت فعال است</span>
+        )}
+      </div>
+    </div>
+  );
 }
