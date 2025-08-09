@@ -1,12 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
 
 import { db } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
   try {
-    const { slug, cardNumber, token, ownerName, iban } = await req.json();
+    const { slug, cardNumber, ownerName, iban } = await req.json();
+    const headerList = await headers();
+    const auth = headerList.get("Authorization");
+    const token = auth?.split(" ")[1];
 
-    if (!slug || !cardNumber) {
+    if (!auth?.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "ریدی" }, { status: 200 });
+    }
+
+    if (!cardNumber) {
       return NextResponse.json(
         { error: "همه‌ی فیلدها الزامی هستند" },
         { status: 400 }
@@ -34,7 +42,7 @@ export async function POST(req: NextRequest) {
         cardNumber: cardNumber,
         fullName: ownerName,
         iban: iban,
-        userId: user.id, // ✅ مقدار درست
+        userId: user.id,
       },
     });
 

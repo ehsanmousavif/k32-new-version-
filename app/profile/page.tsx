@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { Card, Prisma, User } from "@/generated/prisma";
+import { Card } from "@/generated/prisma";
 import { timeAgo } from "@/lib/times";
 
 export default function Profile() {
@@ -26,6 +26,7 @@ export default function Profile() {
       });
 
       const data = await res.json();
+
       console.log(data.data);
       setUserData(data.data);
       if (!res.ok) {
@@ -53,9 +54,9 @@ export default function Profile() {
           ثبت نام کردی: {timeAgo(userData?.createdAt ?? "")}
         </span>
         {userData?.disabled == true ? (
-          <span className="text-black">کارت فعال نیست</span>
+          <span className="text-red-200">کارت فعال نیست</span>
         ) : (
-          <span className="text-black">کارت فعال است</span>
+          <span className="text-green-500">کارت فعال است</span>
         )}
       </div>
     </div>

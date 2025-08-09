@@ -7,9 +7,9 @@ import Slug from "./check-slug";
 import CardPreview from "./card-preview";
 import FinalCard from "./final-card";
 
+import { FetchingData } from "@/lib/fetching-data";
 import ProgressBar from "@/components/progress";
-import { Card, ValidatedCard } from "@/generated/prisma";
-import IntlMessageFormat from "intl-messageformat";
+import { Card, Prisma, ValidatedCard } from "@/generated/prisma";
 
 export const ProgressContext = createContext<{
   progress: string;
@@ -22,8 +22,8 @@ export const PageContext = createContext<{
 } | null>(null);
 
 export const CardDataContext = createContext<{
-  cardData: string | null;
-  setCardData: React.Dispatch<React.SetStateAction<string | null>>;
+  cardNumberData: string | null;
+  setCardNumberData: React.Dispatch<React.SetStateAction<string | null>>;
 } | null>(null);
 
 export const ValidatedCardContext = createContext<{
@@ -53,61 +53,50 @@ interface authFunction {
 export default function CreateCard({ sedAuthData }: authFunction) {
   const [changPage, setChangePage] = useState<PageType>("card-entry");
   const [progress, setProgress] = useState("30");
-  const [cardData, setCardData] = useState<string | null>(null);
+  const [cardNumberData, setCardNumberData] = useState<string | null>(null);
   const [shareData, setShareData] = useState<Pick<
     ValidatedCard,
     "cardNumber" | "iban" | "ownerName"
   > | null>(null);
   const [checkSlug, setCheckSlug] = useState<Pick<Card, "slug"> | null>(null);
-  const [getData, setGetData] = useState<any | null>(null);
   const sendData = async () => {
-    try {
-      const res = await fetch("/api/internal/check-card", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ cardNumber: cardData }),
-      });
+    const { data, error } = await FetchingData({
+      endpoint: "/api/internal/check-card",
+      body: { cardNumber: cardNumberData },
+      requiresAuth: true,
+    });
 
-      const data = await res.json();
-
-      if (res.ok) {
-        console.log("✅ کارت ثبت نشده. ادامه بده", data);
-      } else {
-        console.log("⚠️ شماره کارت قبلا ثبت شده است ", data);
-      }
-    } catch (error) {
-      console.error("خطا:", error);
-      alert("مشکلی پیش آمده.");
+    if (data) {
+      console.log("درسته", data);
+    } else if (!data) {
+      console.log("⚠️ این کارت قبلاً ثبت شده");
+    } else {
+      console.log("✅ ریدی", error);
     }
   };
 
   const fetchValidatedCard = async () => {
-    if (!cardData) {
+    if (!cardNumberData) {
       console.warn("شماره کارت وارد نشده");
 
       return;
     }
 
+    const { data, error } = await FetchingData<
+      { cardNumber: string },
+      Prisma.ValidatedCardGetPayload<{
+        select: { cardNumber: true; iban: true; ownerName: true };
+      }>
+    >({
+      endpoint: "/api/internal/validated-card",
+      body: { cardNumber: cardNumberData },
+      requiresAuth: true,
+    });
+
     try {
-      const res = await fetch("/api/internal/validated-card", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cardNumber: cardData }),
-      });
-
-      let validatedData = null;
-
-      try {
-        validatedData = await res.json();
-      } catch {
-        console.warn("⚠️ داده‌ای از سرور برنگشت یا JSON خراب بود");
-      }
-
-      if (res.ok && validatedData?.cardNumber) {
-        setShareData(validatedData);
-        console.log(shareData, "اینو بایدالان چک کنی گمش نکنی");
+      if (data?.cardNumber) {
+        setShareData(data); // این‌جا set می‌کنی
+        console.log("✅ داده‌ی ولید شده:", data); // مستقیماً data رو لاگ کن، نه shareData
       } else {
         console.warn("❌ کارت در validated پیدا نشد، رفتیم سراغ fake-card");
       }
@@ -115,29 +104,6 @@ export default function CreateCard({ sedAuthData }: authFunction) {
       console.error("⛔ خطا در عملیات:", error);
     }
   };
-
-  async function GetData() {
-    try {
-      const res = await fetch("/api/internal/finalized-card", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      });
-
-      if (!res.ok) {
-        throw new Error("خطا در دریافت اطلاعات");
-      }
-
-      const response = await res.json();
-
-      setGetData(response);
-      console.log(getData, "بیو");
-
-      console.log("✅ اطلاعات دریافتی:", response);
-    } catch (error) {
-      console.error("⛔ خطا:", error);
-    }
-  }
 
   return (
     <ProgressContext.Provider value={{ progress, setProgress }}>
@@ -147,7 +113,9 @@ export default function CreateCard({ sedAuthData }: authFunction) {
             <ProgressBar progressPercent={progress} value={96} />
           </div>
           <PageContext.Provider value={{ changPage, setChangePage }}>
-            <CardDataContext.Provider value={{ cardData, setCardData }}>
+            <CardDataContext.Provider
+              value={{ cardNumberData, setCardNumberData }}
+            >
               <validatedResponseContext.Provider
                 value={{ shareData, setShareData }}
               >

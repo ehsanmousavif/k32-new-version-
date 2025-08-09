@@ -18,7 +18,7 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
 
   if (!ProContext || !pageContext || !CardNumberContext) return null;
 
-  const { cardData, setCardData } = CardNumberContext;
+  const { cardNumberData, setCardNumberData } = CardNumberContext;
   const { setProgress } = ProContext;
   const { setChangePage } = pageContext;
 
@@ -29,12 +29,12 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
         <InputOtp
           className="m-auto"
           errorMessage={"شماره کارت شما باید ۱۶ رقم باشد"}
-          isInvalid={!cardData || cardData.length !== 16}
+          isInvalid={!cardNumberData || cardNumberData.length !== 16}
           length={16}
           size="sm"
-          value={cardData ?? ""}
+          value={cardNumberData ?? ""}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setCardData(e.target.value)
+            setCardNumberData(e.target.value)
           }
         />
       </div>
@@ -42,7 +42,7 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
         fullWidth
         className="font-vazir"
         color="primary"
-        isDisabled={!cardData || cardData.length !== 16}
+        isDisabled={!cardNumberData || cardNumberData.length !== 16}
         radius="full"
         size="md"
         onPress={() => {

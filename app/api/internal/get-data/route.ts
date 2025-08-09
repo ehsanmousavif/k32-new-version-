@@ -1,15 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { headers } from "next/headers";
+
 import { db } from "@/lib/prisma";
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   try {
-    const { token } = await req.json();
+    const tokenLists = await headers();
+    const auth = tokenLists.get("Authorization");
+    const token = auth?.split(" ")[1];
 
-    if (!token) {
-      return NextResponse.json(
-        { error: "توکن ارسال نشده است" },
-        { status: 400 }
-      );
+    if (!auth?.startsWith("Bearer ")) {
+      return NextResponse.json({ error: "ریدی" }, { status: 200 });
     }
 
     const user = await db.user.findFirst({ where: { token } });
@@ -35,6 +36,7 @@ export async function POST(req: NextRequest) {
       fullName: cards.fullName,
       iban: cards.iban,
       cardNumber: cards.cardNumber,
+      token: token,
     });
   } catch (error: any) {
     console.error("⛔ خطای سرور:", error.message, error.stack);

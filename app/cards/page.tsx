@@ -2,31 +2,33 @@
 
 import { useState, useEffect } from "react";
 
+import { FetchingData } from "@/lib/fetching-data";
+
 export default function Cards() {
   const [showCard, setShowCard] = useState<any | null>(null);
 
+  type CardResponse = {
+    cardNumber: string;
+    fullName: string;
+    iban: string;
+    card: string;
+  };
+
   const fetchFirstCard = async () => {
-    const token = localStorage.getItem("auth-token");
-
-    if (!token) {
-      console.warn("❗ توکن وجود ندارد");
-
-      return;
-    }
-
     try {
-      const res = await fetch("/api/internal/get-data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token }),
+      const { data, error } = await FetchingData<undefined, CardResponse>({
+        endpoint: "/api/internal/get-data",
+        requiresAuth: true,
       });
 
-      const data = await res.json();
+      if (error) {
+        console.warn("⚠️ خطا در گرفتن کارت:", error);
 
-      if (!res.ok) {
-        console.warn("⚠️ خطا در گرفتن کارت:", data.error || data.message);
+        return;
+      }
+
+      if (!data) {
+        console.warn("⚠️ داده‌ای دریافت نشد");
 
         return;
       }
@@ -35,6 +37,7 @@ export default function Cards() {
       console.log(data.cardNumber);
       console.log(data.iban);
       console.log(data.fullName);
+
       setShowCard(data);
     } catch (err) {
       console.error("⛔ خطا در ارتباط با سرور:", err);

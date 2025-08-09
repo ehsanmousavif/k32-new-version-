@@ -1,52 +1,33 @@
 "use client";
+
+import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
+import { FetchingData } from "@/lib/fetching-data";
 
-export default function Slug({ params }: PageProps) {
-  const slug = params.slug;
-  const [showCard, setShowCard] = useState<any | null>(null);
-  const [loading, setLoading] = useState(true);
+interface dataType {}
 
-  const fetchCardBySlug = async () => {
-    console.log(slug, "اینه");
-    if (!slug) {
-      console.warn("❗ اسلاگ وجود ندارد");
-      return;
-    }
+export default function CardPage({ params }: { params: { slug: string } }) {
+  const [returnData, setReturnData] = useState<any>("");
+  const _X = async () => {
+    const { data }: any = await FetchingData({
+      endpoint: "/api/internal/get-card-by-slug",
+      body: { slug: params.slug },
+      requiresAuth: true,
+    });
 
-    try {
-      const res = await fetch("/api/internal/get-card-by-slug", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ slug }),
-      });
-
-      const data = await res.json();
-      setLoading(false);
-
-      if (!res.ok) {
-        console.warn("⚠️ خطا در دریافت کارت:", data.error || data.message);
-        return;
-      }
-
-      console.log("✅ کارت دریافت شد:", data.card);
-      setShowCard(data.card);
-    } catch (err) {
-      setLoading(false);
-      console.error("⛔ خطا در ارتباط با سرور:", err);
-    }
+    setReturnData(data);
+    console.log(data);
   };
 
   useEffect(() => {
-    fetchCardBySlug();
-  }, [params]);
+    _X();
+  }, [params.slug]);
 
-  return <div className="p-4 ">{}</div>;
+  return (
+    <div className="p-4 text-black">
+      <h1 className="text-xl font-bold">{returnData.ownerName}</h1>{" "}
+      <p>شماره کارت: {returnData.cardNumber}</p>
+    </div>
+  );
 }
