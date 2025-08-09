@@ -13,7 +13,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
 
   async function sendAuthData() {
-    const res = await fetch("/api/internal/signin", {
+    const res = await fetch("/api/internal/auth/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,9 +37,7 @@ export default function SignIn() {
 
   async function nextPage() {
     sendAuthData();
-    setTimeout(() => {
-      router.push("/create-card");
-    }, 2000);
+    router.push("/create-card");
   }
 
   return (

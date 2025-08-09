@@ -25,6 +25,6 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({
     message: "✅ ورود موفق بود",
-    token: user.token,
+    token: user,
   });
 }

@@ -38,15 +38,6 @@ export default function Slug() {
     }
 
     try {
-      // const res = await fetch("/api/internal/check-slug", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-
-      //   }),
-      // });
       type dataTypes = {
         slug: string;
         cardNumber: string;
@@ -54,7 +45,7 @@ export default function Slug() {
         ownerName: string;
       };
 
-      const { data, error }: any = await FetchingData<dataTypes>({
+      const { data }: any = await FetchingData<dataTypes>({
         endpoint: "/api/internal/check-slug",
         body: {
           slug: inputValue,
