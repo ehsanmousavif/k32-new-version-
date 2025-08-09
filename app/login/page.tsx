@@ -1,9 +1,10 @@
 "use client";
 
-import { Prisma, User } from "@/generated/prisma";
-import { FetchingData } from "@/lib/fetching-data";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { Prisma } from "@/generated/prisma";
+import { FetchingData } from "@/lib/fetching-data";
 
 export default function Login() {
   const [userName, setUserName] = useState("");

@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
 
 import { db } from "@/lib/prisma";
-import { headers } from "next/headers";
-// import { error } from "console";
 
 export async function POST(req: NextRequest) {
   const headerList = await headers();

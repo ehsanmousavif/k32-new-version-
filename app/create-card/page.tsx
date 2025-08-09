@@ -82,7 +82,7 @@ export default function CreateCard({ sedAuthData }: authFunction) {
       return;
     }
 
-    const { data, error } = await FetchingData<
+    const { data } = await FetchingData<
       { cardNumber: string },
       Prisma.ValidatedCardGetPayload<{
         select: { cardNumber: true; iban: true; ownerName: true };
@@ -95,8 +95,8 @@ export default function CreateCard({ sedAuthData }: authFunction) {
 
     try {
       if (data?.cardNumber) {
-        setShareData(data); // این‌جا set می‌کنی
-        console.log("✅ داده‌ی ولید شده:", data); // مستقیماً data رو لاگ کن، نه shareData
+        setShareData(data);
+        console.log("✅ داده‌ی ولید شده:", data);
       } else {
         console.warn("❌ کارت در validated پیدا نشد، رفتیم سراغ fake-card");
       }

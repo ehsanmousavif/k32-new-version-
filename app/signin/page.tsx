@@ -5,8 +5,6 @@ import { Input } from "@heroui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { TokenValidated } from "@/lib/token-validated";
-
 export default function SignIn() {
   const router = useRouter();
   const [userName, setUserName] = useState("");
@@ -61,11 +59,11 @@ export default function SignIn() {
       />
 
       <Button
+        className="w-2/3 font-vazir"
+        color="primary"
         onPress={() => {
           nextPage();
         }}
-        className="w-2/3 font-vazir"
-        color="primary"
       >
         تایید
       </Button>

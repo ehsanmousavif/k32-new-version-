@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+
 import { db } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
@@ -32,6 +33,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (error: any) {
     console.error("⛔ خطای سرور:", error.message);
+
     return NextResponse.json({ error: "خطای داخلی سرور" }, { status: 500 });
   }
 }

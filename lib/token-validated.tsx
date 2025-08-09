@@ -1,22 +1,21 @@
 "use client";
-
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-interface props {
-  token: string | null;
-}
-export function TokenValidated(token: string|null) {
-  const pathName = usePathname();
+export default function ProtectedRoute({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const router = useRouter();
 
   useEffect(() => {
-    if (token == null) {
-      router.push("/login");
+    const token = localStorage.getItem("token");
 
-      return console.log("ثبت نام نکردی");
-    } else {
-      return console.log("ریدی");
+    if (!token) {
+      router.replace("/login");
     }
-  }, [pathName, router]);
+  }, [router]);
+
+  return <>{children}</>;
 }

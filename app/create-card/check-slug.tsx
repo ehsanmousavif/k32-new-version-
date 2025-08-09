@@ -17,8 +17,7 @@ export default function Slug() {
   const checkSlugContext = useContext(checkSlugResponseContext);
 
   if (!checkSlugContext || !pageContext || !CardNumberContext) return null;
-  const { cardNumberData, setCardNumberData } = CardNumberContext;
-  const { checkSlug, setCheckSlug } = checkSlugContext;
+  const { cardNumberData } = CardNumberContext;
   const { setChangePage } = pageContext;
 
   if (!sharedContext || !checkSlugContext) return null;
@@ -46,7 +45,7 @@ export default function Slug() {
       };
 
       const { data }: any = await FetchingData<dataTypes>({
-        endpoint: "/api/internal/check-slug",
+        endpoint: "/api/internal/get-data-by-slug",
         body: {
           slug: inputValue,
           cardNumber: shareData.cardNumber,

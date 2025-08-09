@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+
 import { db } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
@@ -29,6 +30,7 @@ export async function POST(req: NextRequest) {
         userId: user.id,
       },
     });
+
     console.log(card, "سلام");
 
     return NextResponse.json(

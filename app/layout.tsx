@@ -8,7 +8,7 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans, fontVazir } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
-import { TokenValidated } from "@/lib/token-validated";
+import ProtectedRoute from "@/lib/token-validated";
 
 export const metadata: Metadata = {
   title: {
@@ -51,7 +51,9 @@ export default function RootLayout({
                   border border-white/20
                   rounded-lg w-full  bac min-h-screen container mx-auto flex-grow relative "
             >
-              <div className="backdrop-filter ">{children}</div>
+              <div className="backdrop-filter ">
+                <ProtectedRoute> {children}</ProtectedRoute>
+              </div>
               <div className=" absolute  bottom-2 left-4 right-4">
                 <Navbar />
               </div>
