@@ -1,6 +1,6 @@
-import { Card } from "@/generated/prisma";
+export function timeAgo(createdAt: Date | string) {
+  if (!createdAt) return "تاریخ نامشخص";
 
-export function timeAgo(createdAt: Card["createdAt"] | Date | string) {
   const now = new Date();
   const past = new Date(createdAt);
   const diff = now.getTime() - past.getTime();
@@ -18,4 +18,6 @@ export function timeAgo(createdAt: Card["createdAt"] | Date | string) {
   if (hours > 0) return `${hours} ساعت پیش`;
   if (minutes > 0) return `${minutes} دقیقه پیش`;
   if (seconds > 0) return `${seconds} ثانیه پیش`;
+
+  return "همین الان";
 }

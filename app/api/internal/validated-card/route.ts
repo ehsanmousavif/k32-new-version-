@@ -3,14 +3,13 @@ import { headers } from "next/headers";
 
 import { getCardInfo } from "@/lib/get-card-info";
 import { db } from "@/lib/prisma";
+import { DispatchToken } from "@/lib/dispatch-token";
 
 export async function POST(req: NextRequest) {
   const { cardNumber } = await req.json();
-  const tokenLists = await headers();
-  const auth = tokenLists.get("Authorization");
-  const token = auth?.split(" ")[1];
+  const token = await DispatchToken();
 
-  if (!auth?.startsWith("Bearer ")) {
+  if (!token) {
     return NextResponse.json({ error: "ریدی" }, { status: 200 });
   }
   if (!cardNumber)

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Card } from "@/generated/prisma";
 import { timeAgo } from "@/lib/times";
+import { FetchingData } from "@/lib/fetching-data";
 
 export default function Profile() {
   const [userData, setUserData] = useState<Card>();
@@ -17,19 +18,14 @@ export default function Profile() {
     }
 
     try {
-      const res = await fetch("/api/internal/user-data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token }),
+      const { data }: any = await FetchingData({
+        endpoint: "/api/internal/user-data",
+        requiresAuth: true,
       });
-
-      const data = await res.json();
 
       console.log(data.data);
       setUserData(data.data);
-      if (!res.ok) {
+      if (!data.ok) {
         console.warn("⚠️ خطا در گرفتن کارت:", data.error || data.message);
 
         return;
@@ -51,7 +47,7 @@ export default function Profile() {
           {userData?.fullName} :نام و نام خانودگی شما
         </span>
         <span className="font-vazir text-xl text-black">
-          ثبت نام کردی: {timeAgo(userData?.createdAt ?? "")}
+          ثبت نام کردی: {timeAgo(userData?.createdAt || "")}
         </span>
         {userData?.disabled == true ? (
           <span className="text-red-200">کارت فعال نیست</span>

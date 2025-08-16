@@ -13,9 +13,14 @@ export default function ProtectedRoute({
     const token = localStorage.getItem("token");
 
     if (!token) {
-      router.replace("/login");
+      router.replace("/signup ");
     }
-  }, [router]);
+  }, []);
 
-  return <>{children}</>;
+  return (
+    <>
+      {<link href="/create-card" />}
+      {children}
+    </>
+  );
 }

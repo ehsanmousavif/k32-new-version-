@@ -2,13 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 
 import { db } from "@/lib/prisma";
+import { DispatchToken } from "@/lib/dispatch-token";
 
 export async function POST(req: NextRequest) {
-  const headerList = await headers();
-  const auth = headerList.get("Authorization");
-  const token = auth?.split(" ")[1];
+  const token = await DispatchToken();
 
-  if (!auth?.startsWith("Bearer ")) {
+  if (!token) {
     return NextResponse.json({ error: "ریدی" }, { status: 200 });
   }
   const body = await req.json();

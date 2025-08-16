@@ -1,72 +1,54 @@
 "use client";
 
-import { Button } from "@heroui/button";
-import { Input } from "@heroui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function SignIn() {
-  const router = useRouter();
+import { Prisma } from "@/generated/prisma";
+import { FetchingData } from "@/lib/fetching-data";
+
+export default function Signin() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
-  async function sendAuthData() {
-    const res = await fetch("/api/internal/auth/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userName: userName,
-        password: password,
-      }),
+  async function checkTokenAndGetUser() {
+    const { data }: any = await FetchingData<
+      Prisma.UserGetPayload<{ select: { password: true; userName: true } }>
+    >({
+      endpoint: "/api/internal/auth/login",
+      body: { userName: userName, password: password },
+      requiresAuth: false,
     });
 
-    const data = await res.json();
-
-    localStorage.setItem("auth-token", data.token);
-
-    if (res.ok) {
-      console.log("✅ Success", data);
+    if (!data) {
+      return console.log("ورود موفقیت آمیز نبود", data.error);
     } else {
-      console.error("❌ Server error", data);
+      console.log("ورود موفقیت آمیز بود ", data);
     }
   }
 
-  async function nextPage() {
-    sendAuthData();
-    router.push("/create-card");
-  }
-
   return (
-    <div className="w-full flex flex-col items-center gap-4">
-      <span className="font-vazir text-black">
-        نام کاربری و رمز عبور خود را وارد نمایید
-      </span>
-      <Input
-        className="w-72 font-vazir"
-        label="نام کاربری"
-        size={"sm"}
+    <div className="w-full max-w-sm mx-auto flex flex-col gap-4">
+      <input
+        className="border border-gray-300 rounded px-3 py-2"
+        placeholder="نام کاربری"
         type="text"
         onChange={(e) => setUserName(e.target.value)}
       />
-      <Input
-        className="w-72 font-vazir "
-        label="رمز عبور"
-        size={"sm"}
+      <input
+        className="border border-gray-300 rounded px-3 py-2"
+        placeholder="رمز عبور"
         type="password"
         onChange={(e) => setPassword(e.target.value)}
       />
-
-      <Button
-        className="w-2/3 font-vazir"
-        color="primary"
-        onPress={() => {
-          nextPage();
+      <button
+        className="bg-blue-600 text-white py-2 rounded"
+        onClick={() => {
+          checkTokenAndGetUser(), router.push("/create-card");
         }}
       >
-        تایید
-      </Button>
+        بررسی و دریافت اطلاعات
+      </button>
     </div>
   );
 }
