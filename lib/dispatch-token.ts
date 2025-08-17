@@ -7,5 +7,6 @@ export async function DispatchToken() {
   if (!auth || !auth.startsWith("Bearer ")) {
     return null;
   }
+
   return auth.split(" ")[1];
 }

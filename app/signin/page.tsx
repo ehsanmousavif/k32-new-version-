@@ -6,16 +6,17 @@ import { useRouter } from "next/navigation";
 import { Prisma } from "@/generated/prisma";
 import { FetchingData } from "@/lib/fetching-data";
 
-export default function Signin() {
+export default function SignIn() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [data, setData] = useState("");
   const router = useRouter();
 
   async function checkTokenAndGetUser() {
     const { data }: any = await FetchingData<
       Prisma.UserGetPayload<{ select: { password: true; userName: true } }>
     >({
-      endpoint: "/api/internal/auth/login",
+      endpoint: "/api/internal/auth/signin",
       body: { userName: userName, password: password },
       requiresAuth: false,
     });
@@ -24,6 +25,7 @@ export default function Signin() {
       return console.log("ورود موفقیت آمیز نبود", data.error);
     } else {
       console.log("ورود موفقیت آمیز بود ", data);
+      localStorage.setItem("auth-token", data.token.token);
     }
   }
 

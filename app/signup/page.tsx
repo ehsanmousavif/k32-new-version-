@@ -11,7 +11,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
 
   async function sendAuthData() {
-    const res = await fetch("/api/internal/auth/signin", {
+    const res = await fetch("/api/internal/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

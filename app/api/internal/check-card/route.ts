@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { headers } from "next/headers";
 
 import { db } from "@/lib/prisma";
 import { DispatchToken } from "@/lib/dispatch-token";

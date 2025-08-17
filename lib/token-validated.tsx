@@ -13,9 +13,9 @@ export default function ProtectedRoute({
     const token = localStorage.getItem("token");
 
     if (!token) {
-      router.replace("/signup ");
+      router.replace("/signin");
     }
-  }, []);
+  }, [""]);
 
   return (
     <>
