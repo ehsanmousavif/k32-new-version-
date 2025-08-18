@@ -36,37 +36,17 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning className={fontVazir.variable} lang="fa">
       <head />
-      <body
-        className={clsx(
-          " max-w-2xl m-auto min-h-screen  text-foreground bg-white  antialiased",
-          fontSans.variable
-        )}
-      >
+      <body className="h-[100dvh] bg-black text-foreground antialiased flex flex-col">
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className=" min-h-screen relative flex flex-col p-0 m-0 c">
-            <main
-              className=" p-8 text-white 
-                bg-white/20
-                 backdrop-blur-3xl
-                  border border-white/20
-                  rounded-lg w-full  bac min-h-screen container mx-auto flex-grow relative "
-            >
-              <div className="backdrop-filter ">
-                <ProtectedRoute> {children}</ProtectedRoute>
-              </div>
-              <div className=" absolute  bottom-2 left-4 right-4">
-                <Navbar />
-              </div>
-            </main>
+          {/* محتوای وسط با عرض محدود */}
+          <main className="flex-grow flex justify-center items-center p-4">
+            <div className="w-[798px] h-full max-h-[100dvh] flex flex-col justify-center  p-8 text-white backdrop-blur-3xl rounded-lg">
+              {children}
+            </div>
+          </main>
 
-            <footer className="w-full flex items-center justify-center " />
-            <Link
-              isExternal
-              className="flex items-center justify-center  gap-1 text-current"
-              href="https://heroui.com?utm_source=next-app-template"
-              title="heroui.com homepage"
-            />
-          </div>
+          {/* Navbar پایین و تمام عرض */}
+          <footer className="w-full h-[60px]">{/* <Navbar /> */}</footer>
         </Providers>
       </body>
     </html>
