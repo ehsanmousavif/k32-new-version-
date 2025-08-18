@@ -10,6 +10,7 @@ import FinalCard from "./final-card";
 import { FetchingData } from "@/lib/fetching-data";
 import ProgressBar from "@/components/progress";
 import { Card, Prisma, ValidatedCard } from "@/generated/prisma";
+import ProtectedRoute from "@/lib/token-validated";
 
 export const ProgressContext = createContext<{
   progress: string;
@@ -51,6 +52,7 @@ interface authFunction {
 }
 
 export default function CreateCard({ sedAuthData }: authFunction) {
+  ProtectedRoute();
   const [changPage, setChangePage] = useState<PageType>("card-entry");
   const [progress, setProgress] = useState("30");
   const [cardNumberData, setCardNumberData] = useState<string | null>(null);

@@ -2,11 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function ProtectedRoute({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ProtectedRoute() {
   const router = useRouter();
 
   useEffect(() => {
@@ -16,11 +12,4 @@ export default function ProtectedRoute({
       router.replace("/signin");
     }
   }, [""]);
-
-  return (
-    <>
-      {<link href="/create-card" />}
-      {children}
-    </>
-  );
 }

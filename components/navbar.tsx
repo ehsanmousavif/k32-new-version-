@@ -18,7 +18,7 @@ export const Navbar = () => {
 
   return (
     <HeroUINavbar
-      className=" w-full  rounded-2xl"
+      className=" w-full bg-white/10  rounded-2xl"
       maxWidth="full"
       position="sticky"
     >
@@ -38,7 +38,7 @@ export const Navbar = () => {
                 href={item.href}
               >
                 <div
-                  className={`text-black ${pathName.replace(/^\//, "") === item.label.toLowerCase() ? "fit-content border-2 border-slate-800  shadow-md rounded-xl px-3 py-1 " : "text-black"} font-medium font-mono`}
+                  className={`text-black ${pathName.replace(/^\//, "") === item.label.toLowerCase() ? "fit-content  border  shadow-md rounded-xl px-3 py-1 " : "text-black"} font-medium font-mono`}
                 >
                   {item.label}
                 </div>
