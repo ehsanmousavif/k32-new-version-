@@ -3,8 +3,6 @@ export async function getCardInfo(cardNumber: string): Promise<{
   ownerName: string;
   iban: string;
 }> {
-  // this is a fake data for test
-
   return {
     cardNumber,
     ownerName: "احسان موسوی",

@@ -13,7 +13,6 @@ export default function Profile() {
 
     if (!token) {
       console.warn("❗ توکن وجود ندارد");
-
       return;
     }
 
@@ -25,9 +24,9 @@ export default function Profile() {
 
       console.log(data.data);
       setUserData(data.data);
+
       if (!data.ok) {
         console.warn("⚠️ خطا در گرفتن کارت:", data.error || data.message);
-
         return;
       }
     } catch (err) {
@@ -40,19 +39,26 @@ export default function Profile() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-center gap-4 font-vazir">
-      <span className="font-vazir text-black">پروفایل</span>
-      <div className="flex flex-col items-center">
-        <span className="font-vazir text-xl text-black">
-          {userData?.fullName} :نام و نام خانودگی شما
+    <div className="BASE_CONTAINER w-[25rem] flex flex-col items-center justify-center gap-6 font-vazir text-right">
+      <span className="text-lg font-bold text-white">پروفایل</span>
+
+      <div className="flex flex-col items-start gap-3 w-full">
+        <span className="text-md text-white">
+          نام و نام خانوادگی شما :
+          <span className="text-sm font-bold">{userData?.fullName}</span>
         </span>
-        <span className="font-vazir text-xl text-black">
-          ثبت نام کردی: {timeAgo(userData?.createdAt || "")}
+        <span className="text-md text-white">
+          ثبت نام کردی:
+          <span className="text-sm font-bold">
+            {" "}
+            {timeAgo(userData?.createdAt || "")}
+          </span>
         </span>
-        {userData?.disabled == true ? (
-          <span className="text-red-200">کارت فعال نیست</span>
+
+        {userData?.disabled ? (
+          <span className="text-red-400 font-semibold">کارت فعال نیست</span>
         ) : (
-          <span className="text-green-500">کارت فعال است</span>
+          <span className="text-green-400 font-semibold">کارت فعال است</span>
         )}
       </div>
     </div>

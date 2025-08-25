@@ -1,13 +1,18 @@
-export default function PricingLayout({
+"use client";
+import { ToastProvider } from "@heroui/react";
+import { HeroUIProvider } from "@heroui/system";
+
+export default function SigninLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex min-h-[clac(100vh-60px)] m-auto flex-col items-center justify-center gap-4  md:py-10">
-      <div className="flex flex-col justify-center items-center">
+    <div className="w-auto">
+      <HeroUIProvider className="">
+        <ToastProvider placement="top-center" />
         {children}
-      </div>
-    </section>
+      </HeroUIProvider>
+    </div>
   );
 }

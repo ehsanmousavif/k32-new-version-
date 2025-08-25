@@ -1,9 +1,11 @@
 "use client";
+import { motion } from "framer-motion";
 
-import { Button, InputOtp } from "@heroui/react";
+import { Button, Input, InputOtp, NumberInput } from "@heroui/react";
 import React, { useContext } from "react";
 
 import { ProgressContext, PageContext, CardDataContext } from "./page";
+import { Icon } from "@/components/icons/icons";
 ("./card-preview");
 
 interface Functions {
@@ -23,15 +25,19 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
   const { setChangePage } = pageContext;
 
   return (
-    <div className="w-auto">
-      <div className="w-full m-auto h-60 flex flex-col items-center justify-between gap-4">
+    <motion.div
+      className="CREATE_CARDS_CONTAINER"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      {Icon.card}
+      <div className="w-full min-h-[35vh] flex flex-col items-center justify-center gap-4">
         <span className="font-normal">شماره کارت خود را وارد کنید</span>
-        <InputOtp
-          className="m-auto"
+        <Input
+          className="m-auto max-w-md w-full"
           errorMessage={"شماره کارت شما باید ۱۶ رقم باشد"}
           isInvalid={!cardNumberData || cardNumberData.length !== 16}
-          length={16}
-          size="sm"
           value={cardNumberData ?? ""}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setCardNumberData(e.target.value)
@@ -39,11 +45,10 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
         />
       </div>
       <Button
-        fullWidth
-        className="font-vazir"
+        className="w-full "
         color="primary"
         isDisabled={!cardNumberData || cardNumberData.length !== 16}
-        radius="full"
+        radius="sm"
         size="md"
         onPress={() => {
           sendData();
@@ -54,6 +59,6 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
       >
         تایید
       </Button>
-    </div>
+    </motion.div>
   );
 }

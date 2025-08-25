@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "bank": "meli",
+    "name": "بانک ملی ایران",
+    "bin": "603799",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Bank_Melli_Iran_Logo.svg",
+    "from": "#FFD700",
+    "to": "#ef3c43"
+  },
+  {
+    "id": 2,
+    "bank": "melat",
+    "name": "بانک ملت",
+    "bin": "610433",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Bank_Mellat_Logo.svg",
+    "from": "#E30613",
+    "to": "#4D4D4D"
+  },
+  {
+    "id": 3,
+    "bank": "saman",
+    "name": "بانک سامان",
+    "bin": "621986",
+    "logo": "https://cdn.tetherland.com/logo/banks-svg/Bank%20-%20Saman%20-%20Color.svg",
+    "from": "#009DDB",
+    "to": "#009DDB"
+  },
+  {
+    "id": 4,
+    "bank": "passargad",
+    "name": "بانک پاسارگاد",
+    "bin": "502229",
+    "logo": "https://cdn.tetherland.com/logo/banks-svg/Bank%20-%20Pasargad%20-%20Color.svg",
+    "from": "#FFD200",
+    "to": "#1C1C1C"
+  },
+  {
+    "id": 5,
+    "bank": "saderat",
+    "name": "بانک صادرات",
+    "bin": "603769",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Bank_Saderat_Iran_logo.svg",
+    "from": "#003399",
+    "to": "#808080"
+  },
+  {
+    "id": 6,
+    "bank": "sarmaye",
+    "name": "بانک سرمایه",
+    "bin": "639607",
+    "logo": "https://cdn.tetherland.com/logo/banks-svg/Bank%20-%20Sarmayeh%20-%20Color.svg",
+    "from": "#1E90FF",
+    "to": "#0B3C8C"
+  }
+]

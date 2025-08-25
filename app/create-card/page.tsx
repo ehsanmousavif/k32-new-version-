@@ -10,7 +10,6 @@ import FinalCard from "./final-card";
 import { FetchingData } from "@/lib/fetching-data";
 import ProgressBar from "@/components/progress";
 import { Card, Prisma, ValidatedCard } from "@/generated/prisma";
-import ProtectedRoute from "@/lib/token-validated";
 
 export const ProgressContext = createContext<{
   progress: string;
@@ -52,8 +51,7 @@ interface authFunction {
 }
 
 export default function CreateCard({ sedAuthData }: authFunction) {
-  ProtectedRoute();
-  const [changPage, setChangePage] = useState<PageType>("card-entry");
+  const [changPage, setChangePage] = useState<PageType>("card-preview");
   const [progress, setProgress] = useState("30");
   const [cardNumberData, setCardNumberData] = useState<string | null>(null);
   const [shareData, setShareData] = useState<Pick<
@@ -108,39 +106,41 @@ export default function CreateCard({ sedAuthData }: authFunction) {
   };
 
   return (
-    <ProgressContext.Provider value={{ progress, setProgress }}>
-      <div className="w-full font-vazir">
-        <div className="w-auto flex flex-col items-center gap-4">
-          <div className="w-full">
-            <ProgressBar progressPercent={progress} value={96} />
-          </div>
-          <PageContext.Provider value={{ changPage, setChangePage }}>
-            <CardDataContext.Provider
-              value={{ cardNumberData, setCardNumberData }}
-            >
-              <validatedResponseContext.Provider
-                value={{ shareData, setShareData }}
+    <div className="w-[25rem]">
+      <ProgressContext.Provider value={{ progress, setProgress }}>
+        <div className="w-full font-vazir">
+          <div className="w-auto flex flex-col items-center gap-4">
+            <div className="w-2/3 mx-4">
+              <ProgressBar progressPercent={progress} value={96} />
+            </div>
+            <PageContext.Provider value={{ changPage, setChangePage }}>
+              <CardDataContext.Provider
+                value={{ cardNumberData, setCardNumberData }}
               >
-                <checkSlugResponseContext.Provider
-                  value={{ checkSlug, setCheckSlug }}
+                <validatedResponseContext.Provider
+                  value={{ shareData, setShareData }}
                 >
-                  {changPage === "card-entry" && (
-                    <CardEntry
-                      fetchValidatedCard={fetchValidatedCard}
-                      sendData={sendData}
-                    />
-                  )}
-                  {changPage === "card-preview" && <CardPreview />}
-                  {changPage === "slug" && <Slug />}
-                  {changPage === "final-card" && (
-                    <FinalCard sedAuthData={sedAuthData} />
-                  )}
-                </checkSlugResponseContext.Provider>
-              </validatedResponseContext.Provider>
-            </CardDataContext.Provider>
-          </PageContext.Provider>
+                  <checkSlugResponseContext.Provider
+                    value={{ checkSlug, setCheckSlug }}
+                  >
+                    {changPage === "card-entry" && (
+                      <CardEntry
+                        fetchValidatedCard={fetchValidatedCard}
+                        sendData={sendData}
+                      />
+                    )}
+                    {changPage === "card-preview" && <CardPreview />}
+                    {changPage === "slug" && <Slug />}
+                    {changPage === "final-card" && (
+                      <FinalCard sedAuthData={sedAuthData} />
+                    )}
+                  </checkSlugResponseContext.Provider>
+                </validatedResponseContext.Provider>
+              </CardDataContext.Provider>
+            </PageContext.Provider>
+          </div>
         </div>
-      </div>
-    </ProgressContext.Provider>
+      </ProgressContext.Provider>
+    </div>
   );
 }

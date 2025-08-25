@@ -23,7 +23,7 @@ export async function FetchingData<TRequest = unknown, TResponse = unknown>({
     }
   }
 
-  try {
+  try { 
     const res = await fetch(endpoint, {
       method: "POST",
       headers,
@@ -33,7 +33,7 @@ export async function FetchingData<TRequest = unknown, TResponse = unknown>({
     const data = await res.json().catch(() => null);
 
     if (!res.ok) {
-      return { error: data?.message || "Unknown error" };
+      return { error: data?.message || data.error };
     }
 
     return { data };

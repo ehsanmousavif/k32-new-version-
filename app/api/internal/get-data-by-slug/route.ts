@@ -10,7 +10,9 @@ export async function POST(req: NextRequest) {
   try {
     const { slug, cardNumber, ownerName, iban } = await req.json();
 
-    if (token) {
+    console.log("📥 دریافت از کلاینت:", { slug, cardNumber, ownerName, iban });
+
+    if (!token) {
       return NextResponse.json({ error: "ریدی" }, { status: 200 });
     }
 

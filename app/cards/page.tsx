@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 import { FetchingData } from "@/lib/fetching-data";
+import CardBank from "@/components/card";
 
 export default function Cards() {
   const [showCard, setShowCard] = useState<any | null>(null);
@@ -53,10 +54,14 @@ export default function Cards() {
   }
 
   return (
-    <div className="bg-white text-black p-4 rounded shadow">
-      <p className="font-vazir">شماره کارت: {showCard.cardNumber}</p>
-      <p className="font-vazir">نام : {showCard.fullName}</p>
-      <p className="font-vazir">شماره شبا{showCard.iban}</p>
+    <div className="w-[22rem]">
+      {" "}
+      <CardBank
+      
+        iban={showCard.iban}
+        number={showCard.cardNumber}
+        name={showCard.fullName}
+      />
     </div>
   );
 }

@@ -1,20 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { FetchingData } from "@/lib/fetching-data";
 import { Prisma } from "@/generated/prisma";
+import CardBank from "@/components/card";
 
-export default function CardPage({ params }: { params: { slug: string } }) {
+export default function CardPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = React.use(params);
+
   const [returnData, setReturnData] = useState<Prisma.CardGetPayload<{
-    select: { cardNumber: true; fullName: true };
+    select: { cardNumber: true; fullName: true; iban: true };
   }> | null>(null);
 
   const _X = async () => {
     const { data }: any = await FetchingData({
       endpoint: "/api/internal/get-card-by-slug",
-      body: { slug: params.slug },
-      requiresAuth: true,
+      body: { slug },
+      requiresAuth: false,
     });
 
     setReturnData(data);
@@ -23,12 +29,18 @@ export default function CardPage({ params }: { params: { slug: string } }) {
 
   useEffect(() => {
     _X();
-  }, [params.slug]);
+  }, [slug]);
 
   return (
-    <div className="p-4 text-black">
-      <h1 className="text-xl font-bold">{returnData?.fullName}</h1>{" "}
-      <p>شماره کارت: {returnData?.cardNumber}</p>
+    <div className="p-4 text-black w-full max-w-2xl">
+      <div className="w-80 m-auto">
+        <CardBank
+          bankBin={true}
+          number={returnData?.cardNumber || ""}
+          iban={returnData?.iban || ""}
+          name={returnData?.fullName}
+        />
+      </div>
     </div>
   );
 }

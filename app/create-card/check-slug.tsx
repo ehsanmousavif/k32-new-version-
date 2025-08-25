@@ -1,12 +1,19 @@
 import { Input } from "@heroui/input";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "@heroui/button";
 
-import { CardDataContext, validatedResponseContext } from "./page";
+import {
+  CardDataContext,
+  ProgressContext,
+  validatedResponseContext,
+} from "./page";
 import { checkSlugResponseContext, PageContext } from "./page";
 
 import { FetchingData } from "@/lib/fetching-data";
+import { Icon } from "@/components/icons/icons";
 export default function Slug() {
+  const [checkSlugExsisted, setCheckSlugExsisted] = useState<any>("");
+
   const CardNumberContext = useContext(CardDataContext);
 
   const pageContext = useContext(PageContext);
@@ -15,8 +22,12 @@ export default function Slug() {
 
   const sharedContext = useContext(validatedResponseContext);
   const checkSlugContext = useContext(checkSlugResponseContext);
+  const ProContext = useContext(ProgressContext);
 
-  if (!checkSlugContext || !pageContext || !CardNumberContext) return null;
+  if (!checkSlugContext || !pageContext || !CardNumberContext || !ProContext)
+    return null;
+  const { setProgress } = ProContext;
+
   const { cardNumberData } = CardNumberContext;
   const { setChangePage } = pageContext;
 
@@ -24,6 +35,7 @@ export default function Slug() {
 
   const { shareData } = sharedContext;
 
+  console.log(shareData?.cardNumber, shareData?.iban, shareData?.ownerName);
   async function getSlug() {
     if (
       !shareData?.iban ||
@@ -57,8 +69,8 @@ export default function Slug() {
 
       if (data.ok) {
         console.log("✅ نام کاربری ثبت نشده است:", data);
-
-        setChangePage("final-card");
+        console.log(data.card);
+        // setChangePage("final-card");
       } else {
         console.warn("⚠️ خطا یا تکراری بودن:", data.error);
       }
@@ -67,23 +79,57 @@ export default function Slug() {
     }
   }
 
+  console.log(inputValue);
+
   return (
-    <div>
+    <div className="CREATE_CARDS_CONTAINER">
+      {Icon.earth}
+      <div className="w-full min-h-[10vh] flex flex-col items-center justify-center gap-4">
+        <span className="text-medium text-sm text-center">
+          دامنه مورد نظر خود را وارد نمایید{" "}
+        </span>
+        <span className="text-medium text-sm">
+          از دامنه برای اشتراک گذاری کارت استفاده خواهد شد
+        </span>
+      </div>
       <Input
-        className="w-56"
+        className="w-full"
         onChange={async (e) => {
           setInputValue(e.target.value);
         }}
       />
-      <Button
-        className="w-56 bg-black mt-64"
-        onPress={() => {
-          getSlug();
-          setChangePage("final-card");
-        }}
-      >
-        بعدی{" "}
-      </Button>
+      <div className="flex flex-col  gap-2">
+        <span className="text-medium text-[12px] text-red-500">
+          لطفا حداقل 4 کاراکتر وارد کنید
+        </span>
+        <span className="text-medium text-[12px] text-red-500">
+          تنها حروف انگلیسی یا اعداد مجاز هستند
+        </span>
+        <span className="text-medium text-[12px] text-red-500">
+          حداکثر طول نام کاربری 16رقم است{" "}
+        </span>
+      </div>
+      <span>{checkSlugExsisted === false ? "معتبر نیست" : ""}</span>
+      <div className="w-full flex items-center gap-2">
+        <Button
+          color="primary"
+          className="w-full "
+          onPress={() => {
+            getSlug();
+            setProgress("100");
+          }}
+          radius="sm"
+        >
+          بعدی{" "}
+        </Button>
+        <button
+          type="button"
+          className="w-auto p-[4px] rounded-lg bg-red-600 hover:bg-red-700 transition-colors"
+          onClick={() => setChangePage("card-entry")}
+        >
+          {Icon.back}
+        </button>
+      </div>
     </div>
   );
 }

@@ -3,29 +3,52 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/prisma";
 
 export async function POST(req: NextRequest) {
-  const { userName, password } = await req.json();
+  const { password, userName } = await req.json();
 
-  if (!userName || !password) {
-    return NextResponse.json(
-      { error: "نام کاربری و رمز عبور الزامی است" },
-      { status: 400 }
-    );
-  }
+  if (!password || !userName)
+    return NextResponse.json({ error: "فیلدها ناقص هستند" }, { status: 400 });
 
-  const user = await db.user.findUnique({
-    where: { userName: userName },
+  const checkExstedUser = await db.user.findUnique({
+    where: { userName },
   });
 
-  if (!user) {
-    return NextResponse.json({ error: "کاربر یافت نشد" }, { status: 404 });
+  if (checkExstedUser && checkExstedUser.password === password) {
+    return NextResponse.json({ error: "قبلاً ثبت‌نام کردی" }, { status: 409 });
   }
 
-  if (user.password !== password) {
-    return NextResponse.json({ error: "رمز عبور اشتباه است" }, { status: 401 });
+  function generateToken(length = 64) {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let token = "";
+
+    for (let i = 0; i < length; i++) {
+      const randIndex = Math.floor(Math.random() * chars.length);
+
+      token += chars[randIndex];
+    }
+
+    return token;
   }
 
-  return NextResponse.json({
-    message: "✅ ورود موفق بود",
-    token: user,
+  const token = generateToken();
+
+  const newUser = await db.user.create({
+    data: {
+      userName,
+      password,
+      token,
+    },
   });
+
+  return NextResponse.json(
+    {
+      message: "ثبت‌نام موفق بود",
+      token: newUser.token,
+      user: {
+        id: newUser.id,
+        userName: newUser.userName,
+      },
+    },
+    { status: 200 }
+  );
 }

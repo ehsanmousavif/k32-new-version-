@@ -1,57 +1,97 @@
 "use client";
+import { motion } from "framer-motion";
 
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/icons/icons";
-import { Divider } from "@heroui/react";
+import { Divider, addToast } from "@heroui/react";
 import Link from "next/link";
 
 export default function SignUp() {
   const router = useRouter();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function sendAuthData() {
-    const res = await fetch("/api/internal/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userName: userName,
-        password: password,
-      }),
-    });
+    setIsLoading(true);
 
-    const data = await res.json();
+    try {
+      const res = await fetch("/api/internal/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userName, password }),
+      });
 
-    localStorage.setItem("auth-token", data.token);
+      const data = await res.json();
 
-    if (res.ok) {
-      console.log("✅ Success", data);
-    } else {
-      console.error("❌ Server error", data);
-      setError("نام کاربری یا رمز عبور صحیح نیست ❌");
+      if (!res.ok) {
+        addToast({
+          title: "خطا",
+          description: data.error || "نام کاربری یا رمز عبور صحیح نیست ❌",
+          timeout: 3000,
+          shouldShowTimeoutProgress: true,
+          color: "danger",
+        });
+      } else {
+        localStorage.removeItem("auth-token");
+        localStorage.setItem("auth-token", data.token.token);
+        addToast({
+          title: "موفق",
+          description: "ثبت‌نام با موفقیت انجام شد!",
+          timeout: 3000,
+          shouldShowTimeoutProgress: true,
+          color: "success",
+        });
+        console.log(data);
+        router.push("/profile");
+      }
+    } catch (err) {
+      console.error(err);
+      addToast({
+        title: "خطا",
+        description: "خطا در ارتباط با سرور ⚠️",
+        timeout: 3000,
+        shouldShowTimeoutProgress: true,
+        color: "danger",
+      });
+    } finally {
+      setIsLoading(false);
     }
   }
 
-  async function nextPage() {
+  function handleSubmit() {
+    if (!userName || !password) {
+      return addToast({
+        title: "خطا",
+        description: "نام کاربری و رمز عبور نمی‌توانند خالی باشند!",
+        timeout: 3000,
+        shouldShowTimeoutProgress: true,
+        color: "danger",
+      });
+    }
+
     sendAuthData();
-    router.push("/create-card");
   }
 
   return (
-    <div className="w-full">
-      <div className="w-[350px] p-8 rounded-xl box-border mx-auto flex flex-col items-center justify-center gap-4 bg-content1 text-foreground font-vazir">
-        <span>برای ورود نام کاربری و رمز عبور را وارد نمایید</span>
+    <motion.div
+      className="BASE_CONTAINER"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      <div className="w-full max-w-2xl p-5 pt-2 rounded-xl box-border mx-auto flex flex-col items-center justify-center gap-4 text-foreground font-vazir">
+        {Icon.user}
+        <span className="text-sm">
+          برای ورود نام کاربری و رمز عبور را وارد نمایید
+        </span>
 
         <Input
           isRequired
-          className="font-vazir"
+          className="w-full font-vazir"
           endContent={Icon.mail}
           label="نام کاربری"
           labelPlacement="inside"
@@ -74,16 +114,17 @@ export default function SignUp() {
         <Button
           className="w-full bg-primary text-white py-2 rounded-md font-vazir"
           isLoading={isLoading}
-          onPress={nextPage}
+          variant={"flat"}
+          onPress={handleSubmit}
         >
-          {isLoading ? "در حال بررسی..." : "بررسی و دریافت اطلاعات"}
+          ورود
         </Button>
-        {error && <p className="text-sm text-red-500">{error}</p>}
+
         <Divider />
-        <Button className="w-full bg-success-200 text-white py-2 rounded-md font-vazir">
-          <Link href="/signin">ثبت نام کردم😌</Link>
+        <Button className="w-full bg-green-900 text-foreground-800 py-2 rounded-md font-vazir">
+          <Link href="/signin">ثبت نام نکردم 🗿</Link>
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }
