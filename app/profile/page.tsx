@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { Card } from "@/generated/prisma";
 import { timeAgo } from "@/lib/times";
 import { FetchingData } from "@/lib/fetching-data";
+import { Icon } from "@/components/icons/icons";
+import { motion } from "framer-motion";
 
 export default function Profile() {
   const [userData, setUserData] = useState<Card>();
@@ -39,21 +41,27 @@ export default function Profile() {
   }, []);
 
   return (
-    <div className="BASE_CONTAINER w-[25rem] flex flex-col items-center justify-center gap-6 font-vazir text-right">
-      <span className="text-lg font-bold text-white">پروفایل</span>
+    <motion.div
+      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 30 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      {" "}
+      <div className="BASE_CONTAINER h-80">
+        <div className="text-md text-white flex items-center gap-2 ">
+          {Icon.save}
+          <span> نام و نام خانوادگی شما :</span>
 
-      <div className="flex flex-col items-start gap-3 w-full">
-        <span className="text-md text-white">
-          نام و نام خانوادگی شما :
           <span className="text-sm font-bold">{userData?.fullName}</span>
-        </span>
-        <span className="text-md text-white">
-          ثبت نام کردی:
+        </div>
+        <div className="text-md text-white flex items-center gap-2 ">
+          {Icon.data}
+          <span> ثبت نام کردی:</span>
+
           <span className="text-sm font-bold">
-            {" "}
             {timeAgo(userData?.createdAt || "")}
           </span>
-        </span>
+        </div>
 
         {userData?.disabled ? (
           <span className="text-red-400 font-semibold">کارت فعال نیست</span>
@@ -61,6 +69,6 @@ export default function Profile() {
           <span className="text-green-400 font-semibold">کارت فعال است</span>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

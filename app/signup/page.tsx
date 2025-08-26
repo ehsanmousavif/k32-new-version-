@@ -36,7 +36,6 @@ export default function SignUp() {
           color: "danger",
         });
       } else {
-        localStorage.removeItem("auth-token");
         localStorage.setItem("auth-token", data.token.token);
         addToast({
           title: "موفق",

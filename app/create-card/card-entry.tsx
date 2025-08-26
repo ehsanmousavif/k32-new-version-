@@ -1,10 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
 
-import { Button, Input, InputOtp, NumberInput } from "@heroui/react";
+import { Button, Input } from "@heroui/react";
 import React, { useContext } from "react";
 
 import { ProgressContext, PageContext, CardDataContext } from "./page";
+
 import { Icon } from "@/components/icons/icons";
 ("./card-preview");
 
@@ -37,7 +38,9 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
         <Input
           className="m-auto max-w-md w-full"
           errorMessage={"شماره کارت شما باید ۱۶ رقم باشد"}
+          inputMode="decimal"
           isInvalid={!cardNumberData || cardNumberData.length !== 16}
+          pattern="[0-9]*"
           value={cardNumberData ?? ""}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setCardNumberData(e.target.value)
@@ -53,8 +56,12 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
         onPress={() => {
           sendData();
           fetchValidatedCard();
-          setProgress("60");
-          setChangePage("card-preview");
+          if (!fetchValidatedCard() === null || undefined) {
+            return;
+          } else {
+            setProgress("60");
+            setChangePage("card-preview");
+          }
         }}
       >
         تایید

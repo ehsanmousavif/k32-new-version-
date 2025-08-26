@@ -1,6 +1,9 @@
 import { Input } from "@heroui/input";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "@heroui/button";
+
+import { addToast } from "@heroui/react";
+import { useRouter } from "next/navigation";
 
 import {
   CardDataContext,
@@ -12,6 +15,7 @@ import { checkSlugResponseContext, PageContext } from "./page";
 import { FetchingData } from "@/lib/fetching-data";
 import { Icon } from "@/components/icons/icons";
 export default function Slug() {
+  const router = useRouter();
   const [checkSlugExsisted, setCheckSlugExsisted] = useState<any>("");
 
   const CardNumberContext = useContext(CardDataContext);
@@ -43,7 +47,12 @@ export default function Slug() {
       !cardNumberData ||
       !inputValue
     ) {
-      console.warn("⚠️ مقادیر ناقص یا خالی هستند");
+      console.warn("⚠️نه");
+      addToast({
+        description: "وارد کردن دامنه الزامی است",
+        color: "danger",
+        title: "خطا",
+      });
 
       return;
     }
@@ -69,10 +78,22 @@ export default function Slug() {
 
       if (data.ok) {
         console.log("✅ نام کاربری ثبت نشده است:", data);
+        addToast({
+          description: "کارت شما با موفقیت ثبت شد",
+          color: "success",
+          title: "تبریک!",
+        });
+
         console.log(data.card);
-        // setChangePage("final-card");
+        router.push("/cards");
       } else {
         console.warn("⚠️ خطا یا تکراری بودن:", data.error);
+        addToast({
+          description: "دامنه تکراری است",
+          color: "danger",
+          title: "خطا",
+        });
+        setChangePage("slug");
       }
     } catch (err) {
       console.error("⛔ خطا در برقراری ارتباط با سرور:", err);
@@ -112,23 +133,15 @@ export default function Slug() {
       <span>{checkSlugExsisted === false ? "معتبر نیست" : ""}</span>
       <div className="w-full flex items-center gap-2">
         <Button
-          color="primary"
           className="w-full "
+          color="primary"
+          radius="sm"
           onPress={() => {
             getSlug();
-            setProgress("100");
           }}
-          radius="sm"
         >
-          بعدی{" "}
+          بعدی
         </Button>
-        <button
-          type="button"
-          className="w-auto p-[4px] rounded-lg bg-red-600 hover:bg-red-700 transition-colors"
-          onClick={() => setChangePage("card-entry")}
-        >
-          {Icon.back}
-        </button>
       </div>
     </div>
   );

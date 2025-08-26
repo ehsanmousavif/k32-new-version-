@@ -1,15 +1,16 @@
 "use client";
 
 import React, { createContext, useState } from "react";
+import { addToast, Button } from "@heroui/react";
 
 import CardEntry from "./card-entry";
 import Slug from "./check-slug";
 import CardPreview from "./card-preview";
-import FinalCard from "./final-card";
 
 import { FetchingData } from "@/lib/fetching-data";
 import ProgressBar from "@/components/progress";
 import { Card, Prisma, ValidatedCard } from "@/generated/prisma";
+import { useSignOut } from "@/lib/signout";
 
 export const ProgressContext = createContext<{
   progress: string;
@@ -44,16 +45,13 @@ export const getDataContext = createContext<{
   setGetData: any;
 } | null>(null);
 
-type PageType = "card-preview" | "card-entry" | "slug" | "final-card";
+type PageType = "card-preview" | "card-entry" | "slug";
 
-interface authFunction {
-  sedAuthData: () => void;
-}
-
-export default function CreateCard({ sedAuthData }: authFunction) {
-  const [changPage, setChangePage] = useState<PageType>("card-preview");
+export default function CreateCard() {
+  const [changPage, setChangePage] = useState<PageType>("card-entry");
   const [progress, setProgress] = useState("30");
   const [cardNumberData, setCardNumberData] = useState<string | null>(null);
+  const signOut = useSignOut();
   const [shareData, setShareData] = useState<Pick<
     ValidatedCard,
     "cardNumber" | "iban" | "ownerName"
@@ -70,14 +68,25 @@ export default function CreateCard({ sedAuthData }: authFunction) {
       console.log("درسته", data);
     } else if (!data) {
       console.log("⚠️ این کارت قبلاً ثبت شده");
+      setChangePage("card-entry");
+      setProgress("30");
+      addToast({
+        color: "danger",
+        timeout: 3000,
+        description: " کارت قبلا ثبت شده است",
+      });
     } else {
-      console.log("✅ ریدی", error);
+      console.log("✅ حله", error);
     }
   };
 
   const fetchValidatedCard = async () => {
     if (!cardNumberData) {
-      console.warn("شماره کارت وارد نشده");
+      addToast({
+        color: "danger",
+        timeout: 3000,
+        description: "وارد کردن شماره کارت الزامی است",
+      });
 
       return;
     }
@@ -96,9 +105,14 @@ export default function CreateCard({ sedAuthData }: authFunction) {
     try {
       if (data?.cardNumber) {
         setShareData(data);
-        console.log("✅ داده‌ی ولید شده:", data);
+        console.log("✅بیو", data);
       } else {
-        console.warn("❌ کارت در validated پیدا نشد، رفتیم سراغ fake-card");
+        addToast({
+          color: "success",
+          timeout: 3000,
+          description: "شماره کارت با موفقیت ثبت شد",
+        });
+        console.warn("❌ نه");
       }
     } catch (error) {
       console.error("⛔ خطا در عملیات:", error);
@@ -106,7 +120,10 @@ export default function CreateCard({ sedAuthData }: authFunction) {
   };
 
   return (
-    <div className="w-[25rem]">
+    <div className=" w-[25rem] max-w-2xl">
+      <Button onPress={signOut} className="">
+        خروج
+      </Button>
       <ProgressContext.Provider value={{ progress, setProgress }}>
         <div className="w-full font-vazir">
           <div className="w-auto flex flex-col items-center gap-4">
@@ -131,9 +148,6 @@ export default function CreateCard({ sedAuthData }: authFunction) {
                     )}
                     {changPage === "card-preview" && <CardPreview />}
                     {changPage === "slug" && <Slug />}
-                    {changPage === "final-card" && (
-                      <FinalCard sedAuthData={sedAuthData} />
-                    )}
                   </checkSlugResponseContext.Provider>
                 </validatedResponseContext.Provider>
               </CardDataContext.Provider>
