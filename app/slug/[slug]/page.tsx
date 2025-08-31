@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+
 import { FetchingData } from "@/lib/fetching-data";
 import { Prisma } from "@/generated/prisma";
 import CardBank from "@/components/card";
@@ -23,7 +24,7 @@ export default function CardPage({
       requiresAuth: false,
     });
 
-    setReturnData(data);
+    setReturnData(data.data);
     console.log(data);
   };
 
@@ -32,13 +33,12 @@ export default function CardPage({
   }, [slug]);
 
   return (
-    <div className="p-4 text-black w-full max-w-2xl">
+    <div className="  p-4 text-black w-full max-w-2xl">
       <div className="w-80 m-auto">
         <CardBank
-          bankBin={true}
-          number={returnData?.cardNumber || ""}
           iban={returnData?.iban || ""}
           name={returnData?.fullName}
+          number={returnData?.cardNumber || ""}
         />
       </div>
     </div>

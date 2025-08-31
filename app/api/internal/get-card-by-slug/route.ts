@@ -25,14 +25,13 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({
-      message: "✅ اطلاعات کارت دریافت شد",
-      cardNumber: card.cardNumber,
-      fullName: card.fullName,
-      iban: card.iban,
-      createdAt: card.createdAt,
+      data: card,
+      message: "کارت با موفقیت ساخته شد",
     });
-  } catch (error: any) {
-    console.error("⛔ خطای سرور:", error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("⛔ خطای سرور:", error.message);
+    }
 
     return NextResponse.json({ error: "خطای داخلی سرور" }, { status: 500 });
   }

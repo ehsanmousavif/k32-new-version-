@@ -1,12 +1,10 @@
-import { loadGetInitialProps } from "next/dist/shared/lib/utils";
-
 export const Icon = {
   mail: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="36"
       height="36"
       viewBox="0 0 24 24"
+      width="36"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g fill="none" stroke="currentColor" strokeWidth="1.5">
         <path
@@ -14,18 +12,18 @@ export const Icon = {
           opacity="0.5"
         />
         <path
-          strokeLinecap="round"
           d="m6 8l2.159 1.8c1.837 1.53 2.755 2.295 3.841 2.295s2.005-.765 3.841-2.296L18 8"
+          strokeLinecap="round"
         />
       </g>
     </svg>
   ),
   pass: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="36"
       height="36"
       viewBox="0 0 24 24"
+      width="36"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g fill="none" stroke="currentColor" strokeWidth="1.5">
         <path
@@ -34,18 +32,18 @@ export const Icon = {
         />
         <path d="M11 12a2.5 2.5 0 1 1-5 0a2.5 2.5 0 0 1 5 0Z" />
         <path
-          strokeLinecap="round"
           d="M11 12h4.5m0 0H17a1 1 0 0 1 1 1v1m-2.5-2v1.5"
+          strokeLinecap="round"
         />
       </g>
     </svg>
   ),
   sppiner: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
       height="24"
       viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
         <linearGradient
@@ -72,13 +70,13 @@ export const Icon = {
       <g fill="none">
         <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
         <path
-          fill="url(#SVGz0tT9cEa)"
           d="M8.749.021a1.5 1.5 0 0 1 .497 2.958A7.5 7.5 0 0 0 3 10.375a7.5 7.5 0 0 0 7.5 7.5v3c-5.799 0-10.5-4.7-10.5-10.5C0 5.23 3.726.865 8.749.021"
+          fill="url(#SVGz0tT9cEa)"
           transform="translate(1.5 1.625)"
         />
         <path
-          fill="url(#SVGadeRXbLy)"
           d="M15.392 2.673a1.5 1.5 0 0 1 2.119-.115A10.48 10.48 0 0 1 21 10.375c0 5.8-4.701 10.5-10.5 10.5v-3a7.5 7.5 0 0 0 5.007-13.084a1.5 1.5 0 0 1-.115-2.118"
+          fill="url(#SVGadeRXbLy)"
           transform="translate(1.5 1.625)"
         />
       </g>
@@ -86,10 +84,10 @@ export const Icon = {
   ),
   card: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="36"
       height="36"
       viewBox="0 0 24 24"
+      width="36"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
@@ -97,7 +95,7 @@ export const Icon = {
         strokeLinecap="round"
         strokeWidth="1.5"
       >
-        <path strokeLinejoin="round" d="M19 14v6m0 0l2-2m-2 2l-2-2" />
+        <path d="M19 14v6m0 0l2-2m-2 2l-2-2" strokeLinejoin="round" />
         <path d="M22 12c0-3.771 0-5.657-1.172-6.828S17.771 4 14 4h-4C6.229 4 4.343 4 3.172 5.172S2 8.229 2 12s0 5.657 1.172 6.828S6.229 20 10 20h4" />
         <path d="M10 16H6m7 0h-.5M2 10h20" opacity="0.4" />
       </g>
@@ -105,10 +103,10 @@ export const Icon = {
   ),
   earth: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="36"
       height="36"
       viewBox="0 0 24 24"
+      width="36"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g fill="none" stroke="currentColor" strokeWidth="1.5">
         <circle cx="12" cy="12" r="10" />
@@ -121,10 +119,10 @@ export const Icon = {
   ),
   signup: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="36"
       height="36"
       viewBox="0 0 24 24"
+      width="36"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
@@ -133,8 +131,8 @@ export const Icon = {
         strokeWidth="1.5"
       >
         <path
-          strokeLinejoin="round"
           d="M2.001 11.999h14m0 0l-3.5-3m3.5 3l-3.5 3"
+          strokeLinejoin="round"
         />
         <path
           d="M9.002 7c.012-2.175.109-3.353.877-4.121C10.758 2 12.172 2 15 2h1c2.829 0 4.243 0 5.122.879C22 3.757 22 5.172 22 8v8c0 2.828 0 4.243-.878 5.121C20.242 22 18.829 22 16 22h-1c-2.828 0-4.242 0-5.121-.879c-.768-.768-.865-1.946-.877-4.121"
@@ -145,10 +143,10 @@ export const Icon = {
   ),
   user: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="36"
       height="36"
       viewBox="0 0 24 24"
+      width="36"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g fill="none" stroke="currentColor" strokeWidth="1.5">
         <circle cx="12" cy="6" r="4" />
@@ -161,12 +159,13 @@ export const Icon = {
   ),
   loading: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
       height="16"
       viewBox="0 0 24 24"
+      width="16"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
+        d="M12 3c4.97 0 9 4.03 9 9"
         fill="none"
         stroke="currentColor"
         strokeDasharray="16"
@@ -174,12 +173,11 @@ export const Icon = {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
-        d="M12 3c4.97 0 9 4.03 9 9"
       >
         <animate
-          fill="freeze"
           attributeName="stroke-dashoffset"
           dur="0.2s"
+          fill="freeze"
           values="16;0"
         />
         <animateTransform
@@ -194,16 +192,16 @@ export const Icon = {
   ),
   back: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
       height="32"
       viewBox="0 0 24 24"
+      width="32"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g fill="none" stroke="currentColor" strokeWidth="1.5">
         <path
+          d="M16 12H8m0 0l3-3m-3 3l3 3"
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M16 12H8m0 0l3-3m-3 3l3 3"
         />
         <path
           d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"
@@ -214,10 +212,10 @@ export const Icon = {
   ),
   save: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
       height="24"
       viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g fill="none" stroke="currentColor" strokeWidth="1.5">
         <path
@@ -234,26 +232,105 @@ export const Icon = {
   ),
   data: (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
       height="24"
       viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M2 12c0-3.771 0-5.657 1.172-6.828S6.229 4 10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12v2c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14z" />
         <path
-          strokeLinecap="round"
           d="M7 4V2.5M17 4V2.5M2 9h20"
+          opacity="0.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="m9 14.5l1.5-1.5v4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M13 16v-2a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0Z"
+          strokeLinecap="round"
+        />
+      </g>
+    </svg>
+  ),
+  userProfile: (
+    <svg
+      height="36"
+      viewBox="0 0 24 24"
+      width="36"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="12" cy="9" opacity="0.5" r="3" />
+        <circle cx="12" cy="12" r="10" />
+        <path
+          d="M17.97 20c-.16-2.892-1.045-5-5.97-5s-5.81 2.108-5.97 5"
+          opacity="0.5"
+          strokeLinecap="round"
+        />
+      </g>
+    </svg>
+  ),
+  cards: (
+    <svg
+      height="36"
+      viewBox="0 0 24 24"
+      width="36"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M2 12c0-3.771 0-5.657 1.172-6.828S6.229 4 10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12s0 5.657-1.172 6.828S17.771 20 14 20h-4c-3.771 0-5.657 0-6.828-1.172S2 15.771 2 12Z" />
+        <path
+          d="M10 16.5H6m2-3H6M2 10h20"
+          opacity="0.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M14 15c0-.943 0-1.414.293-1.707S15.057 13 16 13s1.414 0 1.707.293S18 14.057 18 15s0 1.414-.293 1.707S16.943 17 16 17s-1.414 0-1.707-.293S14 15.943 14 15Z"
+          opacity="0.5"
+        />
+      </g>
+    </svg>
+  ),
+  add: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="36"
+      height="36"
+      viewBox="0 0 24 24"
+    >
+      <g fill="none" stroke="currentColor" strokeWidth="2">
+        <path
+          d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2s7.071 0 8.535 1.464C22 4.93 22 7.286 22 12s0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"
+          opacity="0.5"
+        />
+        <path strokeLinecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3" />
+      </g>
+    </svg>
+  ),
+  signOut: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="30"
+      height="30"
+      viewBox="0 0 24 24"
+    >
+      <g fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path
+          strokeLinecap="round"
+          d="M8.002 7c.012-2.175.108-3.353.877-4.121C9.757 2 11.172 2 14 2h1c2.828 0 4.243 0 5.121.879C21 3.757 21 5.172 21 8v8c0 2.828 0 4.243-.879 5.121C19.243 22 17.828 22 15 22h-1c-2.828 0-4.243 0-5.121-.879c-.769-.768-.865-1.946-.877-4.121"
+        />
+        <path
+          d="M8 19.5c-2.357 0-3.536 0-4.268-.732C3 18.035 3 16.857 3 14.5v-5c0-2.357 0-3.536.732-4.268S5.643 4.5 8 4.5"
           opacity="0.5"
         />
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="m9 14.5l1.5-1.5v4"
-        />
-        <path
-          strokeLinecap="round"
-          d="M13 16v-2a1 1 0 1 1 2 0v2a1 1 0 1 1-2 0Z"
+          d="M15 12H6m0 0l2 2m-2-2l2-2"
         />
       </g>
     </svg>

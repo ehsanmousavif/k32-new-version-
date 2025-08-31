@@ -1,37 +1,42 @@
 import React, { useContext, useState } from "react";
-import { Button } from "@heroui/button";
-import { Checkbox } from "@heroui/react"; // مطمئن شو مسیر درسته
-
-import { ProgressContext, PageContext, validatedResponseContext } from "./page";
+import { Button, Checkbox } from "@heroui/react";
 
 import CardBank from "@/components/card";
 import { Icon } from "@/components/icons/icons";
-import Link from "next/link";
+import { CardContext } from "@/components/CardProvider";
+import CardBankSkeleton from "@/components/card-bank-skeleton";
 
 export default function CardPreview() {
-  const [checkField, setCheckField] = useState(false); // مقدار اولیه false
+  const [checkField, setCheckField] = useState(false);
+  const context = useContext(CardContext);
 
-  const sharedContext = useContext(validatedResponseContext);
-  const proContext = useContext(ProgressContext);
-  const pageContext = useContext(PageContext);
+  if (!context) return null;
 
-  if (!proContext || !pageContext || !sharedContext) return null;
+  const { shareData, setProgress, setChangePage } = context;
 
-  const { shareData } = sharedContext;
-  const { setProgress } = proContext;
-  const { setChangePage } = pageContext;
+  // if (!shareData) {
+  //   return (
+
+  //   );
+  // }
 
   return (
     <div className="CREATE_CARDS_CONTAINER">
-      <div className="w-full">
-        <CardBank
-          iban={shareData?.iban || ""}
-          name={shareData?.ownerName || ""}
-          number={shareData?.cardNumber || ""}
-        />
+      <div className="w-auto ">
+        {!shareData ? (
+          <div className="w-auto">
+            <CardBankSkeleton />;
+          </div>
+        ) : (
+          <CardBank
+            iban={shareData?.iban || ""}
+            name={shareData?.ownerName || ""}
+            number={shareData?.cardNumber || ""}
+          />
+        )}
       </div>
       <Checkbox
-        className="font-vazir mt-6  "
+        className="font-vazir mt-6"
         isSelected={checkField}
         onChange={(e) => setCheckField(e.target.checked)}
       >
@@ -39,9 +44,7 @@ export default function CardPreview() {
       </Checkbox>
       <div className="w-full flex items-center gap-2">
         <Button
-          className={` w-full font-vazir ${
-            !checkField ? "opacity-50 cursor-not-allowed" : ""
-          }`}
+          className={` w-full font-vazir ${!checkField ? "opacity-50 cursor-not-allowed" : ""}`}
           color="primary"
           isDisabled={!checkField}
           radius="sm"

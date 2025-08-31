@@ -23,7 +23,7 @@ export async function FetchingData<TRequest = unknown, TResponse = unknown>({
     }
   }
 
-  try { 
+  try {
     const res = await fetch(endpoint, {
       method: "POST",
       headers,

@@ -1,6 +1,8 @@
 "use client";
 
-import { redirect } from "next/navigation";
+import { useSignOut } from "@/lib/signout";
+import { Button } from "@heroui/button";
+
 export default function Home() {
-  // redirect("/login");
+  <span>هنوز کار داریم</span>;
 }

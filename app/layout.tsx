@@ -23,6 +23,10 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1, // این خط جلوی زوم رو می‌گیره
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -31,13 +35,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning className={fontVazir.variable} lang="fa">
+    <html
+      suppressHydrationWarning
+      className={fontVazir.variable}
+      dir="rtl"
+      lang="fa"
+    >
       <head />
-      <body className="  text-foreground antialiased flex flex-col p-0">
+      <body className="text-foreground antialiased flex flex-col">
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <main className="flex-grow flex justify-center items-center p-0">
+          <main className="h-[100dvh] flex-grow flex justify-center items-center">
             <div
-              className="max-w-2xl m-auto  h-[100dvh] flex flex-col justify-center items-center text-white backdrop-blur-3xl  font-vazir"
+              className=" overflow-x-hidden max-w-2xl m-auto h-full flex flex-col justify-center items-center text-white backdrop-blur-3xl p-0 font-vazir"
               style={{ direction: "rtl" }}
             >
               <ProtectedRoute>{children}</ProtectedRoute>

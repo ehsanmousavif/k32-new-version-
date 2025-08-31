@@ -47,10 +47,14 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({
-      message: "کارت با موفقیت ساخته شد",
-      card: newCard,
-    });
+    return NextResponse.json(
+      {
+        message: "کارت با موفقیت ساخته شد",
+        card: newCard,
+        ok: true,
+      },
+      { status: 201 }
+    );
   } catch (err) {
     console.error("⛔ خطای سرور:", err);
 

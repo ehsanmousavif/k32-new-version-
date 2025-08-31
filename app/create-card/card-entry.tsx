@@ -1,35 +1,29 @@
 "use client";
 import { motion } from "framer-motion";
-
 import { Button, Input } from "@heroui/react";
 import React, { useContext } from "react";
 
-import { ProgressContext, PageContext, CardDataContext } from "./page";
-
 import { Icon } from "@/components/icons/icons";
-("./card-preview");
+import { CardContext } from "@/components/CardProvider";
 
 interface Functions {
-  sendData: () => any;
-  fetchValidatedCard: () => any;
+  sendData: () => Promise<void>;
+  fetchValidatedCard: () => Promise<void>;
 }
 
 export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
-  const ProContext = useContext(ProgressContext);
-  const pageContext = useContext(PageContext);
-  const CardNumberContext = useContext(CardDataContext);
+  const context = useContext(CardContext);
 
-  if (!ProContext || !pageContext || !CardNumberContext) return null;
+  if (!context) return null;
 
-  const { cardNumberData, setCardNumberData } = CardNumberContext;
-  const { setProgress } = ProContext;
-  const { setChangePage } = pageContext;
+  const { cardNumberData, setCardNumberData, setProgress, setChangePage } =
+    context;
 
   return (
     <motion.div
+      animate={{ opacity: 1, y: 0 }}
       className="CREATE_CARDS_CONTAINER"
       initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
       {Icon.card}
@@ -42,13 +36,11 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
           isInvalid={!cardNumberData || cardNumberData.length !== 16}
           pattern="[0-9]*"
           value={cardNumberData ?? ""}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setCardNumberData(e.target.value)
-          }
+          onChange={(e) => setCardNumberData(e.target.value)}
         />
       </div>
       <Button
-        className="w-full "
+        className="w-full"
         color="primary"
         isDisabled={!cardNumberData || cardNumberData.length !== 16}
         radius="sm"

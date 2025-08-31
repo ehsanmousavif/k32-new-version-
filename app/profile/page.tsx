@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 import { Card } from "@/generated/prisma";
 import { timeAgo } from "@/lib/times";
 import { FetchingData } from "@/lib/fetching-data";
 import { Icon } from "@/components/icons/icons";
-import { motion } from "framer-motion";
 
 export default function Profile() {
   const [userData, setUserData] = useState<Card>();
@@ -15,6 +15,7 @@ export default function Profile() {
 
     if (!token) {
       console.warn("❗ توکن وجود ندارد");
+
       return;
     }
 
@@ -29,6 +30,7 @@ export default function Profile() {
 
       if (!data.ok) {
         console.warn("⚠️ خطا در گرفتن کارت:", data.error || data.message);
+
         return;
       }
     } catch (err) {
