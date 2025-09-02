@@ -39,6 +39,7 @@ export default function CardEntry({ sendData, fetchValidatedCard }: Functions) {
           onChange={(e) => setCardNumberData(e.target.value)}
         />
       </div>
+
       <Button
         className="w-full"
         color="primary"

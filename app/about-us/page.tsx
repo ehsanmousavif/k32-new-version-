@@ -1,5 +1,3 @@
-import { title } from "@/components/primitives";
-
 export default function AboutUs() {
   return (
     <div className="flex flex-col gap-4">

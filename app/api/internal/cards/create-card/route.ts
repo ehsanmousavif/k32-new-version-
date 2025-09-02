@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "کاربر معتبر نیست" }, { status: 401 });
     }
 
-    const newCard = await db.card.create({
+    const card = await db.card.create({
       data: {
         slug,
         cardNumber: cardNumber,
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         message: "کارت با موفقیت ساخته شد",
-        card: newCard,
+        card: card,
         ok: true,
       },
       { status: 201 }

@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { Input } from "@heroui/input";
 import { Button, addToast } from "@heroui/react";
 import { useRouter } from "next/navigation";
+
 import { CardContext } from "@/components/CardProvider";
 import { useDebounce } from "@/lib/useDebounce";
 import { FetchingData } from "@/lib/fetching-data";
@@ -18,7 +19,6 @@ export default function Slug() {
   const [isChecking, setIsChecking] = useState(false);
   const [latestResult, setLatestResult] = useState<any>(null);
 
-  // بررسی دامنه با debounce
   useEffect(() => {
     const checkSlug = async () => {
       if (!debouncedInput || debouncedInput.length < 4) return;
@@ -27,7 +27,7 @@ export default function Slug() {
       setIsChecking(true);
       try {
         const response: any = await FetchingData({
-          endpoint: "/api/internal/get-data-by-slug",
+          endpoint: "/api/internal/cards/create-card",
           body: {
             slug: debouncedInput,
             cardNumber: shareData.cardNumber,
@@ -50,7 +50,7 @@ export default function Slug() {
           setIsDuplicate(true);
           addToast({ color: "danger", description: "دامنه تکراری است" });
         } else {
-          console.error("⛔ خطا:", err);
+          console.error("⛔ error:", err);
           setIsDuplicate(true);
         }
       } finally {
@@ -67,6 +67,7 @@ export default function Slug() {
   const handleSubmit = async () => {
     if (!inputValue || inputValue.length < 4) {
       addToast({ color: "danger", description: "دامنه نامعتبر است" });
+
       return;
     }
 
@@ -74,12 +75,13 @@ export default function Slug() {
 
     if (isDuplicate) {
       addToast({ color: "danger", description: "دامنه تکراری است" });
+
       return;
     }
 
     try {
-      // استفاده از آخرین نتیجه debounce به جای ارسال دوباره API
       const ok = latestResult?.data?.ok;
+
       if (ok) {
         addToast({ color: "success", description: "کارت با موفقیت ثبت شد" });
         router.push("/cards");
@@ -88,7 +90,7 @@ export default function Slug() {
         setChangePage("slug");
       }
     } catch (err) {
-      console.error("⛔ خطا در ثبت دامنه:", err);
+      console.error("error for record your slug", err);
       addToast({ color: "danger", description: "خطا در ثبت دامنه" });
     }
   };
@@ -132,9 +134,9 @@ export default function Slug() {
         <Button
           className="w-full"
           color="primary"
+          isDisabled={isChecking || !inputValue || inputValue.length < 4}
           radius="sm"
           onPress={handleSubmit}
-          isDisabled={isChecking || !inputValue || inputValue.length < 4}
         >
           {isChecking ? "در حال بررسی..." : "بعدی"}
         </Button>

@@ -19,13 +19,13 @@ export default function CardPage({
 
   const _X = async () => {
     const { data }: any = await FetchingData({
-      endpoint: "/api/internal/get-card-by-slug",
+      endpoint: "/api/internal/cards/slug",
       body: { slug },
       requiresAuth: false,
     });
 
     setReturnData(data.data);
-    console.log(data);
+    console.log("data", data);
   };
 
   useEffect(() => {

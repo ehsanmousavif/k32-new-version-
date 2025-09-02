@@ -14,15 +14,9 @@ export default function CardPreview() {
 
   const { shareData, setProgress, setChangePage } = context;
 
-  // if (!shareData) {
-  //   return (
-
-  //   );
-  // }
-
   return (
     <div className="CREATE_CARDS_CONTAINER">
-      <div className="w-auto ">
+      <div className="w-auto m-0  ">
         {!shareData ? (
           <div className="w-auto">
             <CardBankSkeleton />;

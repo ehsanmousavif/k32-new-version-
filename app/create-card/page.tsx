@@ -11,7 +11,6 @@ import { FetchingData } from "@/lib/fetching-data";
 import ProgressBar from "@/components/progress";
 import { Prisma } from "@/generated/prisma";
 import { CardProvider, CardContext } from "@/components/CardProvider";
-import { useDebounce } from "use-debounce";
 
 export default function CreateCard() {
   return (
@@ -30,7 +29,7 @@ export default function CreateCard() {
 
           const sendData = async () => {
             const { data, error } = await FetchingData({
-              endpoint: "/api/internal/check-card",
+              endpoint: "/api/internal/cards/check-card",
               body: {
                 cardNumber: cardNumberData,
               },
@@ -38,9 +37,9 @@ export default function CreateCard() {
             });
 
             if (data) {
-              console.log("درسته", data);
+              console.log("data is available", data);
             } else if (!data) {
-              console.log("⚠️ این کارت قبلاً ثبت شده");
+              console.log("card added!");
               setChangePage("card-entry");
               setProgress("30");
               addToast({
@@ -48,7 +47,7 @@ export default function CreateCard() {
                 description: " کارت قبلا ثبت شده است",
               });
             } else {
-              console.log("✅ حله", error);
+              console.log("✅ ok", error);
             }
           };
 
@@ -68,7 +67,7 @@ export default function CreateCard() {
                 select: { cardNumber: true; iban: true; ownerName: true };
               }>
             >({
-              endpoint: "/api/internal/validated-card",
+              endpoint: "/api/internal/cards/validated-card",
               body: { cardNumber: cardNumberData },
               requiresAuth: true,
             });
@@ -76,7 +75,7 @@ export default function CreateCard() {
             try {
               if (data?.cardNumber) {
                 setShareData(data);
-                console.log("✅بیو", data);
+                console.log("data", data);
               } else {
                 addToast({
                   color: "success",
@@ -90,7 +89,7 @@ export default function CreateCard() {
           };
 
           return (
-            <div className=" w-[23rem] max-w-2xl ">
+            <div className="w-[23rem] max-w-2xl ">
               <div className="w-full font-vazir">
                 <div className="w-auto flex flex-col items-center gap-4">
                   <div className="w-5/6 mx-4">

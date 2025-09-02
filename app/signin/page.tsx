@@ -6,36 +6,37 @@ import { Button, Divider, Input, addToast } from "@heroui/react";
 import Link from "next/link";
 
 import { Icon } from "@/components/icons/icons";
-import { FetchingData } from "@/lib/fetching-data";
-import { Prisma } from "@/generated/prisma";
 
-export default function SignIn() {
+export default function SignUp() {
+  const router = useRouter();
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
-  async function checkTokenAndGetUser() {
+  async function authorization() {
     setIsLoading(true);
     try {
-      const { data, error }: any = await FetchingData<
-        Prisma.UserGetPayload<{ select: { password: true; userName: true } }>
-      >({
-        endpoint: "/api/internal/auth/signin",
-        body: { userName, password },
-        requiresAuth: false,
+      const res = await fetch("/api/internal/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userName, password }),
       });
+      const data = await res.json();
 
-      if (error) {
-        addToast({ title: "خطا", description: error, color: "danger" });
+      if (!res.ok) {
+        addToast({
+          title: "خطا",
+          description: data.error || "نام کاربری یا رمز عبور صحیح نیست ❌",
+          color: "danger",
+        });
       } else {
-        localStorage.setItem("auth-token", data.token);
+        localStorage.setItem("auth-token", data.token.token);
         addToast({
           title: "موفق",
-          description: "ورود با موفقیت انجام شد!",
+          description: "ثبت نام با موفقیت انجام شد!",
           color: "success",
         });
-        router.push("/create-card");
+        router.push("/profile");
       }
     } catch (err) {
       console.error(err);
@@ -57,7 +58,7 @@ export default function SignIn() {
         color: "danger",
       });
     }
-    checkTokenAndGetUser();
+    authorization();
   }
 
   return (
@@ -67,15 +68,15 @@ export default function SignIn() {
       initial={{ opacity: 0, y: 30 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className=" p-5 pt-2 rounded-xl box-border mx-auto flex flex-col items-center justify-center gap-4 font-vazir text-foreground">
+      <div className="w-full max-w-2xl p-5 pt-2 rounded-xl box-border mx-auto flex flex-col items-center justify-center gap-4 font-vazir text-foreground">
         {Icon.user}
         <span className="text-sm text-center">
-          برای ساخت حساب نام کاربری و رمز عبور را وارد نمایید
+          برای ورود نام کاربری و رمز عبور را وارد نمایید
         </span>
 
         <Input
           isRequired
-          className="w-full "
+          className="w-full font-vazir"
           endContent={Icon.mail}
           label="نام کاربری"
           labelPlacement="inside"
@@ -85,7 +86,7 @@ export default function SignIn() {
         />
         <Input
           isRequired
-          className="w-full "
+          className="w-full font-vazir"
           endContent={Icon.pass}
           label="رمز عبور"
           labelPlacement="inside"
@@ -100,12 +101,12 @@ export default function SignIn() {
           variant="flat"
           onPress={handleSubmit}
         >
-          ثبت نام
+          ورود
         </Button>
 
         <Divider />
-        <Button className="w-full py-2 rounded-md font-vazir bg-green-900 text-white">
-          <Link href="/signup">قبلا ثبت نام کردم 😌</Link>
+        <Button className="w-full py-2 rounded-md font-vazir bg-secondary-200/50 text-foreground-800">
+          <Link href="/signin">ثبت نام نکردم 🗿</Link>
         </Button>
       </div>
     </motion.div>

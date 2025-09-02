@@ -16,9 +16,9 @@ interface ShowModalProps {
 
 export function ShowModal({ isOpen, onClose, signOut }: ShowModalProps) {
   return (
-    <div className="text-right font-vazir ">
+    <div className="text-right font-vazir m-0 p-0 ">
       <Modal
-        className="text-right p-4  font-vazir"
+        className="text-right p-4 flex flex-col items-start  font-vazir"
         isOpen={isOpen}
         placement="bottom"
         onOpenChange={onClose}
@@ -26,7 +26,7 @@ export function ShowModal({ isOpen, onClose, signOut }: ShowModalProps) {
         <ModalContent>
           {(onCloseInner) => (
             <>
-              <ModalHeader className="flex flex-col gap-1 text-red-700 font-bold ">
+              <ModalHeader className="flex flex-col gap-1 text-red-300 font-bold ">
                 خروج از حساب کاربری
               </ModalHeader>
               <ModalBody>
@@ -43,7 +43,7 @@ export function ShowModal({ isOpen, onClose, signOut }: ShowModalProps) {
                 >
                   خروج
                 </Button>
-                <Button color="default" onPress={onCloseInner}>
+                <Button color="default" variant="flat" onPress={onCloseInner}>
                   بازگشت
                 </Button>
               </ModalFooter>

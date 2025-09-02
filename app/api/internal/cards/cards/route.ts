@@ -1,15 +1,18 @@
 import { NextResponse } from "next/server";
+
 import { db } from "@/lib/prisma";
 import { DispatchToken } from "@/lib/dispatch-token";
 
 export async function POST() {
   try {
     const token = await DispatchToken();
+
     if (!token) {
       return NextResponse.json({ error: "توکن پیدا نشد" }, { status: 401 });
     }
 
     const user = await db.user.findFirst({ where: { token } });
+
     if (!user) {
       return NextResponse.json({ error: "توکن معتبر نیست" }, { status: 401 });
     }
@@ -29,10 +32,11 @@ export async function POST() {
     return NextResponse.json({
       message: "اطلاعات کارت با موفقیت دریافت شد",
       token,
-      cards, // آرایه همه کارت‌ها
+      cards,
     });
   } catch (error: unknown) {
     console.error("⛔ خطای سرور:", error);
+
     return NextResponse.json({ error: "خطای داخلی سرور" }, { status: 500 });
   }
 }

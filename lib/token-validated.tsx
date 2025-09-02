@@ -16,10 +16,7 @@ export default function ProtectedRoute({ children }: Props) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const isPublicRoute =
-      pathname === "/create-card" ||
-      pathname === "/signin" ||
-      pathname === "/signup";
+    const isPublicRoute = pathname === "/signin" || pathname === "/signup";
 
     if (isPublicRoute) {
       setAuthorized(true);

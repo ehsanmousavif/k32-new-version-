@@ -56,7 +56,7 @@ export default function CardBank({ name, iban, number }: Data) {
       <div className="w-80 font-vazir">
         {matchedBank && (
           <Card
-            className="w-full  max-w-xl h-auto py-2 rounded-2xl backdrop-blur-lg m-auto"
+            className="w-auto max-w-xl h-auto py-2 rounded-2xl backdrop-blur-lg m-auto"
             style={{
               background: `linear-gradient(to bottom right, ${matchedBank.from}CC, ${matchedBank.to}CC)`,
               boxShadow: `0 8px 20px ${matchedBank.from}20, 0 4px 12px ${matchedBank.to}55`,

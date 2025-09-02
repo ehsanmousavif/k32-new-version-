@@ -10,18 +10,18 @@ import { Icon } from "@/components/icons/icons";
 
 export default function Profile() {
   const [userData, setUserData] = useState<Card>();
-  const fetchFirstCard = async () => {
+  const fetchUserProfile = async () => {
     const token = localStorage.getItem("auth-token");
 
     if (!token) {
-      console.warn("❗ توکن وجود ندارد");
+      console.error("There is no token ");
 
       return;
     }
 
     try {
       const { data }: any = await FetchingData({
-        endpoint: "/api/internal/user-data",
+        endpoint: "/api/internal/user/user",
         requiresAuth: true,
       });
 
@@ -29,17 +29,17 @@ export default function Profile() {
       setUserData(data.data);
 
       if (!data.ok) {
-        console.warn("⚠️ خطا در گرفتن کارت:", data.error || data.message);
+        console.warn("error in get card", data.error || data.message);
 
         return;
       }
     } catch (err) {
-      console.error("⛔ خطا در ارتباط با سرور:", err);
+      console.error("⛔ error for connection to server ", err);
     }
   };
 
   useEffect(() => {
-    fetchFirstCard();
+    fetchUserProfile();
   }, []);
 
   return (

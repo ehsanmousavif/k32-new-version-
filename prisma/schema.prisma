@@ -28,7 +28,7 @@ model Card {
   disabled   Boolean @default(false)
 
   userId Int
-  user   User @relation(fields: [userId], references: [id]) // رابطه با کاربر
+  user   User @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

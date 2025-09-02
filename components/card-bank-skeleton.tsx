@@ -10,7 +10,7 @@ import {
 
 export default function CardBankSkeleton() {
   return (
-    <Card className="w-80 max-w-xl h-auto py-2 rounded-2xl backdrop-blur-lg m-auto">
+    <Card className=" w-80 max-w-xl h-auto py-2 rounded-2xl backdrop-blur-lg m-auto">
       <CardHeader className="w-full flex gap-3">
         <Skeleton className="h-10 w-10 rounded-sm" />
         <Skeleton className="h-6 w-24 rounded-lg" />

@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { headers } from "next/headers";
 
 import { getCardInfo } from "@/lib/get-card-info";
 import { db } from "@/lib/prisma";
@@ -40,8 +39,7 @@ export async function POST(req: NextRequest) {
 
   const cardInfo = await getCardInfo(cardNumber);
 
-  // ۳. ذخیره در validatedCard
-  const saved = await db.validatedCard.create({
+  const card = await db.validatedCard.create({
     data: {
       cardNumber: cardInfo.cardNumber,
       iban: cardInfo.iban,
@@ -49,5 +47,5 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  return NextResponse.json(saved);
+  return NextResponse.json(card);
 }
