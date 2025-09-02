@@ -33,7 +33,7 @@ export default function SignUp() {
         localStorage.setItem("auth-token", data.token.token);
         addToast({
           title: "موفق",
-          description: "ثبت نام با موفقیت انجام شد!",
+          description: "ورود با موفقیت انجام شد!",
           color: "success",
         });
         router.push("/profile");

@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({
-      data: card,
+      card,
       message: "کارت با موفقیت ساخته شد",
     });
   } catch (error: unknown) {

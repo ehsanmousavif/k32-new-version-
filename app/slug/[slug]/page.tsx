@@ -25,7 +25,7 @@ export default function CardPage({
     });
 
     setReturnData(data.data);
-    console.log("data", data);
+    console.log(data);
   };
 
   useEffect(() => {
