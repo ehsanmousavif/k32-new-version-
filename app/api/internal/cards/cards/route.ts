@@ -32,7 +32,7 @@ export async function POST() {
     return NextResponse.json({
       message: "اطلاعات کارت با موفقیت دریافت شد",
       token,
-      cards,
+      data: cards,
     });
   } catch (error: unknown) {
     console.error("⛔ خطای سرور:", error);

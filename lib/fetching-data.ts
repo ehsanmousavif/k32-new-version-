@@ -4,11 +4,24 @@ interface FetchOptions<T> {
   requiresAuth?: boolean;
 }
 
+interface SuccessResponseType<T> {
+  data: T;
+  ok: true;
+  message: string;
+}
+
+interface FailedResponseType {
+  ok: false;
+  message: string;
+}
+
 export async function FetchingData<TRequest = unknown, TResponse = unknown>({
   endpoint,
   body,
   requiresAuth = false,
-}: FetchOptions<TRequest>): Promise<{ data?: TResponse; error?: string }> {
+}: FetchOptions<TRequest>): Promise<
+  SuccessResponseType<TResponse> | FailedResponseType
+> {
   const headers: HeadersInit = {
     "Content-Type": "application/json",
   };
@@ -19,7 +32,7 @@ export async function FetchingData<TRequest = unknown, TResponse = unknown>({
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     } else {
-      return { error: "No token found" };
+      return { message: "No token found", ok: false };
     }
   }
 
@@ -33,13 +46,13 @@ export async function FetchingData<TRequest = unknown, TResponse = unknown>({
     const data = await res.json().catch(() => null);
 
     if (!res.ok) {
-      return { error: data?.message || data.error };
+      return { message: data?.message || data.error, ok: false };
     }
 
-    return { data };
+    return data;
   } catch (err) {
     console.error("📡 Fetch error:", err);
 
-    return { error: "Network error" };
+    return { message: "Network error", ok: false };
   }
 }

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import { FetchingData } from "@/lib/fetching-data";
-import { Prisma } from "@/generated/prisma";
+import { Card, Prisma } from "@/generated/prisma";
 import CardBank from "@/components/card";
 
 export default function CardPage({
@@ -18,14 +18,16 @@ export default function CardPage({
   }> | null>(null);
 
   const _X = async () => {
-    const { data }: any = await FetchingData({
+    const data = await FetchingData<unknown, Card>({
       endpoint: "/api/internal/cards/slug",
       body: { slug },
       requiresAuth: false,
     });
 
-    setReturnData(data.data);
-    console.log(data);
+    if (data.ok) {
+      setReturnData(data.data);
+      console.log(data);
+    }
   };
 
   useEffect(() => {

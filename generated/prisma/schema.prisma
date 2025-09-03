@@ -15,6 +15,7 @@ model User {
   password  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  expiresAt DateTime @default(now())
 
   cards Card[]
 }
@@ -28,7 +29,7 @@ model Card {
   disabled   Boolean @default(false)
 
   userId Int
-  user   User @relation(fields: [userId], references: [id]) // رابطه با کاربر
+  user   User @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

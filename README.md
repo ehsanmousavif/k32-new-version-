@@ -51,4 +51,3 @@ After modifying the `.npmrc` file, you need to run `pnpm install` again to ensur
 ## License
 
 Licensed under the [MIT license](https://github.com/heroui-inc/next-app-template/blob/main/LICENSE).
-    <div className="w-[80%] max-w-2xl p-2 m-auto rounded-xl box-border  flex flex-col  justify-center gap-9 bg-content1 text-foreground font-vazir">

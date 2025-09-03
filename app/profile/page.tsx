@@ -20,16 +20,17 @@ export default function Profile() {
     }
 
     try {
-      const { data }: any = await FetchingData({
+      const data = await FetchingData<unknown, Card>({
         endpoint: "/api/internal/user/user",
         requiresAuth: true,
       });
 
-      console.log(data.data);
-      setUserData(data.data);
-
+      if (data.ok) {
+        console.log(data.data);
+        setUserData(data.data);
+      }
       if (!data.ok) {
-        console.warn("error in get card", data.error || data.message);
+        console.warn("error in get card", data.message || data.message);
 
         return;
       }

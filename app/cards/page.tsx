@@ -5,47 +5,30 @@ import { Button } from "@heroui/button";
 
 import { FetchingData } from "@/lib/fetching-data";
 import CardBank from "@/components/card";
-
-type CardResponse = {
-  cardNumber: string;
-  fullName: string;
-  iban: string;
-};
-
-type APIResponse = {
-  message: string;
-  token: string;
-  cards: CardResponse[];
-};
+import { Card } from "@/generated/prisma";
 
 export default function Cards() {
-  const [cards, setCards] = useState<CardResponse[]>([]);
+  const [cards, setCards] = useState<Card[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchCards = async () => {
     setLoading(true);
     try {
-      const { data, error } = await FetchingData<undefined, APIResponse>({
+      const data = await FetchingData<unknown, Card>({
         endpoint: "/api/internal/cards/cards",
         requiresAuth: true,
       });
 
-      if (error) {
-        console.warn("⚠️ خطا در گرفتن کارت:", error);
-        setLoading(false);
-
-        return;
-      }
-
-      if (!data || !data.cards || data.cards.length === 0) {
+      if (!data.ok) {
+        console.warn("⚠️ خطا در گرفتن کارت:", data.message);
         console.warn("⚠️ داده‌ای دریافت نشد");
         setLoading(false);
-
         return;
       }
-
-      console.log("✅ کارت‌ها دریافت شدند:", data.cards);
-      setCards(data.cards);
+      if (data.ok && data) {
+        console.log("✅ کارت‌ها دریافت شدند:", data.data);
+        setCards([data.data]);
+      }
     } catch (err) {
       console.error("⛔ خطا در ارتباط با سرور:", err);
     } finally {

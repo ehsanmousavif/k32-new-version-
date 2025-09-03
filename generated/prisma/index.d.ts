@@ -1108,6 +1108,7 @@ export namespace Prisma {
     password: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    expiresAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1117,6 +1118,7 @@ export namespace Prisma {
     password: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    expiresAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1126,6 +1128,7 @@ export namespace Prisma {
     password: number
     createdAt: number
     updatedAt: number
+    expiresAt: number
     _all: number
   }
 
@@ -1145,6 +1148,7 @@ export namespace Prisma {
     password?: true
     createdAt?: true
     updatedAt?: true
+    expiresAt?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1154,6 +1158,7 @@ export namespace Prisma {
     password?: true
     createdAt?: true
     updatedAt?: true
+    expiresAt?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1163,6 +1168,7 @@ export namespace Prisma {
     password?: true
     createdAt?: true
     updatedAt?: true
+    expiresAt?: true
     _all?: true
   }
 
@@ -1259,6 +1265,7 @@ export namespace Prisma {
     password: string | null
     createdAt: Date
     updatedAt: Date
+    expiresAt: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -1287,6 +1294,7 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    expiresAt?: boolean
     cards?: boolean | User$cardsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1298,6 +1306,7 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    expiresAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1307,6 +1316,7 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    expiresAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1316,9 +1326,10 @@ export namespace Prisma {
     password?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    expiresAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "userName" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "userName" | "password" | "createdAt" | "updatedAt" | "expiresAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cards?: boolean | User$cardsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1338,6 +1349,7 @@ export namespace Prisma {
       password: string | null
       createdAt: Date
       updatedAt: Date
+      expiresAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1768,6 +1780,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly expiresAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -4399,7 +4412,8 @@ export namespace Prisma {
     userName: 'userName',
     password: 'password',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    expiresAt: 'expiresAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -4501,6 +4515,7 @@ export namespace Prisma {
     password?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    expiresAt?: DateTimeFilter<"User"> | Date | string
     cards?: CardListRelationFilter
   }
 
@@ -4511,6 +4526,7 @@ export namespace Prisma {
     password?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    expiresAt?: SortOrder
     cards?: CardOrderByRelationAggregateInput
   }
 
@@ -4524,6 +4540,7 @@ export namespace Prisma {
     password?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    expiresAt?: DateTimeFilter<"User"> | Date | string
     cards?: CardListRelationFilter
   }, "id" | "userName">
 
@@ -4534,6 +4551,7 @@ export namespace Prisma {
     password?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    expiresAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -4551,6 +4569,7 @@ export namespace Prisma {
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    expiresAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type CardWhereInput = {
@@ -4695,6 +4714,7 @@ export namespace Prisma {
     password?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    expiresAt?: Date | string
     cards?: CardCreateNestedManyWithoutUserInput
   }
 
@@ -4705,6 +4725,7 @@ export namespace Prisma {
     password?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    expiresAt?: Date | string
     cards?: CardUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -4714,6 +4735,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUpdateManyWithoutUserNestedInput
   }
 
@@ -4724,6 +4746,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     cards?: CardUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -4734,6 +4757,7 @@ export namespace Prisma {
     password?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    expiresAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -4742,6 +4766,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -4751,6 +4776,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CardCreateInput = {
@@ -4951,6 +4977,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    expiresAt?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -4964,6 +4991,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    expiresAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -4973,6 +5001,7 @@ export namespace Prisma {
     password?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    expiresAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -5452,6 +5481,7 @@ export namespace Prisma {
     password?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    expiresAt?: Date | string
   }
 
   export type UserUncheckedCreateWithoutCardsInput = {
@@ -5461,6 +5491,7 @@ export namespace Prisma {
     password?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    expiresAt?: Date | string
   }
 
   export type UserCreateOrConnectWithoutCardsInput = {
@@ -5485,6 +5516,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateWithoutCardsInput = {
@@ -5494,6 +5526,7 @@ export namespace Prisma {
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CardCreateManyUserInput = {

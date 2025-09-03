@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { db } from "@/lib/prisma";
 import { DispatchToken } from "@/lib/dispatch-token";
+import { Card } from "@/generated/prisma";
 
 export async function POST(req: NextRequest) {
   const token = await DispatchToken();
@@ -37,7 +38,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "کاربر معتبر نیست" }, { status: 401 });
     }
 
-    const card = await db.card.create({
+    const card: Card = await db.card.create({
       data: {
         slug,
         cardNumber: cardNumber,
@@ -50,7 +51,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         message: "کارت با موفقیت ساخته شد",
-        card: card,
+        data: card,
         ok: true,
       },
       { status: 201 }

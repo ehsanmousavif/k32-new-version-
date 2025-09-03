@@ -7,35 +7,44 @@ import Link from "next/link";
 
 import { Icon } from "@/components/icons/icons";
 import { FetchingData } from "@/lib/fetching-data";
-import { Prisma } from "@/generated/prisma";
+import { Prisma, User } from "@/generated/prisma";
 
 export default function SignIn() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [userData, setUserData] = useState<null | Prisma.UserGetPayload<{
+    select: { token: true; userName: true; password: true };
+  }>>(null);
   const router = useRouter();
 
   async function authorization() {
     setIsLoading(true);
     try {
-      const { data, error }: any = await FetchingData<
-        Prisma.UserGetPayload<{ select: { password: true; userName: true } }>
+      const data = await FetchingData<
+        unknown,
+        Prisma.UserGetPayload<{
+          select: { token: true; userName: true; password: true };
+        }>
       >({
         endpoint: "/api/internal/auth/signup",
         body: { userName, password },
         requiresAuth: false,
       });
 
-      if (error) {
-        addToast({ title: "خطا", description: error, color: "danger" });
+      if (data.ok) {
+        if (data.data.token) {
+          setUserData(data?.data);
+          localStorage.setItem("auth-token", data.data.token); // <-- همین خط
+          addToast({
+            title: "موفق",
+            description: "ورود با موفقیت انجام شد!",
+            color: "success",
+          });
+          router.push("/create-card");
+        }
       } else {
-        localStorage.setItem("auth-token", data.token);
-        addToast({
-          title: "موفق",
-          description: "ورود با موفقیت انجام شد!",
-          color: "success",
-        });
-        router.push("/create-card");
+        addToast({ title: "خطا", description: data.message, color: "danger" });
       }
     } catch (err) {
       console.error(err);

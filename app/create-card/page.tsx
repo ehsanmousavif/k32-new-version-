@@ -11,6 +11,7 @@ import { FetchingData } from "@/lib/fetching-data";
 import ProgressBar from "@/components/progress";
 import { Prisma } from "@/generated/prisma";
 import { CardProvider, CardContext } from "@/components/CardProvider";
+import { error } from "console";
 
 export default function CreateCard() {
   return (
@@ -28,7 +29,7 @@ export default function CreateCard() {
           } = context;
 
           const sendData = async () => {
-            const { data, error } = await FetchingData({
+            const data = await FetchingData({
               endpoint: "/api/internal/cards/check-card",
               body: {
                 cardNumber: cardNumberData,
@@ -36,10 +37,10 @@ export default function CreateCard() {
               requiresAuth: true,
             });
 
-            if (data) {
-              console.log("data is available", data);
-            } else if (!data) {
-              console.log("card added!");
+            if (data.ok) {
+              console.log("data is available", data.data);
+            } else if (!data.ok) {
+              console.log("card not added!");
               setChangePage("card-entry");
               setProgress("30");
               addToast({
@@ -47,7 +48,7 @@ export default function CreateCard() {
                 description: " کارت قبلا ثبت شده است",
               });
             } else {
-              console.log("✅ ok", error);
+              console.log("خطا");
             }
           };
 
@@ -61,7 +62,7 @@ export default function CreateCard() {
               return;
             }
 
-            const { data } = await FetchingData<
+            const data = await FetchingData<
               { cardNumber: string },
               Prisma.ValidatedCardGetPayload<{
                 select: { cardNumber: true; iban: true; ownerName: true };
@@ -73,15 +74,17 @@ export default function CreateCard() {
             });
 
             try {
-              if (data?.cardNumber) {
-                setShareData(data);
-                console.log("data", data);
-              } else {
-                addToast({
-                  color: "success",
-                  description: "شماره کارت ثبت نشده ادامه بده",
-                });
-                console.warn("❌ نه");
+              if (data.ok) {
+                if (data?.data.cardNumber) {
+                  setShareData(data.data);
+                  console.log("data", data);
+                } else {
+                  addToast({
+                    color: "success",
+                    description: "شماره کارت ثبت نشده ادامه بده",
+                  });
+                  console.warn("❌ نه");
+                }
               }
             } catch (error) {
               console.error("⛔ خطا در عملیات:", error);

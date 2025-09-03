@@ -123,7 +123,8 @@ exports.Prisma.UserScalarFieldEnum = {
   userName: 'userName',
   password: 'password',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  expiresAt: 'expiresAt'
 };
 
 exports.Prisma.CardScalarFieldEnum = {

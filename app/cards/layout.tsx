@@ -1,12 +1,13 @@
 "use client";
 
-import { Icon } from "@/components/icons/icons";
-import { ShowModal } from "@/components/modal";
-import { useSignOut } from "@/lib/signout";
 import { Button } from "@heroui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode, useState } from "react";
+
+import { useSignOut } from "@/lib/signout";
+import { ShowModal } from "@/components/modal";
+import { Icon } from "@/components/icons/icons";
 
 export default function LayoutStyle({ children }: { children: ReactNode }) {
   const pathName = usePathname();

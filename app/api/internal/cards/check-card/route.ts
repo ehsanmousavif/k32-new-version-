@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { db } from "@/lib/prisma";
 import { DispatchToken } from "@/lib/dispatch-token";
+import { ok } from "assert";
 
 export async function POST(req: NextRequest) {
   const token = await DispatchToken();
@@ -38,6 +39,8 @@ export async function POST(req: NextRequest) {
   } else {
     return NextResponse.json({
       message: "ok",
+      data: card,
+      ok: true,
     });
   }
 }

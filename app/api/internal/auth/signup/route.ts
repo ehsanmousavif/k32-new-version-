@@ -37,17 +37,19 @@ export async function POST(req: NextRequest) {
       userName,
       password,
       token,
+      expiresAt: new Date(Date.now()),
     },
   });
 
   return NextResponse.json(
     {
       message: "ثبت‌نام موفق بود",
-      token: user.token,
-      user: {
+      data: {
         id: user.id,
         userName: user.userName,
+        token: user.token,
       },
+      ok: true,
     },
     { status: 200 }
   );

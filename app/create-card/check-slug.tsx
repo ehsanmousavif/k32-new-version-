@@ -8,6 +8,7 @@ import { CardContext } from "@/components/CardProvider";
 import { useDebounce } from "@/lib/useDebounce";
 import { FetchingData } from "@/lib/fetching-data";
 import { Icon } from "@/components/icons/icons";
+import { Card } from "@/generated/prisma";
 
 export default function Slug() {
   const context = useContext(CardContext);
@@ -17,7 +18,7 @@ export default function Slug() {
 
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(null);
   const [isChecking, setIsChecking] = useState(false);
-  const [latestResult, setLatestResult] = useState<any>(null);
+  const [latestResult, setLatestResult] = useState<Card | null>(null);
 
   useEffect(() => {
     const checkSlug = async () => {
@@ -26,7 +27,7 @@ export default function Slug() {
 
       setIsChecking(true);
       try {
-        const response: any = await FetchingData({
+        const response = await FetchingData<unknown, Card>({
           endpoint: "/api/internal/cards/create-card",
           body: {
             slug: debouncedInput,
@@ -37,8 +38,8 @@ export default function Slug() {
           requiresAuth: true,
         });
 
-        setLatestResult(response);
-        if (response?.data?.ok) {
+        if (response.ok) {
+          setLatestResult(response.data);
           setIsDuplicate(false);
           addToast({ color: "success", description: "دامنه معتبر است" });
         } else {
@@ -80,7 +81,7 @@ export default function Slug() {
     }
 
     try {
-      const ok = latestResult?.data?.ok;
+      const ok = latestResult?.slug;
 
       if (ok) {
         addToast({ color: "success", description: "کارت با موفقیت ثبت شد" });
