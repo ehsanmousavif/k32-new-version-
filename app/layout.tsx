@@ -6,6 +6,7 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontVazir } from "@/config/fonts";
 import ProtectedRoute from "@/lib/token-validated";
+import { TokenExpired } from "@/lib/token-expired";
 
 export const metadata: Metadata = {
   title: {
@@ -49,7 +50,9 @@ export default function RootLayout({
               className=" overflow-x-hidden max-w-2xl m-auto h-full flex flex-col justify-center items-center text-white backdrop-blur-3xl p-0 font-vazir"
               style={{ direction: "rtl" }}
             >
-              <ProtectedRoute>{children}</ProtectedRoute>
+              <TokenExpired>
+                <ProtectedRoute>{children}</ProtectedRoute>
+              </TokenExpired>
             </div>
           </main>
         </Providers>

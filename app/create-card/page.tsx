@@ -11,7 +11,6 @@ import { FetchingData } from "@/lib/fetching-data";
 import ProgressBar from "@/components/progress";
 import { Prisma } from "@/generated/prisma";
 import { CardProvider, CardContext } from "@/components/CardProvider";
-import { error } from "console";
 
 export default function CreateCard() {
   return (

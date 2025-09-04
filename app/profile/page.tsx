@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-import { Card } from "@/generated/prisma";
+import { Card, User } from "@/generated/prisma";
 import { timeAgo } from "@/lib/times";
 import { FetchingData } from "@/lib/fetching-data";
 import { Icon } from "@/components/icons/icons";
 
 export default function Profile() {
-  const [userData, setUserData] = useState<Card>();
+  const [card, setCard] = useState<Card>();
+  const [user, setUser] = useState<User>();
   const fetchUserProfile = async () => {
     const token = localStorage.getItem("auth-token");
 
@@ -20,14 +21,15 @@ export default function Profile() {
     }
 
     try {
-      const data = await FetchingData<unknown, Card>({
+      const data = await FetchingData<User, any>({
         endpoint: "/api/internal/user/user",
         requiresAuth: true,
       });
 
       if (data.ok) {
         console.log(data.data);
-        setUserData(data.data);
+        setUser(data.data.user);
+        setCard(data.data.card);
       }
       if (!data.ok) {
         console.warn("error in get card", data.message || data.message);
@@ -55,18 +57,18 @@ export default function Profile() {
           {Icon.save}
           <span> نام و نام خانوادگی شما :</span>
 
-          <span className="text-sm font-bold">{userData?.fullName}</span>
+          <span className="text-sm font-bold">{card?.fullName}</span>
         </div>
         <div className="text-md text-white flex items-center gap-2 ">
           {Icon.data}
           <span> ثبت نام کردی:</span>
 
           <span className="text-sm font-bold">
-            {timeAgo(userData?.createdAt || "")}
+            {timeAgo(user?.createdAt || "")}
           </span>
         </div>
 
-        {userData?.disabled ? (
+        {card?.disabled ? (
           <span className="text-red-400 font-semibold">کارت فعال نیست</span>
         ) : (
           <span className="text-green-400 font-semibold">کارت فعال است</span>

@@ -14,6 +14,7 @@ export async function POST() {
 
   const user = await db.user.findFirst({
     where: { token: token },
+    include: { cards: { select: { cardNumber: true } } },
   });
 
   if (!user) {
@@ -22,7 +23,7 @@ export async function POST() {
     return NextResponse.json({ error: "توکن نامعتبر است" }, { status: 401 });
   }
 
-  const data = await db.card.findFirst({
+  const card = await db.card.findFirst({
     where: { userId: user.id },
   });
 
@@ -34,7 +35,7 @@ export async function POST() {
 
   return NextResponse.json({
     message: "✅ اطلاعات کاربر دریافت شد",
-    user,
-    data,
+    data: { user, card },
+    ok: true,
   });
 }

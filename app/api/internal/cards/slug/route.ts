@@ -25,8 +25,9 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({
-      card,
+      data: card,
       message: "کارت با موفقیت ساخته شد",
+      ok: true,
     });
   } catch (error: unknown) {
     if (error instanceof Error) {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { db } from "@/lib/prisma";
+import { TokenExpired } from "@/lib/token-expired";
 
 export async function POST(req: NextRequest) {
   const { password, userName } = await req.json();
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
       message: "ثبت‌نام موفق بود",
       data: {
         id: user.id,
+
         userName: user.userName,
         token: user.token,
       },

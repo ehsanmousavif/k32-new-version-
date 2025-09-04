@@ -31,13 +31,14 @@ export default function CardBank({ name, iban, number }: Data) {
   const [matchedBank, setMatchedBank] = useState<Bank | null>(null);
 
   useEffect(() => {
+    if (!number) return;
+
     fetch("/bank-name.json")
       .then((res) => res.json())
       .then((data) => {
         setBanks(data);
 
         const binCardNumbers = number.slice(0, 6);
-
         const bank = data.find((b: Bank) => b.bin === binCardNumbers);
 
         if (bank) {

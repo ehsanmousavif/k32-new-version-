@@ -19,7 +19,7 @@ export async function POST() {
 
     const cards = await db.card.findMany({
       where: { userId: user.id },
-      select: { cardNumber: true, fullName: true, iban: true },
+      select: { cardNumber: true, fullName: true, iban: true, id: true },
     });
 
     if (!cards || cards.length === 0) {
@@ -31,8 +31,8 @@ export async function POST() {
 
     return NextResponse.json({
       message: "اطلاعات کارت با موفقیت دریافت شد",
-      token,
       data: cards,
+      ok: true,
     });
   } catch (error: unknown) {
     console.error("⛔ خطای سرور:", error);

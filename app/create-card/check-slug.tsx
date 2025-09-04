@@ -139,7 +139,7 @@ export default function Slug() {
           radius="sm"
           onPress={handleSubmit}
         >
-          {isChecking ? "در حال بررسی..." : "بعدی"}
+          {isChecking ? "در حال بررسی..." : "ثبت کارت"}
         </Button>
       </div>
     </div>

@@ -7,14 +7,14 @@ import Link from "next/link";
 
 import { Icon } from "@/components/icons/icons";
 import { FetchingData } from "@/lib/fetching-data";
-import { Prisma, User } from "@/generated/prisma";
+import { Prisma } from "@/generated/prisma";
 
 export default function SignIn() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<null | Prisma.UserGetPayload<{
-    select: { token: true; userName: true; password: true };
+    select: { token: true; userName: true; password: true; expiresAt: true };
   }>>(null);
   const router = useRouter();
 
@@ -24,7 +24,12 @@ export default function SignIn() {
       const data = await FetchingData<
         unknown,
         Prisma.UserGetPayload<{
-          select: { token: true; userName: true; password: true };
+          select: {
+            token: true;
+            userName: true;
+            password: true;
+            expiresAt: true;
+          };
         }>
       >({
         endpoint: "/api/internal/auth/signup",
@@ -35,7 +40,8 @@ export default function SignIn() {
       if (data.ok) {
         if (data.data.token) {
           setUserData(data?.data);
-          localStorage.setItem("auth-token", data.data.token); // <-- همین خط
+          localStorage.setItem("auth-token", data.data.token);
+
           addToast({
             title: "موفق",
             description: "ورود با موفقیت انجام شد!",
@@ -81,7 +87,6 @@ export default function SignIn() {
         <span className="text-sm text-center">
           برای ساخت حساب نام کاربری و رمز عبور را وارد نمایید
         </span>
-
         <Input
           isRequired
           className="w-full "
@@ -102,7 +107,6 @@ export default function SignIn() {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-
         <Button
           className="w-full py-2 rounded-md font-vazir bg-primary text-white"
           isLoading={isLoading}
@@ -111,7 +115,6 @@ export default function SignIn() {
         >
           ثبت نام
         </Button>
-
         <Divider />
         <Button className="w-full py-2 rounded-md font-vazir bg-green-900 text-white">
           <Link href="/signin">قبلا ثبت نام کردم 😌</Link>

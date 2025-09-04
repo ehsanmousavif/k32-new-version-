@@ -20,14 +20,16 @@ export default function Cards() {
       });
 
       if (!data.ok) {
-        console.warn("⚠️ خطا در گرفتن کارت:", data.message);
-        console.warn("⚠️ داده‌ای دریافت نشد");
+        console.error("⚠️ خطا در گرفتن کارت:", data.message);
+        console.error("⚠️ داده‌ای دریافت نشد");
         setLoading(false);
+
         return;
       }
+
       if (data.ok && data) {
         console.log("✅ کارت‌ها دریافت شدند:", data.data);
-        setCards([data.data]);
+        setCards(Array.isArray(data.data) ? data.data : [data.data]);
       }
     } catch (err) {
       console.error("⛔ خطا در ارتباط با سرور:", err);
@@ -44,7 +46,7 @@ export default function Cards() {
     return <p>در حال دریافت کارت‌ها...</p>;
   }
 
-  if (cards.length === 0) {
+  if (cards?.length === 0) {
     return (
       <div className="w-[22rem] flex flex-col h-screen justify-center items-center gap-6 p-6">
         <span>هیچ کارتی ثبت نشده است </span>
@@ -54,16 +56,19 @@ export default function Cards() {
       </div>
     );
   }
+  console.log("🎴 کارت‌ها در رندر:", cards);
 
   return (
     <div className="flex m-auto flex-col gap-4 w-[22rem]">
-      {cards.map((card) => (
-        <CardBank
-          key={card.cardNumber}
-          iban={card.iban}
-          name={card.fullName}
-          number={card.cardNumber}
-        />
+      {cards?.map((card, index) => (
+        <div key={card.id || index}>
+          <CardBank
+            key={card.id}
+            iban={card.iban}
+            name={card.fullName}
+            number={card.cardNumber}
+          />
+        </div>
       ))}
     </div>
   );
